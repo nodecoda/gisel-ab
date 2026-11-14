@@ -1,46 +1,14 @@
 {
-  "ci": {
-    "gisel": {
-      "conclusion": "success",
-      "run": 43608971256,
-      "url": "https://github.com/nodecoda/gisel/actions/runs/43608971256"
-    },
-    "gisel-ab": {
-      "conclusion": "success",
-      "evidence": {
-        "conclusion": "success",
-        "run": 43610985823,
-        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43610985823"
-      },
-      "main_after_record": {
-        "conclusion": "success",
-        "run": 43611659523,
-        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43611659523"
-      },
-      "run": 43610976391,
-      "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43610976391"
-    },
-    "gisel-anchor": {
-      "conclusion": "success",
-      "run": 43610386785,
-      "url": "https://github.com/nodecoda/gisel-anchor/actions/runs/43610386785"
-    },
-    "gisel-install": {
-      "conclusion": "success",
-      "run": 43608971249,
-      "url": "https://github.com/nodecoda/gisel/actions/runs/43608971249"
-    }
-  },
-  "ci_notes": "r30 CI: gisel (ci + install) at 4e2db30, gisel-anchor at f9c44bc and the cohort tag commit 2c483b7 on gisel-ab (ci + release-evidence) are green, and so is 0b08180, the commit that writes this record. The r29 tag-commit runs were red only because the workflow pinned the pre-r29 gisel; the pins now travel with the cohort. No publish tag was created.",
-  "cohort": "cohort-2026-11-14-r30",
+  "ci": {},
+  "cohort": "cohort-2026-11-15-r31",
   "commits": {
-    "ab": "2c483b7664567b05cc6b103ee6a752ef299ba17f",
-    "gisel": "4e2db30ec7bfa0d2dadca001fc4c52e330f0ee39",
+    "ab": "1eb0e96e1938a92401ff819a469af61b68d01500",
+    "gisel": "a4699a11fd25a3d5fd7066b71d058ec5da7c91eb",
     "upstream_source": "f9c44bc41bcea3ecd469ec484b934ae60fbec4d1"
   },
   "gate_commits": {
-    "ab": "2c483b7664567b05cc6b103ee6a752ef299ba17f",
-    "gisel": "4e2db30ec7bfa0d2dadca001fc4c52e330f0ee39",
+    "ab": "1eb0e96e1938a92401ff819a469af61b68d01500",
+    "gisel": "a4699a11fd25a3d5fd7066b71d058ec5da7c91eb",
     "upstream_source": "f9c44bc41bcea3ecd469ec484b934ae60fbec4d1"
   },
   "gates": [
@@ -142,6 +110,7 @@
         "gisel:tests/test_corpus_contract.py": "bb5790abc24b264490779d751730986b396d277c",
         "gisel:tests/test_demo.py": "b7f817824f6590766e0a7fa65c566cf830634fee",
         "gisel:tests/test_docs_entrypoints.py": "f822180f01d95a2f8095620eaf89a0fee84b4b4e",
+        "gisel:tests/test_docs_snippets.py": "ef4757e6c80016dc72f5a5fd4e2fd83491c55a3a",
         "gisel:tests/test_doctor.py": "25a0ebefe8116fd8b2e3de7c119d9c47fac958e7",
         "gisel:tests/test_domain.py": "c18ed2fd4e6b06764c0ae5d322142fad1868e5bd",
         "gisel:tests/test_escape_points.py": "f3409c7c4410d21467f41581433d5a73cd4f6826",
@@ -164,10 +133,10 @@
         "gisel:tests/test_scope.py": "ae63fc337c0252425c24bc0950b32b21d01d9403"
       },
       "command": "python3 -m unittest discover -q -s tests",
-      "duration_s": 204.7,
+      "duration_s": 204.5,
       "evidence": "rules=2 witnessed=1 shadowed=0 unexercised=3",
-      "fingerprint": "17588d7470bba1ba9e87314652c7fd6810db88ee8ea74c874ac71d9276f9b2f0",
-      "log": "/tmp/r30-clone/record/python3 -m unittest discover -q -s tests.log",
+      "fingerprint": "02881059ea796291fdb31fee5011b5563945ceb024e59b20ba9af6cb7014a957",
+      "log": "/tmp/r31-clone/record/python3 -m unittest discover -q -s tests.log",
       "manifest_command": "python3 -m unittest discover -q -s tests",
       "name": "python3 -m unittest discover -q -s tests",
       "rc": 0,
@@ -249,10 +218,10 @@
         "gisel:tools/sync-package-data.py": "8d773f7dcd3f072bb43f2861c5fa90530ccf662b"
       },
       "command": "bash tools/check-nine-corpora.sh",
-      "duration_s": 4.9,
+      "duration_s": 4.8,
       "evidence": "nine corpora: 9 targets byte-identical",
       "fingerprint": "be5ba6e9a5c0b02dc29253b080b1c91258aff70533325cd1cbd76a00f220aa57",
-      "log": "/tmp/r30-clone/record/bash tools_check-nine-corpora.sh.log",
+      "log": "/tmp/r31-clone/record/bash tools_check-nine-corpora.sh.log",
       "manifest_command": "bash tools/check-nine-corpora.sh",
       "name": "bash tools/check-nine-corpora.sh",
       "rc": 0,
@@ -332,10 +301,10 @@
         "gisel:tools/sync-package-data.py": "8d773f7dcd3f072bb43f2861c5fa90530ccf662b"
       },
       "command": "bash tools/check-graph-golden.sh",
-      "duration_s": 167.7,
+      "duration_s": 171.3,
       "evidence": "graph goldens: 5 configurations byte-identical (3 default, 2 refined)",
       "fingerprint": "6711995a97774f1e4c9ba21745e1f7c93e1d3b5a2d1248e36441eef0a98da71c",
-      "log": "/tmp/r30-clone/record/bash tools_check-graph-golden.sh.log",
+      "log": "/tmp/r31-clone/record/bash tools_check-graph-golden.sh.log",
       "manifest_command": "bash tools/check-graph-golden.sh",
       "name": "bash tools/check-graph-golden.sh",
       "rc": 0,
@@ -408,10 +377,10 @@
         "gisel:tools/sync-package-data.py": "8d773f7dcd3f072bb43f2861c5fa90530ccf662b"
       },
       "command": "bash tools/check-cases-golden.sh",
-      "duration_s": 425.4,
+      "duration_s": 419.8,
       "evidence": "cases spirv: 583af2c0019af248b597963119fcbbb0084046924a0f028e75b709127e559c53 matches",
       "fingerprint": "5ca33fa90b6b77f9b328960ed1ad690600355c1392b5bab563ac4e62ee087b90",
-      "log": "/tmp/r30-clone/record/bash tools_check-cases-golden.sh.log",
+      "log": "/tmp/r31-clone/record/bash tools_check-cases-golden.sh.log",
       "manifest_command": "bash tools/check-cases-golden.sh",
       "name": "bash tools/check-cases-golden.sh",
       "rc": 0,
@@ -490,10 +459,10 @@
         "gisel:tools/sync-package-data.py": "8d773f7dcd3f072bb43f2861c5fa90530ccf662b"
       },
       "command": "bash tools/check-nightly-graphs.sh",
-      "duration_s": 262.1,
+      "duration_s": 262.8,
       "evidence": "nightly wasm32: e6e9b52f3f17a25e6314f2d029249e1fb4981c29dfb3650d77c27a2ff2a01818 matches",
       "fingerprint": "2d31c564cf83f2132d819d092c754ad82c72c6b6c3e30c214c9efc18ee690ef3",
-      "log": "/tmp/r30-clone/record/bash tools_check-nightly-graphs.sh.log",
+      "log": "/tmp/r31-clone/record/bash tools_check-nightly-graphs.sh.log",
       "manifest_command": "bash tools/check-nightly-graphs.sh",
       "name": "bash tools/check-nightly-graphs.sh",
       "rc": 0,
@@ -581,7 +550,7 @@
       "duration_s": 0.0,
       "evidence": "check-claims: 16 claims, every cited path exists",
       "fingerprint": "100e5ddbd786c2552ad5220d77d01871295a42d35e9e8ba304405b2c18a083ce",
-      "log": "/tmp/r30-clone/record/python3 tools_check-claims.py.log",
+      "log": "/tmp/r31-clone/record/python3 tools_check-claims.py.log",
       "manifest_command": "python3 tools/check-claims.py",
       "name": "python3 tools/check-claims.py",
       "rc": 0,
@@ -655,9 +624,9 @@
       },
       "command": "python3 scripts/import-cxx.py --all --pin pin/PIN.json --check --git-repo /home/ubuntu/llvm/llvm-project",
       "duration_s": 2.1,
-      "evidence": "/tmp/r30-clone/gisel/tests/corpus/import-report.json: matches",
+      "evidence": "/tmp/r31-clone/gisel/tests/corpus/import-report.json: matches",
       "fingerprint": "630b5810705dbcba08cff8407be86d1c6cdcb4f9577e57ff614ae61b5b902a2c",
-      "log": "/tmp/r30-clone/record/python3 scripts_import-cxx.py --all --pin pin_PIN.json --check.log",
+      "log": "/tmp/r31-clone/record/python3 scripts_import-cxx.py --all --pin pin_PIN.json --check.log",
       "manifest_command": "python3 scripts/import-cxx.py --all --pin pin/PIN.json --check",
       "name": "python3 scripts/import-cxx.py --all --pin pin/PIN.json --check",
       "rc": 0,
@@ -673,11 +642,11 @@
         "upstream_source:scripts/pin/recipe.py": "ef58ff1f5a2fe37629e2d44fd63e66d14d422625",
         "upstream_source:scripts/pin/verify-base.py": "20499cd9fe7ece3f9229aea697d2b8927ad62088"
       },
-      "command": "scripts/pin/make-base.sh /home/ubuntu/llvm/trees/explore /tmp/r30-clone/record/pin-base --verify",
-      "duration_s": 17.7,
+      "command": "scripts/pin/make-base.sh /home/ubuntu/llvm/trees/explore /tmp/r31-clone/record/pin-base --verify",
+      "duration_s": 18.9,
       "evidence": "verify-base: verified 12 file(s)",
       "fingerprint": "d769c85b4c5f60eb7a17872580a2477a6ae8291c5d9dd06bcb4a79b6103989dc",
-      "log": "/tmp/r30-clone/record/scripts_pin_make-base.sh TREE DEST --verify.log",
+      "log": "/tmp/r31-clone/record/scripts_pin_make-base.sh TREE DEST --verify.log",
       "manifest_command": "scripts/pin/make-base.sh TREE DEST --verify",
       "name": "scripts/pin/make-base.sh TREE DEST --verify",
       "rc": 0,
@@ -1056,7 +1025,7 @@
       "duration_s": 10.3,
       "evidence": "NOTE U-full/*: only `universe.jsonl` and the expand command are frozen; the expanded query file is regenerated on demand.",
       "fingerprint": "82f499162e668b400bd9aebb6ba33e5170863dbee56fdf017eeb02f83286dd36",
-      "log": "/tmp/r30-clone/record/._scripts_verify-evidence.sh.log",
+      "log": "/tmp/r31-clone/record/._scripts_verify-evidence.sh.log",
       "manifest_command": "gisel-ab/scripts/verify-evidence.sh",
       "name": "./scripts/verify-evidence.sh",
       "rc": 0,
@@ -1505,10 +1474,10 @@
         "ab:tests/test_vertical_config_check.py": "05b8fbddb23d8909689178e435ec67ff9c3bec2a"
       },
       "command": "python3 -m pytest tests -q",
-      "duration_s": 17.0,
-      "evidence": "318 passed, 19 skipped, 64 subtests passed in 16.71s",
+      "duration_s": 16.9,
+      "evidence": "318 passed, 19 skipped, 64 subtests passed in 16.66s",
       "fingerprint": "891081d42b1d71d1426b51f60caac3fd1760ea53536c477d4737b8b5125b7856",
-      "log": "/tmp/r30-clone/record/python3 -m pytest tests -q.log",
+      "log": "/tmp/r31-clone/record/python3 -m pytest tests -q.log",
       "manifest_command": null,
       "name": "python3 -m pytest tests -q",
       "rc": 0,
@@ -1516,16 +1485,16 @@
     }
   ],
   "history": [],
-  "manifest_commit": "2c483b7664567b05cc6b103ee6a752ef299ba17f",
+  "manifest_commit": "1eb0e96e1938a92401ff819a469af61b68d01500",
   "online_gates": [],
-  "recorded_at": "2026-11-14",
+  "recorded_at": "2026-11-15",
   "schema": 2,
-  "supersedes": "cohort-2026-11-14-r29",
-  "supersedes_reason": "r30 folds in the repairs r29 could not carry: the workflow pins move to the r29 gisel/anchor so the test job reads the artifacts the record names, gisel-anchor keeps its bundled pin copy in step with pin/PIN.json and asserts the public builders the include now emits, and the ab manifest names anchor f9c44bc. Gates, evidence and queries are unchanged from r29.",
-  "tag": "cohort-2026-11-14-r30",
+  "supersedes": "cohort-2026-11-14-r30",
+  "supersedes_reason": "r31 makes the landing pages executable documentation: README.md and README.zh.md now quote the include `gen --emit=inc` actually prints (the legalFor form, not legalIf, and no core* calls), the Chinese page carries the docker example and the public-builder note the English page already had, and tests/test_docs_snippets.py regenerates that include from each page's own heredoc and requires the two pages to keep the same heading skeleton, code-block shapes and command sequence. No artifact, golden, evidence blob or query changed.",
+  "tag": "cohort-2026-11-15-r31",
   "tags": {
-    "ab": "cohort-2026-11-14-r30",
-    "gisel": "cohort-2026-11-14-r30",
-    "upstream_source": "cohort-2026-11-14-r30"
+    "ab": "cohort-2026-11-15-r31",
+    "gisel": "cohort-2026-11-15-r31",
+    "upstream_source": "cohort-2026-11-15-r31"
   }
 }
