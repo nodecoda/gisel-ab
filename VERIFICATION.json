@@ -1488,6 +1488,8 @@
   "online_gates": [],
   "recorded_at": "2026-11-14",
   "schema": 2,
+  "supersedes": "cohort-2026-11-14-r28",
+  "supersedes_reason": "r29 records that the generated include needs no patched builders: gisel 4e2db30 emits only public LegalizeRuleSet builders, gisel-ab adds scripts/inc/check-pin-header.sh so the artifacts are compiled against a pin-only header (with a --self-test negative control), and a missing LLVM root now fails one gate instead of aborting the cohort. Queries and agree counts are unchanged, so the cohort exists to re-freeze the record against the new artifacts.",
   "tag": "cohort-2026-11-14-r29",
   "tags": {
     "ab": "cohort-2026-11-14-r29",
