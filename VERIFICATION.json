@@ -1,5 +1,37 @@
 {
-  "ci": {},
+  "ci": {
+    "gisel": {
+      "conclusion": "success",
+      "run": 43613566106,
+      "url": "https://github.com/nodecoda/gisel/actions/runs/43613566106"
+    },
+    "gisel-ab": {
+      "conclusion": "success",
+      "evidence": {
+        "conclusion": "success",
+        "run": 43613572391,
+        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43613572391"
+      },
+      "main_after_record": {
+        "conclusion": "success",
+        "run": 43614269205,
+        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43614269205"
+      },
+      "run": 43613572458,
+      "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43613572458"
+    },
+    "gisel-anchor": {
+      "conclusion": "success",
+      "run": 43610386785,
+      "url": "https://github.com/nodecoda/gisel-anchor/actions/runs/43610386785"
+    },
+    "gisel-install": {
+      "conclusion": "success",
+      "run": 43613566101,
+      "url": "https://github.com/nodecoda/gisel/actions/runs/43613566101"
+    }
+  },
+  "ci_notes": "r31 CI: gisel (ci + install + container) at a4699a1, gisel-anchor at f9c44bc and the cohort tag commit 1eb0e96 on gisel-ab (ci + release-evidence) are green, and so is 5216a6a, the commit that writes this record. Docs and one new test only. No publish tag was created.",
   "cohort": "cohort-2026-11-15-r31",
   "commits": {
     "ab": "1eb0e96e1938a92401ff819a469af61b68d01500",
