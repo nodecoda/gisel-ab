@@ -12,6 +12,11 @@
         "run": 43608977802,
         "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43608977802"
       },
+      "main_after_record": {
+        "conclusion": "success",
+        "run": 43610695223,
+        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43610695223"
+      },
       "run": 43610013357,
       "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43610013357"
     },
