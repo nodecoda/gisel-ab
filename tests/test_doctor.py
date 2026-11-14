@@ -38,9 +38,15 @@ def _is_file(path):
         return False
 
 
+ROOT_ENVS = ("AB_TREE", "COHORT_TREE", "AB_BUILD", "COHORT_LLVM",
+             "AB_LLVM_REPO", "UPSTREAM_SOURCE", "GS_PIN")
+
+
 def run(*args, env=None):
-    base = {k: v for k, v in os.environ.items()
-            if k not in ("AB_TREE", "AB_BUILD")}
+    # `cohort verify` exports the roots, and they must not leak into a test
+    # whose subject is "nothing is configured".
+    base = {k: v for k, v in os.environ.items() if k not in ROOT_ENVS}
+    base["GISEL_AB_CONFIG"] = str(ROOT / "tests" / ".no-such-config.json")
     base.update(env or {})
     return subprocess.run([sys.executable, str(ROOT / "ab.py"), "doctor", *args],
                           cwd=ROOT, env=base, capture_output=True, text=True)

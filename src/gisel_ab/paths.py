@@ -78,6 +78,11 @@ def sibling(root, env, *names) -> Path:
         path = Path(root) / name
         if path.is_dir():
             return path
+        # The cohort clone renames the checkout to its manifest key
+        # (`upstream_source`), so the hyphen spelling alone misses it.
+        alias = Path(root) / name.replace("-", "_")
+        if alias.is_dir():
+            return alias
     return Path(root) / names[0]
 
 

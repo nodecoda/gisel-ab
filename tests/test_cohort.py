@@ -290,3 +290,26 @@ class Tagging(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class MissingRootIsAGateFailure(unittest.TestCase):
+    """A gate whose expansion needs an LLVM tree fails alone, with rc=2.
+
+    Before this, `_expand_command` raised SystemExit from a worker thread and
+    `cohort verify` stopped after the gates that happened to finish, printing a
+    short table that looked green.  One gate, one verdict.
+    """
+
+    def test_an_expand_error_is_returned_not_raised(self):
+        gate = {"name": "pin/make-base.sh TREE DEST --verify",
+                "repo": "upstream_source",
+                "manifest_command": "pin/make-base.sh TREE DEST --verify",
+                "command": "pin/make-base.sh TREE DEST --verify",
+                "expand": "make-base"}
+        with mock.patch.object(cohort.paths, "require_tree",
+                               side_effect=SystemExit(2)):
+            result = cohort._run_one(gate, "/tmp/does-not-exist",
+                                     "/tmp/does-not-exist", 5)
+        self.assertEqual(result["rc"], 2)
+        self.assertIn("input error", result["evidence"])
+        self.assertEqual(result["name"], gate["name"])

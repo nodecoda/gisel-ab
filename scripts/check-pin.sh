@@ -30,8 +30,11 @@ if [ $# -ge 2 ]; then
 elif [ -n "${GS_PIN:-}" ]; then
   PIN=$GS_PIN
 else
-  PIN=$AB_ROOT/../gisel-anchor/pin/PIN.json
+  PIN=${UPSTREAM_SOURCE:-$AB_ROOT/../gisel-anchor}/pin/PIN.json
+  [ -f "$PIN" ] || PIN=$AB_ROOT/../gisel-anchor/pin/PIN.json
   [ -f "$PIN" ] || PIN=$AB_ROOT/../upstream-source/pin/PIN.json
+  # `cohort verify` lays the checkouts out under their manifest keys.
+  [ -f "$PIN" ] || PIN=$AB_ROOT/../upstream_source/pin/PIN.json
 fi
 
 if [ "${GIT_DSL_SKIP_PIN_CHECK:-}" = "1" ]; then

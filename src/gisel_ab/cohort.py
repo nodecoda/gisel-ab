@@ -384,7 +384,22 @@ def _last_line(text, limit=200):
 
 def _run_one(gate, clones, out_dir, timeout):
     repo = pathlib.Path(clones) / gate["repo"]
-    command = _expand_command(gate, clones, out_dir)
+    try:
+        command = _expand_command(gate, clones, out_dir)
+    except SystemExit as exc:
+        # A missing LLVM checkout is this gate's input error, not a reason to
+        # abandon the whole cohort: report it as rc=2 so the draft says 9/10
+        # with a named failure instead of looking like a short, green run.
+        return {
+            "name": gate["name"],
+            "repo": gate["repo"],
+            "manifest_command": gate.get("manifest_command"),
+            "command": gate["command"],
+            "rc": 2,
+            "evidence": "input error: missing LLVM root (rc=%s)"
+                        % (exc.code if exc.code is not None else 2),
+            "duration_s": 0.0,
+        }
     env = dict(os.environ)
     env.update({
         "GISEL_SRC": str(pathlib.Path(clones) / "gisel"),
