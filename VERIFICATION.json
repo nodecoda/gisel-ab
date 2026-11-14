@@ -1,5 +1,37 @@
 {
-  "ci": {},
+  "ci": {
+    "gisel": {
+      "conclusion": "success",
+      "run": 43608971256,
+      "url": "https://github.com/nodecoda/gisel/actions/runs/43608971256"
+    },
+    "gisel-ab": {
+      "conclusion": "success",
+      "evidence": {
+        "conclusion": "success",
+        "run": 43610985823,
+        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43610985823"
+      },
+      "main_after_record": {
+        "conclusion": "success",
+        "run": 43611659523,
+        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43611659523"
+      },
+      "run": 43610976391,
+      "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43610976391"
+    },
+    "gisel-anchor": {
+      "conclusion": "success",
+      "run": 43610386785,
+      "url": "https://github.com/nodecoda/gisel-anchor/actions/runs/43610386785"
+    },
+    "gisel-install": {
+      "conclusion": "success",
+      "run": 43608971249,
+      "url": "https://github.com/nodecoda/gisel/actions/runs/43608971249"
+    }
+  },
+  "ci_notes": "r30 CI: gisel (ci + install) at 4e2db30, gisel-anchor at f9c44bc and the cohort tag commit 2c483b7 on gisel-ab (ci + release-evidence) are green, and so is 0b08180, the commit that writes this record. The r29 tag-commit runs were red only because the workflow pinned the pre-r29 gisel; the pins now travel with the cohort. No publish tag was created.",
   "cohort": "cohort-2026-11-14-r30",
   "commits": {
     "ab": "2c483b7664567b05cc6b103ee6a752ef299ba17f",
