@@ -645,14 +645,19 @@ class Verifier:
 
     def check_adopt(self, entry) -> int:
         expect = entry["expect"]
-        inc = gisel_path("tests/artifacts/" + expect["inc"])
-        if not inc.exists():
-            return self.fail(entry, "missing gisel artifact %s" % inc)
-        got = sha256(inc.read_bytes())
         bad = 0
-        if got != expect["inc_sha256"]:
-            bad += self.fail(entry, "inc sha256 %s != %s"
-                             % (got[:16], expect["inc_sha256"][:16]))
+        # An adoption experiment is pinned to the include its branch commits.
+        # When the product re-spells its rules the live artifact moves and the
+        # experiment becomes historical: `tracks_artifact` false says so, and
+        # adopt-check.sh still verifies the branch bytes over the network.
+        if expect.get("tracks_artifact", True):
+            inc = gisel_path("tests/artifacts/" + expect["inc"])
+            if not inc.exists():
+                return self.fail(entry, "missing gisel artifact %s" % inc)
+            got = sha256(inc.read_bytes())
+            if got != expect["inc_sha256"]:
+                bad += self.fail(entry, "inc sha256 %s != %s"
+                                 % (got[:16], expect["inc_sha256"][:16]))
         doc = AB / "docs" / "ADOPT.md"
         if not doc.exists():
             # The prose that names the fork's branch is checkout-only.  The

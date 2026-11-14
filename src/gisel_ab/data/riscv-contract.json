@@ -4,22 +4,23 @@
   "comment": "Every count and hash here was recorded by `vertical.py --target riscv --record` at the snapshot below; `--verify-only` re-derives the comparison instead of trusting the summary.",
   "snapshot": {
     "tree_commit": "700e551714ccb7357a191fd41837ff1b4784abf2",
-    "gisel_commit": "6db213d5f47764af3ffc49f4db07d73c05029ac0",
+    "gisel_commit": "4e2db30ec7bfa0d2dadca001fc4c52e330f0ee39",
     "pin": "9bfc850b9940566bef17a34601826775349ba0e6 + 6 patches",
-    "inc_sha256": "fe6427bdf480143c3ec1d5b35ebba2bda637cce650d83db4f44e4cdcec520e06",
+    "inc_sha256": "b0bdc4d011b74c24c5c81bb3da48c1e76de0d824a73e1f50fd4f9fd7bcd548ac",
     "corpus_sha256": "3293f26167ee694b688297852dea3abe3305179b9e1baf1bb2d050991d12dd33",
     "features_sha256": "38967ab10a020b3c69c4fa4940b257f248588419b16a507dc1317c6398075ecf"
   },
   "g": {
     "queries": 6086,
-    "queries_sha256": "4f027ac85ffdf778ed9a5942df8d68b6f746b177d7fd3bf32b4166d6e12ba4b6",
+    "queries_sha256": "196145725ea1fe75628dcbf7637c1bbfc2eb5a5439398f74ce2155795d6dd697",
     "agree": 6086,
     "disagree": 0,
     "unanswerable": 0,
     "missing_ref": 0,
     "missing_ours": 0,
     "errors": 0,
-    "answers_sha256": "677adb99675445653f67b170e9ce8a39efb711fc441001a320e5ee56ba56356d"
+    "answers_sha256": "f8d6f45cafb457cd58f84caa507daa9dd28cbe8344f4abfc62a16f801f5f4853",
+    "note": "Re-recorded 2026-11-14 (r28): gisel resolves `p0:*` with the configuration pointer width, so the rv32 configs now say `p0:32` instead of `p0:64` (gisel 6671815/dcc9e7e). Counts are unchanged; 33 query lines moved."
   },
   "u": {
     "queries": 20445,

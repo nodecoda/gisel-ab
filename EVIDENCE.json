@@ -1,20 +1,20 @@
 {
  "schema": 1,
- "generated": "2026-11-12",
- "notes": "RISC-V entries refreshed 2026-11-11 from /tmp/rv-vertical2 (see docs/EVIDENCE-riscv.md); the other targets remain the 2026-11-10 snapshot. Artifacts live under /tmp; `command` regenerates them. verify-evidence.sh checks sha256 + the recorded summary. U-full/* are the --limit 0 universes (one file per target, expanded across every configuration by `oracle expand`); the full query file is not frozen (144-473 MB) - its sha256 and the expand command are in docs/EVIDENCE-U.md, and the frozen universe plus that command regenerate it byte-for-byte. MIR-L1/arm, arm-neg, ppc, mips and mips-neg added 2026-11-12 (constructor swap for the three targets; PPC's only MIR file has no generic opcode, so its L1 line is nominal \u2014 see docs/GAPS.md O1). PPC L2 added 2026-11-12: the upstream MIR corpus has no generic opcode, so the query-derived set is what actually exercises its rules. ARM/Mips L2 added 2026-11-12 (configs in data/mir-configs.json, checked by mir-config-check.py); G_LOAD is the negative control for both because their generated include builds FADD in two chains. M68k/Wasm L2 added 2026-11-12 as well; both constructors are rule tables only, so the swap is the generic body. SPIR-V L2 added 2026-11-12 with per-target configs (env from the triple, extensions via --spirv-ext); its G_SPLAT_VECTOR queries are skipped because SPIR-VPreLegalizer splits splats before the legalizer and the rule table itself indexes Types[4]/Types[16] (docs/REPORT-mir.md 6.9).",
+ "generated": "2026-11-14",
+ "notes": "RISC-V entries refreshed 2026-11-11 from /tmp/rv-vertical2 (see docs/EVIDENCE-riscv.md); the other targets remain the 2026-11-10 snapshot. Artifacts live under /tmp; `command` regenerates them. verify-evidence.sh checks sha256 + the recorded summary. U-full/* are the --limit 0 universes (one file per target, expanded across every configuration by `oracle expand`); the full query file is not frozen (144-473 MB) - its sha256 and the expand command are in docs/EVIDENCE-U.md, and the frozen universe plus that command regenerate it byte-for-byte. MIR-L1/arm, arm-neg, ppc, mips and mips-neg added 2026-11-12 (constructor swap for the three targets; PPC's only MIR file has no generic opcode, so its L1 line is nominal \u2014 see docs/GAPS.md O1). PPC L2 added 2026-11-12: the upstream MIR corpus has no generic opcode, so the query-derived set is what actually exercises its rules. ARM/Mips L2 added 2026-11-12 (configs in data/mir-configs.json, checked by mir-config-check.py); G_LOAD is the negative control for both because their generated include builds FADD in two chains. M68k/Wasm L2 added 2026-11-12 as well; both constructors are rule tables only, so the swap is the generic body. SPIR-V L2 added 2026-11-12 with per-target configs (env from the triple, extensions via --spirv-ext); its G_SPLAT_VECTOR queries are skipped because SPIR-VPreLegalizer splits splats before the legalizer and the rule table itself indexes Types[4]/Types[16] (docs/REPORT-mir.md 6.9). G/U/x86, G/U/aarch64 and G/U/riscv re-run 2026-11-14 after gisel switched the include to public builders (r28); query sets and agree counts are unchanged.",
  "entries": [
   {
    "id": "G/x86",
    "direction": "G",
    "target": "x86",
-   "dir": "/tmp/g-now/x86/out",
+   "dir": "/tmp/g-r28/x86/out",
    "queries": {
-    "path": "/tmp/g-now/x86/out/queries.jsonl",
+    "path": "/tmp/g-r28/x86/out/queries.jsonl",
     "sha256": "f6923a396fd430388d6acbed2cccf718ac8fb1540980c3ee00c592347f1b86f6"
    },
-   "command": "./run-x86-end-to-end.sh TREE BUILD /tmp/g-now/x86/X86LegalizerInfo.inc /tmp/g-now/x86/out",
+   "command": "./run-x86-end-to-end.sh TREE BUILD /home/ubuntu/llvm/gisel/tests/artifacts/x86.inc /tmp/g-r28/x86/out",
    "artifacts": {
-    "diff.json": "f68594349dbecf942aeb7e9371cec83c662828b8764967754611af42f937fe6c",
+    "diff.json": "fffb3f3912a4c916e51ef7f55ed3a7be19cfaf7d34e5fb9c269fdf844eb28e57",
     "official.answers.jsonl": "acb009f11a38bf3b9eed9296a120c0be0923e9f12f0433bd9d7675607f9a268a",
     "ours.answers.jsonl": "acb009f11a38bf3b9eed9296a120c0be0923e9f12f0433bd9d7675607f9a268a"
    },
@@ -29,7 +29,7 @@
     "corpus": "X86LegalizerInfo.gisel",
     "corpus_sha256": "934a935659e7aff3b0d8cec3a33b013846a12683d776cb4d7156507ef2b78f70",
     "inc": "x86.inc",
-    "inc_sha256": "38b278dd2a10fe42fa699b3661fbee575657bf8e9cdb1399a0d031a7c05b1442",
+    "inc_sha256": "c3b959fd2ea4bd1c00ca490bdfa625bbfdc67205a15fa2ebc95ea5a313b9a3f2",
     "features": "x86-features.json",
     "features_sha256": "0e4fb878c003b3bf8fe34cfcb88464df6b574079dc7dd9c98453e9db28cf9dec"
    },
@@ -39,14 +39,14 @@
    "id": "G/aarch64",
    "direction": "G",
    "target": "aarch64",
-   "dir": "/tmp/g-now/a64/out",
+   "dir": "/tmp/g-r28/aarch64/out",
    "queries": {
-    "path": "/tmp/g-now/a64/out/queries.jsonl",
+    "path": "/tmp/g-r28/aarch64/out/queries.jsonl",
     "sha256": "63e072063fd00d34e21103e926a657b462bebdabd1e81bb9b699b5704644da98"
    },
-   "command": "./run-aarch64-end-to-end.sh TREE BUILD /tmp/g-now/a64/AArch64LegalizerInfo.inc /tmp/g-now/a64/out",
+   "command": "./run-aarch64-end-to-end.sh TREE BUILD /home/ubuntu/llvm/gisel/tests/artifacts/aarch64.inc /tmp/g-r28/aarch64/out",
    "artifacts": {
-    "diff.json": "d0654f8ee5a956f5fb8431d66c3376dc6cbb36b73aeb2dd6c4c8aaf9eac96b79",
+    "diff.json": "bf7d4ebfe862c64692f0ae07de200a1f3824a2c6e9b223313e6e7175f4a006b9",
     "official.answers.jsonl": "fcd67a14c26da3a3a2b3b38ac2c5665bc5542a8e2f7d39bf6cbf8dbb48f3f040",
     "ours.answers.jsonl": "fcd67a14c26da3a3a2b3b38ac2c5665bc5542a8e2f7d39bf6cbf8dbb48f3f040"
    },
@@ -61,7 +61,7 @@
     "corpus": "AArch64LegalizerInfo.gisel",
     "corpus_sha256": "704183bad381b8973628a45ff3bf74589e0bf057533b80f528367e577b035fac",
     "inc": "aarch64.inc",
-    "inc_sha256": "0f6dcf0a6b91f105fdea64dcc8f18741f50b2e39fcc26b257cf9ad47ec5e669b",
+    "inc_sha256": "224d24e429b09d70f6cfef9b86abd5773dbccc04d265a1ab508a975b22d4fe9f",
     "features": "features.json",
     "features_sha256": "6e5257466f1bc03ef1592fa4c3d43fb0d41494436b073f8c74720f814fe71bf6"
    },
@@ -71,16 +71,16 @@
    "id": "G/riscv",
    "direction": "G",
    "target": "riscv",
-   "dir": "/tmp/g-now/rv/out",
+   "dir": "/tmp/g-r28/riscv/out",
    "queries": {
-    "path": "/tmp/g-now/rv/out/queries.jsonl",
-    "sha256": "4f027ac85ffdf778ed9a5942df8d68b6f746b177d7fd3bf32b4166d6e12ba4b6"
+    "path": "/tmp/g-r28/riscv/out/queries.jsonl",
+    "sha256": "196145725ea1fe75628dcbf7637c1bbfc2eb5a5439398f74ce2155795d6dd697"
    },
-   "command": "./run-riscv-end-to-end.sh TREE BUILD /tmp/g-now/rv/RISCVLegalizerInfo.inc /tmp/g-now/rv/out",
+   "command": "./run-riscv-end-to-end.sh TREE BUILD /home/ubuntu/llvm/gisel/tests/artifacts/riscv.inc /tmp/g-r28/riscv/out",
    "artifacts": {
-    "diff.json": "a6fc55aed0e4e437eb141abbb9d2e84ffdf295074a65a814a06ddc5b17c064dc",
-    "official.answers.jsonl": "677adb99675445653f67b170e9ce8a39efb711fc441001a320e5ee56ba56356d",
-    "ours.answers.jsonl": "677adb99675445653f67b170e9ce8a39efb711fc441001a320e5ee56ba56356d"
+    "diff.json": "d760bc524c542ab8e2e6e8b2df240eec50a279013c645ae196faa1db7c4ac1bf",
+    "official.answers.jsonl": "f8d6f45cafb457cd58f84caa507daa9dd28cbe8344f4abfc62a16f801f5f4853",
+    "ours.answers.jsonl": "f8d6f45cafb457cd58f84caa507daa9dd28cbe8344f4abfc62a16f801f5f4853"
    },
    "expect": {
     "answers_identical": true,
@@ -93,7 +93,7 @@
     "corpus": "RISCVLegalizerInfo.gisel",
     "corpus_sha256": "3293f26167ee694b688297852dea3abe3305179b9e1baf1bb2d050991d12dd33",
     "inc": "riscv.inc",
-    "inc_sha256": "fe6427bdf480143c3ec1d5b35ebba2bda637cce650d83db4f44e4cdcec520e06",
+    "inc_sha256": "b0bdc4d011b74c24c5c81bb3da48c1e76de0d824a73e1f50fd4f9fd7bcd548ac",
     "features": "riscv-features.json",
     "features_sha256": "38967ab10a020b3c69c4fa4940b257f248588419b16a507dc1317c6398075ecf"
    },
@@ -249,9 +249,9 @@
     "path": "/tmp/u-gen/x86d/queries.jsonl",
     "sha256": "bb5d041ab5c0b4a3c847fc82fd9f35b2dcdea87e8aa20e009621229552bfe548"
    },
-   "command": "./run-u-end-to-end.sh x86 /tmp/u-gen/x86d/queries.jsonl /tmp/u-run/x86d",
+   "command": "./run-u-end-to-end.sh x86 /tmp/u-gen/x86d/queries.jsonl /tmp/u-run/x86d --allow-unanswerable 0",
    "artifacts": {
-    "diff.json": "e6913f4250537b66d1df87535f1f77e6d687e5a56e8dcaccaa37ab2f19836369",
+    "diff.json": "80eb82054f16225272e932ba6b5703230f8ec037fefd8422dfe6a68798d7211d",
     "official.answers.jsonl": "ead0fef3cfb6b62d75bd3c5825cc68d370194b64cfdbb2a6129b2c164153da78",
     "ours.answers.jsonl": "ead0fef3cfb6b62d75bd3c5825cc68d370194b64cfdbb2a6129b2c164153da78",
     "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
@@ -267,7 +267,7 @@
     "corpus": "X86LegalizerInfo.gisel",
     "corpus_sha256": "934a935659e7aff3b0d8cec3a33b013846a12683d776cb4d7156507ef2b78f70",
     "inc": "x86.inc",
-    "inc_sha256": "38b278dd2a10fe42fa699b3661fbee575657bf8e9cdb1399a0d031a7c05b1442",
+    "inc_sha256": "c3b959fd2ea4bd1c00ca490bdfa625bbfdc67205a15fa2ebc95ea5a313b9a3f2",
     "features": "x86-features.json",
     "features_sha256": "0e4fb878c003b3bf8fe34cfcb88464df6b574079dc7dd9c98453e9db28cf9dec"
    },
@@ -277,14 +277,14 @@
    "id": "U/aarch64",
    "direction": "U",
    "target": "aarch64",
-   "dir": "/tmp/a64-vertical/u",
+   "dir": "/tmp/u-run/a64",
    "queries": {
     "path": "/tmp/u-gen/a64/queries.jsonl",
     "sha256": "906b8b491557f08a8be478fce3ab9e1df89e61b8497a1ecb4044a1a2a0940c65"
    },
-   "command": "./run-u-end-to-end.sh aarch64 /tmp/u-gen/a64/queries.jsonl /tmp/a64-vertical/u --allow-unanswerable 0",
+   "command": "./run-u-end-to-end.sh aarch64 /tmp/u-gen/a64/queries.jsonl /tmp/u-run/a64 --allow-unanswerable 0",
    "artifacts": {
-    "diff.json": "a8a6160fe3ee6069267311f7c3f0c93d11d9bb4b9f84ee4758bca237319e3ca3",
+    "diff.json": "c8b253f71c6ad7e3787d9ac70a7165c5d27960af5bf728b2a90b41052f9ead97",
     "official.answers.jsonl": "a0faa02f040f3de73169570a621cc5abc4309612aeed69512e11832eae6eea79",
     "ours.answers.jsonl": "a0faa02f040f3de73169570a621cc5abc4309612aeed69512e11832eae6eea79",
     "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
@@ -301,7 +301,7 @@
     "corpus": "AArch64LegalizerInfo.gisel",
     "corpus_sha256": "704183bad381b8973628a45ff3bf74589e0bf057533b80f528367e577b035fac",
     "inc": "aarch64.inc",
-    "inc_sha256": "0f6dcf0a6b91f105fdea64dcc8f18741f50b2e39fcc26b257cf9ad47ec5e669b",
+    "inc_sha256": "224d24e429b09d70f6cfef9b86abd5773dbccc04d265a1ab508a975b22d4fe9f",
     "features": "features.json",
     "features_sha256": "6e5257466f1bc03ef1592fa4c3d43fb0d41494436b073f8c74720f814fe71bf6"
    },
@@ -311,14 +311,14 @@
    "id": "U/riscv",
    "direction": "U",
    "target": "riscv",
-   "dir": "/tmp/rv-vertical/u",
+   "dir": "/tmp/u-run/rvb",
    "queries": {
     "path": "/tmp/u-gen/rvb/queries.jsonl",
     "sha256": "63c220a92ddc05c118c59eb71a9231ee01842afe94c7b14a031698f040aa7880"
    },
-   "command": "./run-u-end-to-end.sh riscv /tmp/u-gen/rvb/queries.jsonl /tmp/rv-vertical/u --allow-unanswerable 0",
+   "command": "./run-u-end-to-end.sh riscv /tmp/u-gen/rvb/queries.jsonl /tmp/u-run/rvb --allow-unanswerable 0",
    "artifacts": {
-    "diff.json": "81d136e9d3d825d8945533a45f01f5e4800c981c3e36c59ea4d89b3f357fd94d",
+    "diff.json": "390d74deda3b2ed6fbef0d12574387dc94a89522765fd7a4e54b6991c6cb6e85",
     "official.answers.jsonl": "283b8972e3d5ef90a6af65caa05f537539c44eff0feea1c611651100564bc58c",
     "ours.answers.jsonl": "283b8972e3d5ef90a6af65caa05f537539c44eff0feea1c611651100564bc58c",
     "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
@@ -335,7 +335,7 @@
     "corpus": "RISCVLegalizerInfo.gisel",
     "corpus_sha256": "3293f26167ee694b688297852dea3abe3305179b9e1baf1bb2d050991d12dd33",
     "inc": "riscv.inc",
-    "inc_sha256": "fe6427bdf480143c3ec1d5b35ebba2bda637cce650d83db4f44e4cdcec520e06",
+    "inc_sha256": "b0bdc4d011b74c24c5c81bb3da48c1e76de0d824a73e1f50fd4f9fd7bcd548ac",
     "features": "riscv-features.json",
     "features_sha256": "38967ab10a020b3c69c4fa4940b257f248588419b16a507dc1317c6398075ecf"
    },
@@ -2772,8 +2772,10 @@
     "commit": "4b8a026249c2",
     "inc": "x86.inc",
     "inc_sha256": "38b278dd2a10fe42fa699b3661fbee575657bf8e9cdb1399a0d031a7c05b1442",
-    "lib_sha256": "085928fa26a5e772ff250f045ad4874cd5e8cbbc8046fbeeb2406f7394a9c432"
-   }
+    "lib_sha256": "085928fa26a5e772ff250f045ad4874cd5e8cbbc8046fbeeb2406f7394a9c432",
+    "tracks_artifact": false
+   },
+   "note": "Measured on the include the branch commits (2026-11-12). The product re-spelled its rules in r28 (public LegalizeRuleSet builders), so the live artifact no longer matches this hash; adopt-check.sh still verifies the branch bytes. Re-adopting is a separate run."
   },
   {
    "id": "adopt/aarch64",
@@ -2788,8 +2790,10 @@
     "commit": "a355d055cf28",
     "inc": "aarch64.inc",
     "inc_sha256": "0f6dcf0a6b91f105fdea64dcc8f18741f50b2e39fcc26b257cf9ad47ec5e669b",
-    "lib_sha256": "123cd6d80d8df1cbb9cf695f4cb27b9ca5d0fbbe12192fe8d205dece1f0fc2dd"
-   }
+    "lib_sha256": "123cd6d80d8df1cbb9cf695f4cb27b9ca5d0fbbe12192fe8d205dece1f0fc2dd",
+    "tracks_artifact": false
+   },
+   "note": "Measured on the include the branch commits (2026-11-12). The product re-spelled its rules in r28 (public LegalizeRuleSet builders), so the live artifact no longer matches this hash; adopt-check.sh still verifies the branch bytes. Re-adopting is a separate run."
   },
   {
    "id": "adopt/riscv",
@@ -2804,8 +2808,10 @@
     "commit": "0feeca6a2b68",
     "inc": "riscv.inc",
     "inc_sha256": "fe6427bdf480143c3ec1d5b35ebba2bda637cce650d83db4f44e4cdcec520e06",
-    "lib_sha256": "d44d873e01080f3007ecd57a52099fe54c6c43af9de12a8d3fd48d2b42bfff16"
-   }
+    "lib_sha256": "d44d873e01080f3007ecd57a52099fe54c6c43af9de12a8d3fd48d2b42bfff16",
+    "tracks_artifact": false
+   },
+   "note": "Measured on the include the branch commits (2026-11-12). The product re-spelled its rules in r28 (public LegalizeRuleSet builders), so the live artifact no longer matches this hash; adopt-check.sh still verifies the branch bytes. Re-adopting is a separate run."
   }
  ],
  "official_build": {

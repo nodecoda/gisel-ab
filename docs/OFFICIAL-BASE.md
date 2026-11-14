@@ -27,14 +27,24 @@ sha256；`ab/check-pin.sh TREE` 按内容逐个比对，任何一个字节不同
 换句话说：官方库的答案 = pin + 6 patch + **一条**有效的本地调整（AArch64 标量元素计数）。
 这条调整让 assertions 构建在标量查询上给出 release 构建会给出的答案，而不是 abort。
 
-## 为什么不在纯 pin 树上构建
+## 生成的 `.inc` 不再依赖 `core*`
 
-生成构造器会调用 `coreMinScalarSameAs` 这类 `core*` builder；它们只在 fork 的
-`LegalizerInfo.h` 里。纯 pin 的头文件编不过 ours。要做纯 pin 官方侧，得先把 gisel 的发射改成
-自包含（不再往 `LegalizerInfo.h` 加方法），那是另一次改动，不是这一轮。
+生成构造器过去会调用 `coreMinScalarSameAs` 这类 `core*` builder；它们只在 fork 的
+`LegalizerInfo.h` 里，所以纯 pin 的头文件编不过 ours。现在 gisel 只发公共 builder
+（`minScalarOrEltIf`、`widenScalarToNextPow2`、`widenScalarIf`、`bitcastIf` …），
+三份产物都能对**纯 pin 头**编译通过。这条不是注释，是门：
 
-`pin/make-base.sh` 可以随时重建纯 pin 交叉检查树（pin + 声明 patch，跳过 pin 上不存在的文件），
-它是校验用的，不是对拍基线。
+```sh
+gisel-ab/scripts/inc/check-pin-header.sh \
+  --tree /home/ubuntu/llvm/trees/pin --build /home/ubuntu/llvm/builds/pin --self-test
+```
+
+它按 `targets/*.json` 逐目标生成 `.inc`，用 `src/gisel_ab/cpp/*_generated_ctor.cpp`
+对 pin-only 树做 `-fsyntax-only`；`--self-test` 再往产物里塞一个 `coreLegalIf` 调用，
+要求编译失败——否则说明拿错头文件、上面三行是假的。
+
+`official_base` 仍冻在 `700e5517`（那棵树带 `core*`），因为换基线要重跑全部证据；
+但它已经不是产物编译的前提。`pin/make-base.sh` 随时可重建纯 pin 交叉检查树。
 
 ## 改基线的成本
 

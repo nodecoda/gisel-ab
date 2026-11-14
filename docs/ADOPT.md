@@ -3,6 +3,12 @@
 > 2026-11-12。上游 LLVM 树不是 gisel 的仓库；这是“采用”，不是 gisel 的功能。
 > 证据口径见 `PLAN-internal-authority.md` §7、§9。**分 target 采用**，不是一个总开关。
 
+> **2026-11-14（r28）**：gisel 的 `.inc` 改成只发上游公共 builder，三份产物的字节都变了
+> （不再调用 `core*`）。下面这张表是**历史实验**：分支里提交的仍是它当时测的那份 inc，
+> `EVIDENCE.json` 的 adopt 条目因此标了 `tracks_artifact: false`——`adopt-check.sh`
+> 仍然校验分支字节，但不再要求它等于当前产物。重做采用（重建 + lit + 回放）是另一次运行，
+> 不在 r28 内。新的 `.inc` 已对纯 pin 头编译通过，见 `gisel-ab/scripts/inc/check-pin-header.sh`。
+
 ## 1 三个采用点
 
 | target | 分支 | commit | 构造函数改动 | inc sha256 | 采用后库 sha256 |

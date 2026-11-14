@@ -4,9 +4,9 @@
   "comment": "Every count and hash here was recorded by `vertical.py --target aarch64 --record` at the snapshot below; `--verify-only` re-derives the comparison instead of trusting the summary.",
   "snapshot": {
     "tree_commit": "700e551714ccb7357a191fd41837ff1b4784abf2",
-    "gisel_commit": "6db213d5f47764af3ffc49f4db07d73c05029ac0",
+    "gisel_commit": "4e2db30ec7bfa0d2dadca001fc4c52e330f0ee39",
     "pin": "9bfc850b9940566bef17a34601826775349ba0e6 + 6 patches",
-    "inc_sha256": "0f6dcf0a6b91f105fdea64dcc8f18741f50b2e39fcc26b257cf9ad47ec5e669b",
+    "inc_sha256": "224d24e429b09d70f6cfef9b86abd5773dbccc04d265a1ab508a975b22d4fe9f",
     "corpus_sha256": "704183bad381b8973628a45ff3bf74589e0bf057533b80f528367e577b035fac",
     "features_sha256": "6e5257466f1bc03ef1592fa4c3d43fb0d41494436b073f8c74720f814fe71bf6"
   },

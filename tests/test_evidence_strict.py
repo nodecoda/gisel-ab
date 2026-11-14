@@ -114,23 +114,40 @@ class ClosureEvidence(unittest.TestCase):
 
 
 class AdoptEvidence(unittest.TestCase):
-    def entry(self):
+    # The real entries are historical: an adoption branch commits the include
+    # it was measured with, and a later re-spelling of the product must not
+    # rewrite that claim.  `tracks_artifact` says whether the live artifact is
+    # the same bytes; adopt-check.sh always verifies the branch itself.
+    OLD_INC = "38b278dd2a10fe42fa699b3661fbee575657bf8e9cdb1399a0d031a7c05b1442"
+    NEW_INC = "c3b959fd2ea4bd1c00ca490bdfa625bbfdc67205a15fa2ebc95ea5a313b9a3f2"
+
+    def entry(self, tracks=True, inc=None):
+        expect = {
+            "branch": "explore/x86-adopt",
+            "commit": "4b8a026249c2",
+            "inc": "x86.inc",
+            "inc_sha256": inc or self.NEW_INC,
+            "lib_sha256": "085928fa26a5e772ff250f045ad4874cd5e8cbbc8046fbeeb2406f7394a9c432",
+        }
+        if not tracks:
+            expect["tracks_artifact"] = False
         return {
             "id": "adopt/x86", "kind": "adopt", "direction": "adopt",
             "target": "x86", "command": "make-adopt",
             "dir": "/tmp/gisel-artifacts",
             "artifacts": {},
-            "expect": {
-                "branch": "explore/x86-adopt",
-                "commit": "4b8a026249c2",
-                "inc": "x86.inc",
-                "inc_sha256": "38b278dd2a10fe42fa699b3661fbee575657bf8e9cdb1399a0d031a7c05b1442",
-                "lib_sha256": "085928fa26a5e772ff250f045ad4874cd5e8cbbc8046fbeeb2406f7394a9c432",
-            },
+            "expect": expect,
         }
 
     def test_the_recorded_branch_and_inc_match_the_document(self):
-        proc = run_manifest([self.entry()], direction="adopt")
+        proc = run_manifest([self.entry(tracks=False, inc=self.OLD_INC)],
+                            direction="adopt")
+        self.assertEqual(proc.returncode, 0, proc.stdout)
+
+    def test_a_historical_entry_does_not_check_the_live_artifact(self):
+        # The frozen claim is the branch bytes; the product may have moved on.
+        proc = run_manifest([self.entry(tracks=False, inc=self.OLD_INC)],
+                            direction="adopt")
         self.assertEqual(proc.returncode, 0, proc.stdout)
 
     def test_an_inc_hash_drift_fails(self):
