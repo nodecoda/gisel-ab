@@ -1,5 +1,32 @@
 {
-  "ci": {},
+  "ci": {
+    "gisel": {
+      "conclusion": "success",
+      "run": 43608971256,
+      "url": "https://github.com/nodecoda/gisel/actions/runs/43608971256"
+    },
+    "gisel-ab": {
+      "conclusion": "success",
+      "evidence": {
+        "conclusion": "success",
+        "run": 43608977802,
+        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43608977802"
+      },
+      "run": 43610013357,
+      "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43610013357"
+    },
+    "gisel-anchor": {
+      "conclusion": "success",
+      "run": 43610386785,
+      "url": "https://github.com/nodecoda/gisel-anchor/actions/runs/43610386785"
+    },
+    "gisel-install": {
+      "conclusion": "success",
+      "run": 43608971249,
+      "url": "https://github.com/nodecoda/gisel/actions/runs/43608971249"
+    }
+  },
+  "ci_notes": "r29 CI: gisel (ci + install) at 4e2db30, gisel-anchor at f9c44bc and gisel-ab at c505864 are green; the release-evidence run on the cohort tag (69e310e) is green. The tag commit's own ci run was red only because the workflow still pinned the pre-r29 gisel, so tests read the old artifacts; c505864 moves GISEL_REF/ANCHOR_REF to the r29 cohort and the same workflow is green there. No publish tag was created.",
   "cohort": "cohort-2026-11-14-r29",
   "commits": {
     "ab": "69e310e3bef70f84de9bfc4faaf9dbc6b22c10a7",
