@@ -1,5 +1,37 @@
 {
-  "ci": {},
+  "ci": {
+    "gisel": {
+      "conclusion": "success",
+      "run": 43616068741,
+      "url": "https://github.com/nodecoda/gisel/actions/runs/43616068741"
+    },
+    "gisel-ab": {
+      "conclusion": "success",
+      "evidence": {
+        "conclusion": "success",
+        "run": 43616074707,
+        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43616074707"
+      },
+      "main_after_record": {
+        "conclusion": "success",
+        "run": 43616760869,
+        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43616760869"
+      },
+      "run": 43616074670,
+      "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43616074670"
+    },
+    "gisel-anchor": {
+      "conclusion": "success",
+      "run": 43610386785,
+      "url": "https://github.com/nodecoda/gisel-anchor/actions/runs/43610386785"
+    },
+    "gisel-install": {
+      "conclusion": "success",
+      "run": 43616068672,
+      "url": "https://github.com/nodecoda/gisel/actions/runs/43616068672"
+    }
+  },
+  "ci_notes": "r32 CI: gisel (ci + install) at 785d679, gisel-anchor at f9c44bc and the cohort tag commit 7b27673 on gisel-ab (ci + release-evidence) are green, and so is 9352f55, the commit that writes this record. Documentation and two doc gates only; no artifact, golden, evidence blob or query changed. No publish tag was created.",
   "cohort": "cohort-2026-11-15-r32",
   "commits": {
     "ab": "7b276739ea34fe39450f0404eb3fe1528c67c9d2",
