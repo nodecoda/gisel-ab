@@ -41,16 +41,16 @@
     "x86-none.json": "6505e824c7b2bad311b38022af1baa0835f472f3979df934e27904b0bac8ffda"
   },
   "nightly_graphs_sha256": {
-    "aarch64-baseline.json": "ea3ada5ea7066a0e6986a3ce3b1581049dd7d5e1020763045c865f822d690db1",
+    "aarch64-baseline.json": "937f96029897cc2bc3c76018e05be34d0bf65e3f87804501437bf73f63285fb1",
     "arm-neon.json": "5c44dfa9801ff26489181deb5ae6a75aab81e96efbb036961bc2e12bb4b35172",
     "m68k-default.json": "176edb8556ddcca424e6859638b4a1afe3b60521742038a3e4fe0541e46c10be",
     "mips32.json": "7f431816de1fe026a1a97e1964c8da7ce1435faa35956056c4cb369c81d91285",
     "ppc-default.json": "f24f1b1943384ea9cf7d145f831a33702a443ab3d7c714377a4dc15258a7b4d5",
-    "wasm32.json": "e6e9b52f3f17a25e6314f2d029249e1fb4981c29dfb3650d77c27a2ff2a01818",
-    "x86-C0.json": "ac06a29ca28c7eca157a2cda89c51b4e7d9304e482ad85b7e24a6c6b63d08ad7",
-    "x86-C1.json": "11b02180bbe6fe2fdd915477e037e68cbcc4569e488c6fe7489abb85469ee6ec",
-    "x86-C2.json": "7a5d9782708dd360a68161923f9984b05acc4bdec96eb5985f041a4e669d8d7e",
-    "x86-C3.json": "ce7f068f123aaad72482b3c7e9ea007b5a4ecdc9a98458abf9460cecb5b2b014"
+    "wasm32.json": "b773aa33072bda1fd5e76a810277febcbf91642196e59dd4ae553a457c65534b",
+    "x86-C0.json": "a76ca09cbbce466cacb747c6a3a8cb79ec25427344061c75cfcb8a775322811d",
+    "x86-C1.json": "6a633d20480c0ba7b62f9dc3ce253ed5329b66aec56e4b24d30465c8efcf200f",
+    "x86-C2.json": "0f7d1a1ffda30151bb61eb1c26bbbe29c658e86271f5baa95d6dcfd730a373b8",
+    "x86-C3.json": "e60a7744edff1fd8177170da75ec3579f16ebbd0c36c441d3ab07096b2909ab1"
   },
   "note": "Commits are the code commits.  `repos.ab` is the commit before this manifest: the manifest commit adds only this file, so it cannot name itself.  Re-run the gates at those commits, not after.",
   "pin": {
@@ -71,7 +71,7 @@
     }
   },
   "repos": {
-    "ab": "c52b242899789e61583b0462d4a4bfb6baa14989",
+    "ab": "d2cabf8bced25dd42b8e81b4d1fe9b7327d7e0e8",
     "gisel": "1e6dcdcbd7b05de38e285661f964d6fbb7509954",
     "upstream_source": "f9c44bc41bcea3ecd469ec484b934ae60fbec4d1"
   },
