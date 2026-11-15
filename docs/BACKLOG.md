@@ -7,7 +7,7 @@ only at a real cut (release, claim change, adoption update).
 
 | 项 | 现状 | 证据 | 为什么不在本 cohort |
 |---|---|---|---|
-| O9 域外起点（`s7`、`s31`、非常见 mem/imm） | 后继闭包覆盖声明域内；第一步没有问过域外起点 | `docs/GAPS.md` §3 O9；`docs/CLOSURE.md` | 需要一个独立于 gisel 的类型宇宙；属于能力扩展 |
+| O9 域外起点（`s7`、`s31`、非常见 mem/imm） | 第一步已测量：x86 5,387 / riscv 12,313 / aarch64 36,558，disagree = 0，aarch64 18 条两侧都拒绝；域外后继仍未闭包，非常见 mem/imm 未探 | `docs/EVIDENCE-O9.md`；`docs/GAPS.md` §3 O9 | 后继闭包需要域外状态也进入图；mem/imm 轴要单独扩 |
 | `Custom` action 体 | 动作名一致；C++ 体里的类型改写没有逐条验证 | `docs/GAPS.md` O9 边界；`SCOPE.md` §6 | 要逐 target 读 C++，成本高于本 cohort |
 | 非 refine 的分区闭包 | X86 272 / RISC-V 1,607 / wasm32 272 已字节钉住；AArch64 1,985（7 配置）/1,968（fullfp16、sve）已 9 配置归因，计数测试仍 opt-in；剩余全部是宽度/跨槽目标类 | `gisel/tests/artifacts/graph/*.json`；`gisel/tests/test_graph_closure_counts.py`；`gisel/docs/REPORT-closure-why.md` | 要闭合必须改“原子”定义（读轴 raw 会让 AArch64 从 1.10M 涨到 5.81M 状态且一条违例都不少），签名口径仍是 `--refine` |
 | SPIR-V graph | `--max-states 200000` 下 `G_FLDEXP` 报 `unsupported_scale`，rc=2 | `gisel/docs/REPORT-graph.md` §SPIR-V | 需要按 opcode 剪枝，不是加时间上限 |

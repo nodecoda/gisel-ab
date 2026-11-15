@@ -18,7 +18,7 @@ tests/  docs/               the suite and the write-ups
 ```
 
 `ab.py --help` is the verb table: `doctor setup bug-report run mir verify diff l3
-suite vertical cohort evidence plan`.  Each verb keeps its own parser and its own
+suite vertical outside cohort evidence plan`.  Each verb keeps its own parser and its own
 exit codes; `ab.py` only routes.  `pip install gisel-ab` (or `pip install .`
 from a checkout) gives the same table, and the installed wheel carries the code, the target registry,
 the suite snapshots and the C++ runner sources -- but not `evidence/`, which
@@ -220,6 +220,23 @@ build tree and no `/tmp` state, so CI runs it for all three targets on every
 push (`.github/workflows/ci.yml`).
 
 Evidence: `docs/EVIDENCE-riscv.md`, `docs/EVIDENCE-domain.md`.
+
+## Outside the declared domain
+
+`ab.py outside` asks the neighbouring question once: what do the two sides do
+when the first type is a width no rule wrote down (`s7`, `s31`, `s63`, `s65`,
+`s127`, odd lane counts)?  The queries are rewritten from the frozen `G`
+shapes, keeping each slot's kind, vector-ness, pointer and IEEE-float width;
+the official runner and `gisel eval` answer the same file.  Both sides refusing
+is counted as agreement (`both-unanswerable`); a refusal on one side only is a
+hole and keeps the exit code at 1.
+
+```sh
+python3 ab.py outside --target aarch64 --tree TREE --build BUILD --out /tmp/o9 \
+    [--limit 200000] [--per-base 12] [--json]
+```
+
+Numbers and the two model defects it found are in `docs/EVIDENCE-O9.md`.
 
 ## MIR/llc regression
 
