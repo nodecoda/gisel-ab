@@ -1,2834 +1,2835 @@
 {
- "schema": 1,
- "generated": "2026-11-14",
- "notes": "RISC-V entries refreshed 2026-11-11 from /tmp/rv-vertical2 (see docs/EVIDENCE-riscv.md); the other targets remain the 2026-11-10 snapshot. Artifacts live under /tmp; `command` regenerates them. verify-evidence.sh checks sha256 + the recorded summary. U-full/* are the --limit 0 universes (one file per target, expanded across every configuration by `oracle expand`); the full query file is not frozen (144-473 MB) - its sha256 and the expand command are in docs/EVIDENCE-U.md, and the frozen universe plus that command regenerate it byte-for-byte. MIR-L1/arm, arm-neg, ppc, mips and mips-neg added 2026-11-12 (constructor swap for the three targets; PPC's only MIR file has no generic opcode, so its L1 line is nominal \u2014 see docs/GAPS.md O1). PPC L2 added 2026-11-12: the upstream MIR corpus has no generic opcode, so the query-derived set is what actually exercises its rules. ARM/Mips L2 added 2026-11-12 (configs in data/mir-configs.json, checked by mir-config-check.py); G_LOAD is the negative control for both because their generated include builds FADD in two chains. M68k/Wasm L2 added 2026-11-12 as well; both constructors are rule tables only, so the swap is the generic body. SPIR-V L2 added 2026-11-12 with per-target configs (env from the triple, extensions via --spirv-ext); its G_SPLAT_VECTOR queries are skipped because SPIR-VPreLegalizer splits splats before the legalizer and the rule table itself indexes Types[4]/Types[16] (docs/REPORT-mir.md 6.9). G/U/x86, G/U/aarch64 and G/U/riscv re-run 2026-11-14 after gisel switched the include to public builders (r28); query sets and agree counts are unchanged.",
- "entries": [
-  {
-   "id": "G/x86",
-   "direction": "G",
-   "target": "x86",
-   "dir": "/tmp/g-r28/x86/out",
-   "queries": {
-    "path": "/tmp/g-r28/x86/out/queries.jsonl",
-    "sha256": "f6923a396fd430388d6acbed2cccf718ac8fb1540980c3ee00c592347f1b86f6"
-   },
-   "command": "./run-x86-end-to-end.sh TREE BUILD /home/ubuntu/llvm/gisel/tests/artifacts/x86.inc /tmp/g-r28/x86/out",
-   "artifacts": {
-    "diff.json": "fffb3f3912a4c916e51ef7f55ed3a7be19cfaf7d34e5fb9c269fdf844eb28e57",
-    "official.answers.jsonl": "acb009f11a38bf3b9eed9296a120c0be0923e9f12f0433bd9d7675607f9a268a",
-    "ours.answers.jsonl": "acb009f11a38bf3b9eed9296a120c0be0923e9f12f0433bd9d7675607f9a268a"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 3014,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 3014
-   },
-   "snapshot": {
-    "corpus": "X86LegalizerInfo.gisel",
-    "corpus_sha256": "934a935659e7aff3b0d8cec3a33b013846a12683d776cb4d7156507ef2b78f70",
-    "inc": "x86.inc",
-    "inc_sha256": "c3b959fd2ea4bd1c00ca490bdfa625bbfdc67205a15fa2ebc95ea5a313b9a3f2",
-    "features": "x86-features.json",
-    "features_sha256": "0e4fb878c003b3bf8fe34cfcb88464df6b574079dc7dd9c98453e9db28cf9dec"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "G/aarch64",
-   "direction": "G",
-   "target": "aarch64",
-   "dir": "/tmp/g-r28/aarch64/out",
-   "queries": {
-    "path": "/tmp/g-r28/aarch64/out/queries.jsonl",
-    "sha256": "63e072063fd00d34e21103e926a657b462bebdabd1e81bb9b699b5704644da98"
-   },
-   "command": "./run-aarch64-end-to-end.sh TREE BUILD /home/ubuntu/llvm/gisel/tests/artifacts/aarch64.inc /tmp/g-r28/aarch64/out",
-   "artifacts": {
-    "diff.json": "bf7d4ebfe862c64692f0ae07de200a1f3824a2c6e9b223313e6e7175f4a006b9",
-    "official.answers.jsonl": "fcd67a14c26da3a3a2b3b38ac2c5665bc5542a8e2f7d39bf6cbf8dbb48f3f040",
-    "ours.answers.jsonl": "fcd67a14c26da3a3a2b3b38ac2c5665bc5542a8e2f7d39bf6cbf8dbb48f3f040"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 12559,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 12559
-   },
-   "snapshot": {
-    "corpus": "AArch64LegalizerInfo.gisel",
-    "corpus_sha256": "704183bad381b8973628a45ff3bf74589e0bf057533b80f528367e577b035fac",
-    "inc": "aarch64.inc",
-    "inc_sha256": "224d24e429b09d70f6cfef9b86abd5773dbccc04d265a1ab508a975b22d4fe9f",
-    "features": "features.json",
-    "features_sha256": "6e5257466f1bc03ef1592fa4c3d43fb0d41494436b073f8c74720f814fe71bf6"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "G/riscv",
-   "direction": "G",
-   "target": "riscv",
-   "dir": "/tmp/g-r28/riscv/out",
-   "queries": {
-    "path": "/tmp/g-r28/riscv/out/queries.jsonl",
-    "sha256": "196145725ea1fe75628dcbf7637c1bbfc2eb5a5439398f74ce2155795d6dd697"
-   },
-   "command": "./run-riscv-end-to-end.sh TREE BUILD /home/ubuntu/llvm/gisel/tests/artifacts/riscv.inc /tmp/g-r28/riscv/out",
-   "artifacts": {
-    "diff.json": "d760bc524c542ab8e2e6e8b2df240eec50a279013c645ae196faa1db7c4ac1bf",
-    "official.answers.jsonl": "f8d6f45cafb457cd58f84caa507daa9dd28cbe8344f4abfc62a16f801f5f4853",
-    "ours.answers.jsonl": "f8d6f45cafb457cd58f84caa507daa9dd28cbe8344f4abfc62a16f801f5f4853"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 6086,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 6086
-   },
-   "snapshot": {
-    "corpus": "RISCVLegalizerInfo.gisel",
-    "corpus_sha256": "3293f26167ee694b688297852dea3abe3305179b9e1baf1bb2d050991d12dd33",
-    "inc": "riscv.inc",
-    "inc_sha256": "b0bdc4d011b74c24c5c81bb3da48c1e76de0d824a73e1f50fd4f9fd7bcd548ac",
-    "features": "riscv-features.json",
-    "features_sha256": "38967ab10a020b3c69c4fa4940b257f248588419b16a507dc1317c6398075ecf"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "G/arm",
-   "direction": "G",
-   "target": "arm",
-   "dir": "/tmp/g-run/arm/out",
-   "queries": {
-    "path": "/tmp/g-run/arm/out/queries.jsonl",
-    "sha256": "9fcccfb5e8125c067c6a9367d5704aea9805ffe23c794d08ec6899e192c9a606"
-   },
-   "command": "./run-arm-end-to-end.sh TREE BUILD /tmp/g-run/arm/ARMLegalizerInfo.inc /tmp/g-run/arm/out",
-   "artifacts": {
-    "diff.json": "495feea26c62ed894854316c2f2ae95244abd3af618b2451fd3483450d67055e",
-    "official.answers.jsonl": "615123a27714bda555f9dc12a8e11355ec4db8ff39954e1e7c55ff208ee2ea5b",
-    "ours.answers.jsonl": "615123a27714bda555f9dc12a8e11355ec4db8ff39954e1e7c55ff208ee2ea5b"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 1614,
-    "disagree": 0,
-    "unanswerable": 0
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "G/mips",
-   "direction": "G",
-   "target": "mips",
-   "dir": "/tmp/g-run/mips/out",
-   "queries": {
-    "path": "/tmp/g-run/mips/out/queries.jsonl",
-    "sha256": "8405f772d77de0c7c916f9f8b8d0d637d635b0e32e92e3177bda11c358f2e85a"
-   },
-   "command": "./run-mips-end-to-end.sh TREE BUILD /tmp/g-run/mips/MipsLegalizerInfo.inc /tmp/g-run/mips/out",
-   "artifacts": {
-    "diff.json": "19794f933483fd615b8d2ac06557549eaf3f963f35e0ba368400c4ba73a3a744",
-    "official.answers.jsonl": "d81f89d7dfb1fbb9178c3da2f0d649acd9585177a53c2ce5e942679a0adf6b15",
-    "ours.answers.jsonl": "966f16354f328516398a9592eacb214d35f9ebff238f8278da25e835fa73acbb"
-   },
-   "expect": {
-    "answers_identical": false,
-    "agree": 1647,
-    "disagree": 0,
-    "unanswerable": 0,
-    "ref_asserted": 9
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "G/ppc",
-   "direction": "G",
-   "target": "ppc",
-   "dir": "/tmp/g-run/ppc/out",
-   "queries": {
-    "path": "/tmp/g-run/ppc/out/queries.jsonl",
-    "sha256": "675e59e9e632fa96e1bb02251e59c9f4438cbd3968c7d5f2ef3af4a74214ca83"
-   },
-   "command": "./run-ppc-end-to-end.sh TREE BUILD /tmp/g-run/ppc/PowerPCLegalizerInfo.inc /tmp/g-run/ppc/out",
-   "artifacts": {
-    "diff.json": "77526d37f0e5a0013960c3df9a6f41f3ab3a306e0f75db7f371781a200aa3b0e",
-    "official.answers.jsonl": "d94d2a64c592fa209363146b9006677fb6e9067b9e2af39f6004f6cad53386a2",
-    "ours.answers.jsonl": "d94d2a64c592fa209363146b9006677fb6e9067b9e2af39f6004f6cad53386a2"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 94,
-    "disagree": 0,
-    "unanswerable": 1
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "G/m68k",
-   "direction": "G",
-   "target": "m68k",
-   "dir": "/tmp/g-run/m68k/out",
-   "queries": {
-    "path": "/tmp/g-run/m68k/out/queries.jsonl",
-    "sha256": "e765e396ca57cd3f179bb3e44235705674e9f33cfa30ce9ac7dda23684be8e3f"
-   },
-   "command": "./run-m68k-end-to-end.sh TREE BUILD /tmp/g-run/m68k/M68kLegalizerInfo.inc /tmp/g-run/m68k/out",
-   "artifacts": {
-    "diff.json": "866a8844198a56f9b412b404fc227b14887c901a8eae1604ea0f149394f572a6",
-    "official.answers.jsonl": "ce9753b4cda082083bf3b4f464cf0ed077c9e6c66cc03fba8ec920aa51cd863b",
-    "ours.answers.jsonl": "ce9753b4cda082083bf3b4f464cf0ed077c9e6c66cc03fba8ec920aa51cd863b"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 35,
-    "disagree": 0,
-    "unanswerable": 0
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "G/wasm",
-   "direction": "G",
-   "target": "wasm",
-   "dir": "/tmp/g-now/wasm/out",
-   "queries": {
-    "path": "/tmp/g-now/wasm/out/queries.jsonl",
-    "sha256": "3442ddeedad10e38d7a9e958e46bdcd90bce581097261a993338a460801a798c"
-   },
-   "command": "./run-wasm-end-to-end.sh TREE BUILD /tmp/g-now/wasm/WebAssemblyLegalizerInfo.inc /tmp/g-now/wasm/out",
-   "artifacts": {
-    "diff.json": "65762a7a09c59b65aad0d14d3f940ff9da038d094d187fd553e021e2bb0186de",
-    "official.answers.jsonl": "544b7b744917324b2126c480162b585158283e948d5ba107e9d61b81b778044b",
-    "ours.answers.jsonl": "544b7b744917324b2126c480162b585158283e948d5ba107e9d61b81b778044b"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 894,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 894
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "G/spirv",
-   "direction": "G",
-   "target": "spirv",
-   "dir": "/tmp/g-spirv-new2",
-   "queries": {
-    "path": "/tmp/g-spirv-new2/queries.jsonl",
-    "sha256": "583af2c0019af248b597963119fcbbb0084046924a0f028e75b709127e559c53"
-   },
-   "command": "./run-spirv-end-to-end.sh TREE BUILD /tmp/g-spirv-new2/SPIRVLegalizerInfo.inc /tmp/g-spirv-new2",
-   "artifacts": {
-    "diff.json": "52290233603203427353bbf169212afbcd2230a3bea4926cf7ac6ee3c4d50abc",
-    "official.answers.jsonl": "9a85803b8c4ae55de1ef99cd4c50bbe5083697a39ba80583980809cf26194f48",
-    "ours.answers.jsonl": "abcd3c145b58d738a2651ab7e35199c7f27d0ff198e1cc762f82f1e495f2f902"
-   },
-   "expect": {
-    "ref": 5689,
-    "agree": 5689,
-    "disagree": 0,
-    "unanswerable": 4,
-    "ref_asserted": 0
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "U/x86",
-   "direction": "U",
-   "target": "x86",
-   "dir": "/tmp/u-run/x86d",
-   "queries": {
-    "path": "/tmp/u-gen/x86d/queries.jsonl",
-    "sha256": "bb5d041ab5c0b4a3c847fc82fd9f35b2dcdea87e8aa20e009621229552bfe548"
-   },
-   "command": "./run-u-end-to-end.sh x86 /tmp/u-gen/x86d/queries.jsonl /tmp/u-run/x86d --allow-unanswerable 0",
-   "artifacts": {
-    "diff.json": "80eb82054f16225272e932ba6b5703230f8ec037fefd8422dfe6a68798d7211d",
-    "official.answers.jsonl": "ead0fef3cfb6b62d75bd3c5825cc68d370194b64cfdbb2a6129b2c164153da78",
-    "ours.answers.jsonl": "ead0fef3cfb6b62d75bd3c5825cc68d370194b64cfdbb2a6129b2c164153da78",
-    "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 10027,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 10027
-   },
-   "snapshot": {
-    "corpus": "X86LegalizerInfo.gisel",
-    "corpus_sha256": "934a935659e7aff3b0d8cec3a33b013846a12683d776cb4d7156507ef2b78f70",
-    "inc": "x86.inc",
-    "inc_sha256": "c3b959fd2ea4bd1c00ca490bdfa625bbfdc67205a15fa2ebc95ea5a313b9a3f2",
-    "features": "x86-features.json",
-    "features_sha256": "0e4fb878c003b3bf8fe34cfcb88464df6b574079dc7dd9c98453e9db28cf9dec"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "U/aarch64",
-   "direction": "U",
-   "target": "aarch64",
-   "dir": "/tmp/u-run/a64",
-   "queries": {
-    "path": "/tmp/u-gen/a64/queries.jsonl",
-    "sha256": "906b8b491557f08a8be478fce3ab9e1df89e61b8497a1ecb4044a1a2a0940c65"
-   },
-   "command": "./run-u-end-to-end.sh aarch64 /tmp/u-gen/a64/queries.jsonl /tmp/u-run/a64 --allow-unanswerable 0",
-   "artifacts": {
-    "diff.json": "c8b253f71c6ad7e3787d9ac70a7165c5d27960af5bf728b2a90b41052f9ead97",
-    "official.answers.jsonl": "a0faa02f040f3de73169570a621cc5abc4309612aeed69512e11832eae6eea79",
-    "ours.answers.jsonl": "a0faa02f040f3de73169570a621cc5abc4309612aeed69512e11832eae6eea79",
-    "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 29608,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 29608
-   },
-   "note": "Refreshed 2026-11-12 after oracle ac98717 (pad combos to the opcode type-slot width). The previous 29,561-query file predated that fix.",
-   "snapshot": {
-    "corpus": "AArch64LegalizerInfo.gisel",
-    "corpus_sha256": "704183bad381b8973628a45ff3bf74589e0bf057533b80f528367e577b035fac",
-    "inc": "aarch64.inc",
-    "inc_sha256": "224d24e429b09d70f6cfef9b86abd5773dbccc04d265a1ab508a975b22d4fe9f",
-    "features": "features.json",
-    "features_sha256": "6e5257466f1bc03ef1592fa4c3d43fb0d41494436b073f8c74720f814fe71bf6"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "U/riscv",
-   "direction": "U",
-   "target": "riscv",
-   "dir": "/tmp/u-run/rvb",
-   "queries": {
-    "path": "/tmp/u-gen/rvb/queries.jsonl",
-    "sha256": "63c220a92ddc05c118c59eb71a9231ee01842afe94c7b14a031698f040aa7880"
-   },
-   "command": "./run-u-end-to-end.sh riscv /tmp/u-gen/rvb/queries.jsonl /tmp/u-run/rvb --allow-unanswerable 0",
-   "artifacts": {
-    "diff.json": "390d74deda3b2ed6fbef0d12574387dc94a89522765fd7a4e54b6991c6cb6e85",
-    "official.answers.jsonl": "283b8972e3d5ef90a6af65caa05f537539c44eff0feea1c611651100564bc58c",
-    "ours.answers.jsonl": "283b8972e3d5ef90a6af65caa05f537539c44eff0feea1c611651100564bc58c",
-    "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 20445,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 20445
-   },
-   "note": "Refreshed 2026-11-12 with tool 513201a (universe padding fix): same 20,445 queries, 240 sampled points re-drawn from the corrected universe, A/B agree 20,445 / disagree 0.",
-   "snapshot": {
-    "corpus": "RISCVLegalizerInfo.gisel",
-    "corpus_sha256": "3293f26167ee694b688297852dea3abe3305179b9e1baf1bb2d050991d12dd33",
-    "inc": "riscv.inc",
-    "inc_sha256": "b0bdc4d011b74c24c5c81bb3da48c1e76de0d824a73e1f50fd4f9fd7bcd548ac",
-    "features": "riscv-features.json",
-    "features_sha256": "38967ab10a020b3c69c4fa4940b257f248588419b16a507dc1317c6398075ecf"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "U/arm",
-   "direction": "U",
-   "target": "arm",
-   "dir": "/tmp/u-new/arm",
-   "queries": {
-    "path": "/tmp/u-gen/arm/queries.jsonl",
-    "sha256": "2b5a8d67256b97b01a17f539d0b3800408fc09ecf60c37aecd8b31841f1a0b67"
-   },
-   "command": "./run-u-end-to-end.sh arm /tmp/u-gen/arm/queries.jsonl /tmp/u-new/arm --allow-unanswerable 0",
-   "artifacts": {
-    "diff.json": "13e8008e644d69cf80c169ef0f9fa3d983d6482b3232f18d3ae099ca6342cf04",
-    "official.answers.jsonl": "ec82927184c2f48995c69f6ad3b3e3759100dd4097f63a383484a71b2e89fddf",
-    "ours.answers.jsonl": "ec82927184c2f48995c69f6ad3b3e3759100dd4097f63a383484a71b2e89fddf",
-    "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 15695,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 15695
-   },
-   "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
-   "kind": "answers"
-  },
-  {
-   "id": "U/mips",
-   "direction": "U",
-   "target": "mips",
-   "dir": "/tmp/u-new/mips",
-   "queries": {
-    "path": "/tmp/u-gen/mips/queries.jsonl",
-    "sha256": "27da22e8fdaa84fea06f4f4c24209dc8707338166c47b50e50035251c4df129f"
-   },
-   "command": "./run-u-end-to-end.sh mips /tmp/u-gen/mips/queries.jsonl /tmp/u-new/mips --allow-unanswerable 0",
-   "artifacts": {
-    "diff.json": "bc8f7a8c548e43ec0dbb0c9675212042197f47ab73161adc968b959a804b6ab4",
-    "official.answers.jsonl": "8cc9c7d5433da8c6fc417269c6313af539b86de84111b7217369c505f0443f7d",
-    "ours.answers.jsonl": "8cc9c7d5433da8c6fc417269c6313af539b86de84111b7217369c505f0443f7d",
-    "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 11396,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 11396
-   },
-   "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
-   "kind": "answers"
-  },
-  {
-   "id": "U/ppc",
-   "direction": "U",
-   "target": "ppc",
-   "dir": "/tmp/u-new/ppc",
-   "queries": {
-    "path": "/tmp/u-gen/ppc/queries.jsonl",
-    "sha256": "964931485e6e621ebc4f3142efb77cac7623164a6e088307411fce14948d1d72"
-   },
-   "command": "./run-u-end-to-end.sh ppc /tmp/u-gen/ppc/queries.jsonl /tmp/u-new/ppc --allow-unanswerable 0",
-   "artifacts": {
-    "diff.json": "eccb0f3f099c41f17f0172f184a7eafe97ca6da2064bdb2a95804070bc11ab45",
-    "official.answers.jsonl": "d527ce197db8b9f0dbe67ca2c69c7da284e9c0ee8017c7446423e9cedfb35767",
-    "ours.answers.jsonl": "d527ce197db8b9f0dbe67ca2c69c7da284e9c0ee8017c7446423e9cedfb35767",
-    "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 2177,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 2177
-   },
-   "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
-   "kind": "answers"
-  },
-  {
-   "id": "U/m68k",
-   "direction": "U",
-   "target": "m68k",
-   "dir": "/tmp/u-new/m68k",
-   "queries": {
-    "path": "/tmp/u-gen/m68k/queries.jsonl",
-    "sha256": "ff3cc32a1f6a6d1bf22aa04f8cb9e2496bf58fb7469260e1fe4cdfab9f9ab90d"
-   },
-   "command": "./run-u-end-to-end.sh m68k /tmp/u-gen/m68k/queries.jsonl /tmp/u-new/m68k --allow-unanswerable 0",
-   "artifacts": {
-    "diff.json": "78638dbede6f6fca1e1f18d5947bce2e979708830a33cd355725b7af04cd9879",
-    "official.answers.jsonl": "3904dc1b182bd1b634d70717decab076095143dba6df4f39bc4ea250a78f464a",
-    "ours.answers.jsonl": "3904dc1b182bd1b634d70717decab076095143dba6df4f39bc4ea250a78f464a",
-    "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 2182,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 2182
-   },
-   "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
-   "kind": "answers"
-  },
-  {
-   "id": "U/wasm",
-   "direction": "U",
-   "target": "wasm",
-   "dir": "/tmp/u-new/wasm",
-   "queries": {
-    "path": "/tmp/u-gen/wasm/queries.jsonl",
-    "sha256": "00784e0eee196d943e49a029f12708013bfe48870c01bdf40ff4b6b96ea610af"
-   },
-   "command": "./run-u-end-to-end.sh wasm /tmp/u-gen/wasm/queries.jsonl /tmp/u-new/wasm --allow-unanswerable 0",
-   "artifacts": {
-    "diff.json": "7f7f71cdf1af35191e5c909092282b1e3d74f359fb8f6630fa852d9747ddd748",
-    "official.answers.jsonl": "2d8f84a0832921ead8a73e4eba62acc175112fb876af60564b287889331fdb1a",
-    "ours.answers.jsonl": "2d8f84a0832921ead8a73e4eba62acc175112fb876af60564b287889331fdb1a",
-    "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 9290,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 9290
-   },
-   "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
-   "kind": "answers"
-  },
-  {
-   "id": "U/spirv",
-   "direction": "U",
-   "target": "spirv",
-   "dir": "/tmp/u-new/spirv",
-   "queries": {
-    "path": "/tmp/u-gen/spirv/queries.jsonl",
-    "sha256": "9c19f15bc310fedeb430215b706ecc504c6003a150eae9b46e90d7168db768ec"
-   },
-   "command": "./run-u-end-to-end.sh spirv /tmp/u-gen/spirv/queries.jsonl /tmp/u-new/spirv --allow-unanswerable 0",
-   "artifacts": {
-    "diff.json": "33dbf8a5b2aaa195f4749d77fe8b3c7af4d971dd6ad55ca594a12c182bd1f5ab",
-    "official.answers.jsonl": "c7982fb09769bbb851208764288307f0d593ac0bcc0c3a0fa73b513ab7b442a1",
-    "ours.answers.jsonl": "c7982fb09769bbb851208764288307f0d593ac0bcc0c3a0fa73b513ab7b442a1",
-    "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 15592,
-    "disagree": 0,
-    "unanswerable": 0,
-    "answered_equal": 15592
-   },
-   "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
-   "kind": "answers"
-  },
-  {
-   "id": "U-neg/x86",
-   "direction": "U-neg",
-   "target": "x86",
-   "dir": "/tmp/u-run/x86d-neg",
-   "command": "./run-u-end-to-end.sh x86 /tmp/u-gen/x86d/queries.jsonl /tmp/u-run/x86d-neg --drop-opcode G_SUB",
-   "artifacts": {
-    "diff.json": "b66c12c03eeef71d8caf8a4ad8b43e0b2814b2aeb8ec7effb106d30af61aa845",
-    "attribution.json": "fe8a7c32e4ae7cdcf7bf85446aef4316bb260163db204b8e24fb32c69b8ac44e"
-   },
-   "expect": {
-    "rulesets": [
-     "G_ADD",
-     "G_SUB"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 9863,
-    "disagree": 164
-   },
-   "observed_disagree": 164,
-   "kind": "neg"
-  },
-  {
-   "id": "U-neg/aarch64",
-   "direction": "U-neg",
-   "target": "aarch64",
-   "dir": "/tmp/a64-vertical/u-neg",
-   "command": "./run-u-end-to-end.sh aarch64 /tmp/u-gen/a64/queries.jsonl /tmp/a64-vertical/u-neg --drop-opcode G_ICMP",
-   "artifacts": {
-    "diff.json": "0ff489aca64cdff6ed1f32b7a5dc34978045a59795e17edad84ef9f0b1c29a30",
-    "attribution.json": "441c66a71bd824f10d67423f16cfcede124445ba86b25c1e36283b82f2620c11"
-   },
-   "expect": {
-    "rulesets": [
-     "G_ICMP"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 29392,
-    "disagree": 216
-   },
-   "observed_disagree": 216,
-   "kind": "neg"
-  },
-  {
-   "id": "U-neg/riscv",
-   "direction": "U-neg",
-   "target": "riscv",
-   "dir": "/tmp/rv-vertical/u-neg",
-   "command": "./run-u-end-to-end.sh riscv /tmp/u-gen/rvb/queries.jsonl /tmp/rv-vertical/u-neg --drop-opcode G_ADD",
-   "artifacts": {
-    "diff.json": "4f7a85e350236d9bd206ec26ccc97f19065b9e0ac0756e9110e6104f67e62386",
-    "attribution.json": "9ca91203b2da24c577a2c7b117b36990e1f47014dda0ad8ea956e83b3f5ae13b"
-   },
-   "expect": {
-    "rulesets": [
-     "G_ADD",
-     "G_SUB"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 20293,
-    "disagree": 152
-   },
-   "observed_disagree": 152,
-   "kind": "neg"
-  },
-  {
-   "id": "U-neg/arm",
-   "direction": "U-neg",
-   "target": "arm",
-   "dir": "/tmp/u-new/arm-neg",
-   "command": "./run-u-end-to-end.sh arm /tmp/u-gen/arm/queries.jsonl /tmp/u-new/arm-neg --drop-opcode G_LOAD",
-   "artifacts": {
-    "diff.json": "2b9067fabb12ebd6832a9b5b906d796bfb59c52deae0de9b26aafe53da075dfc",
-    "attribution.json": "ff684ee624576fe7aa2aff078135e371f48f436e678b356fea3a3d2e4d1a690a"
-   },
-   "expect": {
-    "rulesets": [
-     "G_LOAD",
-     "G_STORE"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 15547,
-    "disagree": 148
-   },
-   "injected_opcode": "G_LOAD",
-   "observed_disagree": 148,
-   "kind": "neg"
-  },
-  {
-   "id": "U-neg/mips",
-   "direction": "U-neg",
-   "target": "mips",
-   "dir": "/tmp/u-new/mips-neg",
-   "command": "./run-u-end-to-end.sh mips /tmp/u-gen/mips/queries.jsonl /tmp/u-new/mips-neg --drop-opcode G_CTPOP",
-   "artifacts": {
-    "diff.json": "52ffb89bdbff687ac17fa69e34682b28aa539143b21cbd2c7a469171fc7d7773",
-    "attribution.json": "dd0ad729817e400cf4fd3132ef4e31294a99898b5d5c3604b8aac55af806725f"
-   },
-   "expect": {
-    "rulesets": [
-     "G_CTPOP"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 11356,
-    "disagree": 40
-   },
-   "injected_opcode": "G_CTPOP",
-   "observed_disagree": 40,
-   "kind": "neg"
-  },
-  {
-   "id": "U-neg/ppc",
-   "direction": "U-neg",
-   "target": "ppc",
-   "dir": "/tmp/u-new/ppc-neg",
-   "command": "./run-u-end-to-end.sh ppc /tmp/u-gen/ppc/queries.jsonl /tmp/u-new/ppc-neg --drop-opcode G_SUB",
-   "artifacts": {
-    "diff.json": "a47698f374e4902cf87f35fe783920e906c500724939839e45915627a4877c06",
-    "attribution.json": "f43efef8ea0561e32fbf514ce633ae1bae3ac6d90d3329ebf8c2c7af39975cfa"
-   },
-   "expect": {
-    "rulesets": [
-     "G_ADD",
-     "G_SUB"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 2165,
-    "disagree": 12
-   },
-   "injected_opcode": "G_SUB",
-   "observed_disagree": 12,
-   "kind": "neg"
-  },
-  {
-   "id": "U-neg/m68k",
-   "direction": "U-neg",
-   "target": "m68k",
-   "dir": "/tmp/u-new/m68k-neg",
-   "command": "./run-u-end-to-end.sh m68k /tmp/u-gen/m68k/queries.jsonl /tmp/u-new/m68k-neg --drop-opcode G_MUL",
-   "artifacts": {
-    "diff.json": "5733c59798da828d9e6f1e9708c3155e8e3d998770c603944583e92646bdddb6",
-    "attribution.json": "a79b7446880b258f226a2f901de2bae2dce0b52ad22be291543aadecec8da379"
-   },
-   "expect": {
-    "rulesets": [
-     "G_ADD",
-     "G_AND",
-     "G_MUL",
-     "G_SUB",
-     "G_UDIV"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 2147,
-    "disagree": 35
-   },
-   "injected_opcode": "G_MUL",
-   "observed_disagree": 35,
-   "kind": "neg"
-  },
-  {
-   "id": "U-neg/wasm",
-   "direction": "U-neg",
-   "target": "wasm",
-   "dir": "/tmp/u-new/wasm-neg",
-   "command": "./run-u-end-to-end.sh wasm /tmp/u-gen/wasm/queries.jsonl /tmp/u-new/wasm-neg --drop-opcode G_SELECT",
-   "artifacts": {
-    "diff.json": "f2d4056ec163f48f8571c615be71a4e1c510b684625bf3d2161f10e0d85f6d5d",
-    "attribution.json": "08a33e9e5bd69ff70f585ac6ab84b98c7536a777c27c796c777d79c561a94cd8"
-   },
-   "expect": {
-    "rulesets": [
-     "G_SELECT"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 9254,
-    "disagree": 36
-   },
-   "injected_opcode": "G_SELECT",
-   "observed_disagree": 36,
-   "kind": "neg"
-  },
-  {
-   "id": "U-neg/spirv",
-   "direction": "U-neg",
-   "target": "spirv",
-   "dir": "/tmp/u-new/spirv-neg",
-   "command": "./run-u-end-to-end.sh spirv /tmp/u-gen/spirv/queries.jsonl /tmp/u-new/spirv-neg --drop-opcode G_UMIN",
-   "artifacts": {
-    "diff.json": "5e338356236f9ed1e5adff98ec69a3d9cedef1731bb9e1fe6153c932db86eef2",
-    "attribution.json": "fd4cbc27bfdd10079564d9323d966cfed023caef71858c1d390c4b4e5024222e"
-   },
-   "expect": {
-    "rulesets": [
-     "G_ABS",
-     "G_BITREVERSE",
-     "G_SADDSAT",
-     "G_SCMP",
-     "G_SMAX",
-     "G_SMIN",
-     "G_SSUBSAT",
-     "G_UADDSAT",
-     "G_UCMP",
-     "G_UMAX",
-     "G_UMIN",
-     "G_USUBSAT"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 14808,
-    "disagree": 784
-   },
-   "injected_opcode": "G_UMIN",
-   "observed_disagree": 784,
-   "kind": "neg"
-  },
-  {
-   "id": "G-neg/x86",
-   "direction": "G-neg",
-   "target": "x86",
-   "dir": "/tmp/g-neg2/x86/run",
-   "command": "./run-g-negative.sh x86 G_ADD /tmp/g-neg/x86",
-   "artifacts": {
-    "diff.json": "16d8e63b3d7a6c97240276f08118358bb1f82390c02ee2e2dc443415c3d58867",
-    "attribution.json": "88c5f1cb98b6b54b74d7f59e9ea31206c87800ca1c911c5057435d424654c18e",
-    "official.answers.jsonl": "acb009f11a38bf3b9eed9296a120c0be0923e9f12f0433bd9d7675607f9a268a",
-    "ours.answers.jsonl": "da678155ea3504f0101442006bec3827e7f913129fd2678eaa9b1a3234155638"
-   },
-   "expect": {
-    "rulesets": [
-     "X_G_ADD"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 2887,
-    "disagree": 127
-   },
-   "injected_opcode": "G_ADD",
-   "observed_disagree": 127,
-   "kind": "neg"
-  },
-  {
-   "id": "G-neg/aarch64",
-   "direction": "G-neg",
-   "target": "aarch64",
-   "dir": "/tmp/g-neg2/aarch64/run",
-   "command": "./run-g-negative.sh aarch64 G_ZEXT /tmp/g-neg/a64",
-   "artifacts": {
-    "diff.json": "227fe1ce1c8e75c02417b4cbd346d221b4076ddeecc9484a76d8d53c0b3c4b88",
-    "attribution.json": "53ff18514041e80ed8c38ec6f5daa6a051aacb8290deb937f3f91a782802d188",
-    "official.answers.jsonl": "fcd67a14c26da3a3a2b3b38ac2c5665bc5542a8e2f7d39bf6cbf8dbb48f3f040",
-    "ours.answers.jsonl": "64ea64b7ad2a19b587d525541f6f0f4bfd4009369bb504ef83e973dde2f88001"
-   },
-   "expect": {
-    "rulesets": [
-     "A_G_ZEXT"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 12244,
-    "disagree": 315
-   },
-   "injected_opcode": "G_ZEXT",
-   "observed_disagree": 315,
-   "kind": "neg"
-  },
-  {
-   "id": "G-neg/riscv",
-   "direction": "G-neg",
-   "target": "riscv",
-   "dir": "/tmp/g-neg2/riscv/run",
-   "command": "./run-g-negative.sh riscv G_FPTOSI /tmp/rv-vertical2/g-neg",
-   "artifacts": {
-    "diff.json": "105e6f4e3246cc4b2655f0a3c79841ca2db9917d0786f8b3c68728d10bc07f22",
-    "attribution.json": "56d96fdaaa6ca3e3afe42930901acdf3e03920e7f507ec2e3b2545b2c6c01392",
-    "official.answers.jsonl": "677adb99675445653f67b170e9ce8a39efb711fc441001a320e5ee56ba56356d",
-    "ours.answers.jsonl": "e2f892ac2771697c89d5049055477282f163230ecc334c3f796ca5bbf7792614"
-   },
-   "expect": {
-    "rulesets": [
-     "R_G_FPTOSI"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 5946,
-    "disagree": 140
-   },
-   "injected_opcode": "G_FPTOSI",
-   "observed_disagree": 140,
-   "kind": "neg"
-  },
-  {
-   "id": "G-neg/arm",
-   "direction": "G-neg",
-   "target": "arm",
-   "dir": "/tmp/g-neg/arm/run",
-   "command": "./run-g-negative.sh arm G_LOAD /tmp/g-neg/arm",
-   "artifacts": {
-    "diff.json": "aa6d8e651fa0afab33403ba824c810dac28a287772e5af49f1c3741033ed2de8",
-    "attribution.json": "22d8476a00f77ffc9dd1a85484ceef5f306d1b1efb843fa2c8b430208c9c029e",
-    "official.answers.jsonl": "615123a27714bda555f9dc12a8e11355ec4db8ff39954e1e7c55ff208ee2ea5b",
-    "ours.answers.jsonl": "94ac8c085ef9dff94e385c06e6d019aa16790c3f4aa3d33b8aaa00c951a99e7e"
-   },
-   "expect": {
-    "rulesets": [
-     "A_G_LOAD"
-    ],
-    "unknown_keys": 0,
-    "disagree": 71
-   },
-   "injected_opcode": "G_LOAD",
-   "observed_disagree": 71,
-   "kind": "neg"
-  },
-  {
-   "id": "G-neg/mips",
-   "direction": "G-neg",
-   "target": "mips",
-   "dir": "/tmp/g-neg/mips/run",
-   "command": "./run-g-negative.sh mips G_UITOFP /tmp/g-neg/mips",
-   "artifacts": {
-    "diff.json": "be61de02a177f1a408eeb83b0db2bbcfb59eb12566b72d104e5ad35c82ca496a",
-    "attribution.json": "4015a24efea28051b53da88f1adffad5336680a5567fd8c53fe8b4468fd24a29",
-    "official.answers.jsonl": "d81f89d7dfb1fbb9178c3da2f0d649acd9585177a53c2ce5e942679a0adf6b15",
-    "ours.answers.jsonl": "e9d04f5f3b4883d150c843acc1f46f7077ea2d35baffbb536ca14f347a001f6f"
-   },
-   "expect": {
-    "rulesets": [
-     "Mips_G_UITOFP"
-    ],
-    "unknown_keys": 0,
-    "disagree": 15
-   },
-   "injected_opcode": "G_UITOFP",
-   "observed_disagree": 15,
-   "kind": "neg"
-  },
-  {
-   "id": "G-neg/ppc",
-   "direction": "G-neg",
-   "target": "ppc",
-   "dir": "/tmp/g-neg/ppc/run",
-   "command": "./run-g-negative.sh ppc G_ZEXT /tmp/g-neg/ppc",
-   "artifacts": {
-    "diff.json": "31542411a4f92a4e8801b3afa4222c3f7622285322dc607419ff449034a2f666",
-    "attribution.json": "73ec8b7914cae497bbbec7e6018f9881448aa2ee523d86447f84e56d57d02670",
-    "official.answers.jsonl": "d94d2a64c592fa209363146b9006677fb6e9067b9e2af39f6004f6cad53386a2",
-    "ours.answers.jsonl": "48e924790541b1c287bb422504fe0bcb0604eb8b59599f2fe26d8c75df08a430"
-   },
-   "expect": {
-    "rulesets": [
-     "P_G_ZEXT"
-    ],
-    "unknown_keys": 0,
-    "disagree": 3
-   },
-   "injected_opcode": "G_ZEXT",
-   "observed_disagree": 3,
-   "kind": "neg"
-  },
-  {
-   "id": "G-neg/m68k",
-   "direction": "G-neg",
-   "target": "m68k",
-   "dir": "/tmp/g-neg/m68k/run",
-   "command": "./run-g-negative.sh m68k G_MUL /tmp/g-neg/m68k",
-   "artifacts": {
-    "diff.json": "94a2f877c4b52f08467423d2efce1fc5faa9839650ed22869c09aca53711f57c",
-    "attribution.json": "7b1b701577b9d31f5de3c4c53cb78c1259f30f0c8598570abb2f24c2d4a17f6c",
-    "official.answers.jsonl": "ce9753b4cda082083bf3b4f464cf0ed077c9e6c66cc03fba8ec920aa51cd863b",
-    "ours.answers.jsonl": "401d3977c5ae823264bf7ea7f0ec1511cc9a41beb0f18bb972e5448e11fcffa1"
-   },
-   "expect": {
-    "rulesets": [
-     "M68k_G_ADD"
-    ],
-    "unknown_keys": 0,
-    "disagree": 7
-   },
-   "injected_opcode": "G_MUL",
-   "observed_disagree": 7,
-   "kind": "neg"
-  },
-  {
-   "id": "G-neg/wasm",
-   "direction": "G-neg",
-   "target": "wasm",
-   "dir": "/tmp/g-neg2/wasm/run",
-   "command": "./run-g-negative.sh wasm G_CTLZ /tmp/g-neg/wasm",
-   "artifacts": {
-    "diff.json": "46d87c5148730aa999c1e3502079487eb4d48f08546bcefb26450fe7fdd59583",
-    "attribution.json": "225e131c778a00ef8def7933e9d52b5d3e83c76f8bfe233f521d9dcf747871ac",
-    "official.answers.jsonl": "544b7b744917324b2126c480162b585158283e948d5ba107e9d61b81b778044b",
-    "ours.answers.jsonl": "a498fc0f2a6c2870e363e2768eb08698c84c4795075d4051f1449935b88cce7e"
-   },
-   "expect": {
-    "rulesets": [
-     "Wasm_G_CTLZ"
-    ],
-    "unknown_keys": 0,
-    "answered_equal": 838,
-    "disagree": 56
-   },
-   "injected_opcode": "G_CTLZ",
-   "observed_disagree": 56,
-   "kind": "neg"
-  },
-  {
-   "id": "G-neg/spirv",
-   "direction": "G-neg",
-   "target": "spirv",
-   "dir": "/tmp/g-neg/spirv/run",
-   "command": "./run-g-negative.sh spirv G_TRUNC /tmp/g-neg/spirv",
-   "artifacts": {
-    "diff.json": "a54987ee1069e6a91402a9119986baa7ab6ef604e20a955a248c2bd44470d1ff",
-    "attribution.json": "88e76bd6c1efd1e35ead0a5f824b0fa36895bc61a57bdb56354775610a887682",
-    "official.answers.jsonl": "4abab4e07f2846322bd46a3721014047341a4f2944ecd0a73ed9aad5fe72d989",
-    "ours.answers.jsonl": "9762ccfc55300e8ca54760d737de2801586693f14f20c74ab71fb07dba8e1f7a"
-   },
-   "expect": {
-    "rulesets": [
-     "Spv_G_TRUNC"
-    ],
-    "unknown_keys": 0,
-    "disagree": 83
-   },
-   "injected_opcode": "G_TRUNC",
-   "observed_disagree": 83,
-   "kind": "neg"
-  },
-  {
-   "id": "D/x86",
-   "direction": "D",
-   "target": "x86",
-   "dir": "/tmp/ab-domain/x86-r2/out",
-   "queries": {
-    "path": "/tmp/ab-domain/x86-r2/out/queries.jsonl",
-    "sha256": "9e4324a2e9bfff091c955b1e7e957dd9aa67cc8f3cfc18b4f02ce5048abf1363"
-   },
-   "command": "./run-x86-domain.sh TREE BUILD /tmp/ab-domain/x86-r2/X86LegalizerInfo.inc /tmp/ab-domain/x86-r2/out",
-   "artifacts": {
-    "diff.json": "720d1334b940dca64f60f1b55291aa9e6e45db6c692be5f3c46ab3180bda74cb",
-    "official.answers.jsonl": "20b481d9bb7464f3bc865ffb8d57fc4ea2c8979d018b2418d30d0c1c6fc6cc34",
-    "ours.answers.jsonl": "20b481d9bb7464f3bc865ffb8d57fc4ea2c8979d018b2418d30d0c1c6fc6cc34"
-   },
-   "expect": {
-    "answers_identical": true,
-    "agree": 91340,
-    "disagree": 0,
-    "unanswerable": 648,
-    "answered_equal": 90692
-   },
-   "runtime": {
-    "path": "/home/ubuntu/llvm/builds/explore/lib/libLLVMX86CodeGen.so.24.0git",
-    "sha256": "24bf2a5254dc042e6e1145e926ee42a4dd4d613e3947694b6628f2871b4fe357"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "D/aarch64",
-   "direction": "D",
-   "target": "aarch64",
-   "dir": "/tmp/ab-domain/a64-domain-r5",
-   "queries": {
-    "path": "/tmp/ab-domain/a64-domain-r5/baseline/queries.jsonl",
-    "sha256": "8f03a48d309b15adf6a8c50d6ec8fc6d88c4b7846b545c5ab9435f95ac74f609"
-   },
-   "command": "./run-aarch64-domain.sh TREE BUILD /tmp/ab-domain/inc/AArch64LegalizerInfo.inc /tmp/ab-domain/a64-domain-r5",
-   "artifacts": {
-    "summary.json": "730fa6184e0a092a521d36ea2bd9d92eb5bf422c8a9a466a943aa15154b86802",
-    "manifest.txt": "79f832edcc9bd3490c8878182f2776e1b92f2a5967952ee57075283f8831eb38",
-    "sites.json": "6e1624bea862e7b5c8df54285dcb83fa056eb76e8938d08e537de5af6f699533",
-    "baseline/diff.json": "b9f40fdb1a236fa9769d12492c260ce45d254e9438f7393d5eb40909dc24ded5",
-    "baseline/queries.jsonl": "8f03a48d309b15adf6a8c50d6ec8fc6d88c4b7846b545c5ab9435f95ac74f609"
-   },
-   "expect": {
-    "summary": {
-     "configs": 9,
-     "queries": 8432640,
-     "agree": 8417376,
-     "disagree": 0,
-     "unanswerable": 351504,
-     "ref_asserted": 15264,
-     "errors": 0,
-     "assert_sites": {
-      "same": 351216,
-      "mismatch": 288,
-      "missing": 0
-     }
+  "entries": [
+    {
+      "artifacts": {
+        "diff.json": "fffb3f3912a4c916e51ef7f55ed3a7be19cfaf7d34e5fb9c269fdf844eb28e57",
+        "official.answers.jsonl": "acb009f11a38bf3b9eed9296a120c0be0923e9f12f0433bd9d7675607f9a268a",
+        "ours.answers.jsonl": "acb009f11a38bf3b9eed9296a120c0be0923e9f12f0433bd9d7675607f9a268a"
+      },
+      "command": "./run-x86-end-to-end.sh TREE BUILD /home/ubuntu/llvm/gisel/tests/artifacts/x86.inc /tmp/g-r28/x86/out",
+      "dir": "/tmp/g-r28/x86/out",
+      "direction": "G",
+      "expect": {
+        "agree": 3014,
+        "answered_equal": 3014,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "G/x86",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/g-r28/x86/out/queries.jsonl",
+        "sha256": "f6923a396fd430388d6acbed2cccf718ac8fb1540980c3ee00c592347f1b86f6"
+      },
+      "snapshot": {
+        "corpus": "X86LegalizerInfo.gisel",
+        "corpus_sha256": "934a935659e7aff3b0d8cec3a33b013846a12683d776cb4d7156507ef2b78f70",
+        "features": "x86-features.json",
+        "features_sha256": "0e4fb878c003b3bf8fe34cfcb88464df6b574079dc7dd9c98453e9db28cf9dec",
+        "inc": "x86.inc",
+        "inc_sha256": "c3b959fd2ea4bd1c00ca490bdfa625bbfdc67205a15fa2ebc95ea5a313b9a3f2"
+      },
+      "target": "x86"
     },
-    "assert_sites": {
-     "same": 351216,
-     "mismatch": 288,
-     "missing": 0
+    {
+      "artifacts": {
+        "diff.json": "bf7d4ebfe862c64692f0ae07de200a1f3824a2c6e9b223313e6e7175f4a006b9",
+        "official.answers.jsonl": "fcd67a14c26da3a3a2b3b38ac2c5665bc5542a8e2f7d39bf6cbf8dbb48f3f040",
+        "ours.answers.jsonl": "fcd67a14c26da3a3a2b3b38ac2c5665bc5542a8e2f7d39bf6cbf8dbb48f3f040"
+      },
+      "command": "./run-aarch64-end-to-end.sh TREE BUILD /home/ubuntu/llvm/gisel/tests/artifacts/aarch64.inc /tmp/g-r28/aarch64/out",
+      "dir": "/tmp/g-r28/aarch64/out",
+      "direction": "G",
+      "expect": {
+        "agree": 12559,
+        "answered_equal": 12559,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "G/aarch64",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/g-r28/aarch64/out/queries.jsonl",
+        "sha256": "63e072063fd00d34e21103e926a657b462bebdabd1e81bb9b699b5704644da98"
+      },
+      "snapshot": {
+        "corpus": "AArch64LegalizerInfo.gisel",
+        "corpus_sha256": "704183bad381b8973628a45ff3bf74589e0bf057533b80f528367e577b035fac",
+        "features": "features.json",
+        "features_sha256": "6e5257466f1bc03ef1592fa4c3d43fb0d41494436b073f8c74720f814fe71bf6",
+        "inc": "aarch64.inc",
+        "inc_sha256": "224d24e429b09d70f6cfef9b86abd5773dbccc04d265a1ab508a975b22d4fe9f"
+      },
+      "target": "aarch64"
+    },
+    {
+      "artifacts": {
+        "diff.json": "d760bc524c542ab8e2e6e8b2df240eec50a279013c645ae196faa1db7c4ac1bf",
+        "official.answers.jsonl": "e5a22cddcb4160e7f2f35058d21a439c2ed0178787d861e87fa6ef16a4e7316b",
+        "ours.answers.jsonl": "e5a22cddcb4160e7f2f35058d21a439c2ed0178787d861e87fa6ef16a4e7316b"
+      },
+      "command": "./run-riscv-end-to-end.sh TREE BUILD /tmp/g-r35/riscv/RISCVLegalizerInfo.inc /tmp/g-r35/riscv/out",
+      "dir": "/tmp/g-r35/riscv/out",
+      "direction": "G",
+      "expect": {
+        "agree": 6086,
+        "answered_equal": 6086,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "G/riscv",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/g-r35/riscv/out/queries.jsonl",
+        "sha256": "be3db708efb90a177228b6e71272b98624de0b7540e585b52b0d44decd3e1855"
+      },
+      "snapshot": {
+        "corpus": "RISCVLegalizerInfo.gisel",
+        "corpus_sha256": "3293f26167ee694b688297852dea3abe3305179b9e1baf1bb2d050991d12dd33",
+        "features": "riscv-features.json",
+        "features_sha256": "38967ab10a020b3c69c4fa4940b257f248588419b16a507dc1317c6398075ecf",
+        "inc": "riscv.inc",
+        "inc_sha256": "b0bdc4d011b74c24c5c81bb3da48c1e76de0d824a73e1f50fd4f9fd7bcd548ac"
+      },
+      "target": "riscv"
+    },
+    {
+      "artifacts": {
+        "diff.json": "495feea26c62ed894854316c2f2ae95244abd3af618b2451fd3483450d67055e",
+        "official.answers.jsonl": "615123a27714bda555f9dc12a8e11355ec4db8ff39954e1e7c55ff208ee2ea5b",
+        "ours.answers.jsonl": "615123a27714bda555f9dc12a8e11355ec4db8ff39954e1e7c55ff208ee2ea5b"
+      },
+      "command": "./run-arm-end-to-end.sh TREE BUILD /tmp/g-run/arm/ARMLegalizerInfo.inc /tmp/g-run/arm/out",
+      "dir": "/tmp/g-run/arm/out",
+      "direction": "G",
+      "expect": {
+        "agree": 1614,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "G/arm",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/g-run/arm/out/queries.jsonl",
+        "sha256": "9fcccfb5e8125c067c6a9367d5704aea9805ffe23c794d08ec6899e192c9a606"
+      },
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "diff.json": "6bf7ed2818d640638c62d0d0a965436a70e7413e31ccee15a5683dbc1c072731",
+        "official.answers.jsonl": "96afbfe88fde841315f772d0e718389bd9f155ed61253071460eb7c1e8862d7e",
+        "ours.answers.jsonl": "81b66526bca0b116b309deccea52cd0e95ac17ca1de264e89a7b0480ac83a6f8"
+      },
+      "command": "./run-mips-end-to-end.sh TREE BUILD /tmp/g-r35/mips/MipsLegalizerInfo.inc /tmp/g-r35/mips/out",
+      "dir": "/tmp/g-r35/mips/out",
+      "direction": "G",
+      "expect": {
+        "agree": 1647,
+        "answered_equal": 1647,
+        "answers_identical": false,
+        "disagree": 0,
+        "ref_asserted": 9,
+        "unanswerable": 0
+      },
+      "id": "G/mips",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/g-r35/mips/out/queries.jsonl",
+        "sha256": "93d6d3e60e6fa06419b8b38da8b687ce7cc20ca2fe6ce17cd710ad570f57959f"
+      },
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "diff.json": "77526d37f0e5a0013960c3df9a6f41f3ab3a306e0f75db7f371781a200aa3b0e",
+        "official.answers.jsonl": "d94d2a64c592fa209363146b9006677fb6e9067b9e2af39f6004f6cad53386a2",
+        "ours.answers.jsonl": "d94d2a64c592fa209363146b9006677fb6e9067b9e2af39f6004f6cad53386a2"
+      },
+      "command": "./run-ppc-end-to-end.sh TREE BUILD /tmp/g-run/ppc/PowerPCLegalizerInfo.inc /tmp/g-run/ppc/out",
+      "dir": "/tmp/g-run/ppc/out",
+      "direction": "G",
+      "expect": {
+        "agree": 94,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 1
+      },
+      "id": "G/ppc",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/g-run/ppc/out/queries.jsonl",
+        "sha256": "675e59e9e632fa96e1bb02251e59c9f4438cbd3968c7d5f2ef3af4a74214ca83"
+      },
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "diff.json": "866a8844198a56f9b412b404fc227b14887c901a8eae1604ea0f149394f572a6",
+        "official.answers.jsonl": "ce9753b4cda082083bf3b4f464cf0ed077c9e6c66cc03fba8ec920aa51cd863b",
+        "ours.answers.jsonl": "ce9753b4cda082083bf3b4f464cf0ed077c9e6c66cc03fba8ec920aa51cd863b"
+      },
+      "command": "./run-m68k-end-to-end.sh TREE BUILD /tmp/g-run/m68k/M68kLegalizerInfo.inc /tmp/g-run/m68k/out",
+      "dir": "/tmp/g-run/m68k/out",
+      "direction": "G",
+      "expect": {
+        "agree": 35,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "G/m68k",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/g-run/m68k/out/queries.jsonl",
+        "sha256": "e765e396ca57cd3f179bb3e44235705674e9f33cfa30ce9ac7dda23684be8e3f"
+      },
+      "target": "m68k"
+    },
+    {
+      "artifacts": {
+        "diff.json": "65762a7a09c59b65aad0d14d3f940ff9da038d094d187fd553e021e2bb0186de",
+        "official.answers.jsonl": "544b7b744917324b2126c480162b585158283e948d5ba107e9d61b81b778044b",
+        "ours.answers.jsonl": "544b7b744917324b2126c480162b585158283e948d5ba107e9d61b81b778044b"
+      },
+      "command": "./run-wasm-end-to-end.sh TREE BUILD /tmp/g-now/wasm/WebAssemblyLegalizerInfo.inc /tmp/g-now/wasm/out",
+      "dir": "/tmp/g-now/wasm/out",
+      "direction": "G",
+      "expect": {
+        "agree": 894,
+        "answered_equal": 894,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "G/wasm",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/g-now/wasm/out/queries.jsonl",
+        "sha256": "3442ddeedad10e38d7a9e958e46bdcd90bce581097261a993338a460801a798c"
+      },
+      "target": "wasm"
+    },
+    {
+      "artifacts": {
+        "diff.json": "52290233603203427353bbf169212afbcd2230a3bea4926cf7ac6ee3c4d50abc",
+        "official.answers.jsonl": "9a85803b8c4ae55de1ef99cd4c50bbe5083697a39ba80583980809cf26194f48",
+        "ours.answers.jsonl": "abcd3c145b58d738a2651ab7e35199c7f27d0ff198e1cc762f82f1e495f2f902"
+      },
+      "command": "./run-spirv-end-to-end.sh TREE BUILD /tmp/g-spirv-new2/SPIRVLegalizerInfo.inc /tmp/g-spirv-new2",
+      "dir": "/tmp/g-spirv-new2",
+      "direction": "G",
+      "expect": {
+        "agree": 5689,
+        "disagree": 0,
+        "ref": 5689,
+        "ref_asserted": 0,
+        "unanswerable": 4
+      },
+      "id": "G/spirv",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/g-spirv-new2/queries.jsonl",
+        "sha256": "583af2c0019af248b597963119fcbbb0084046924a0f028e75b709127e559c53"
+      },
+      "target": "spirv"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397",
+        "diff.json": "80eb82054f16225272e932ba6b5703230f8ec037fefd8422dfe6a68798d7211d",
+        "official.answers.jsonl": "ead0fef3cfb6b62d75bd3c5825cc68d370194b64cfdbb2a6129b2c164153da78",
+        "ours.answers.jsonl": "ead0fef3cfb6b62d75bd3c5825cc68d370194b64cfdbb2a6129b2c164153da78"
+      },
+      "command": "./run-u-end-to-end.sh x86 /tmp/u-gen/x86d/queries.jsonl /tmp/u-run/x86d --allow-unanswerable 0",
+      "dir": "/tmp/u-run/x86d",
+      "direction": "U",
+      "expect": {
+        "agree": 10027,
+        "answered_equal": 10027,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "U/x86",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/u-gen/x86d/queries.jsonl",
+        "sha256": "bb5d041ab5c0b4a3c847fc82fd9f35b2dcdea87e8aa20e009621229552bfe548"
+      },
+      "snapshot": {
+        "corpus": "X86LegalizerInfo.gisel",
+        "corpus_sha256": "934a935659e7aff3b0d8cec3a33b013846a12683d776cb4d7156507ef2b78f70",
+        "features": "x86-features.json",
+        "features_sha256": "0e4fb878c003b3bf8fe34cfcb88464df6b574079dc7dd9c98453e9db28cf9dec",
+        "inc": "x86.inc",
+        "inc_sha256": "c3b959fd2ea4bd1c00ca490bdfa625bbfdc67205a15fa2ebc95ea5a313b9a3f2"
+      },
+      "target": "x86"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397",
+        "diff.json": "c8b253f71c6ad7e3787d9ac70a7165c5d27960af5bf728b2a90b41052f9ead97",
+        "official.answers.jsonl": "a0faa02f040f3de73169570a621cc5abc4309612aeed69512e11832eae6eea79",
+        "ours.answers.jsonl": "a0faa02f040f3de73169570a621cc5abc4309612aeed69512e11832eae6eea79"
+      },
+      "command": "./run-u-end-to-end.sh aarch64 /tmp/u-gen/a64/queries.jsonl /tmp/u-run/a64 --allow-unanswerable 0",
+      "dir": "/tmp/u-run/a64",
+      "direction": "U",
+      "expect": {
+        "agree": 29608,
+        "answered_equal": 29608,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "U/aarch64",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 after oracle ac98717 (pad combos to the opcode type-slot width). The previous 29,561-query file predated that fix.",
+      "queries": {
+        "path": "/tmp/u-gen/a64/queries.jsonl",
+        "sha256": "906b8b491557f08a8be478fce3ab9e1df89e61b8497a1ecb4044a1a2a0940c65"
+      },
+      "snapshot": {
+        "corpus": "AArch64LegalizerInfo.gisel",
+        "corpus_sha256": "704183bad381b8973628a45ff3bf74589e0bf057533b80f528367e577b035fac",
+        "features": "features.json",
+        "features_sha256": "6e5257466f1bc03ef1592fa4c3d43fb0d41494436b073f8c74720f814fe71bf6",
+        "inc": "aarch64.inc",
+        "inc_sha256": "224d24e429b09d70f6cfef9b86abd5773dbccc04d265a1ab508a975b22d4fe9f"
+      },
+      "target": "aarch64"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397",
+        "diff.json": "390d74deda3b2ed6fbef0d12574387dc94a89522765fd7a4e54b6991c6cb6e85",
+        "official.answers.jsonl": "283b8972e3d5ef90a6af65caa05f537539c44eff0feea1c611651100564bc58c",
+        "ours.answers.jsonl": "283b8972e3d5ef90a6af65caa05f537539c44eff0feea1c611651100564bc58c"
+      },
+      "command": "./run-u-end-to-end.sh riscv /tmp/u-gen/rvb/queries.jsonl /tmp/u-run/rvb --allow-unanswerable 0",
+      "dir": "/tmp/u-run/rvb",
+      "direction": "U",
+      "expect": {
+        "agree": 20445,
+        "answered_equal": 20445,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "U/riscv",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 with tool 513201a (universe padding fix): same 20,445 queries, 240 sampled points re-drawn from the corrected universe, A/B agree 20,445 / disagree 0.",
+      "queries": {
+        "path": "/tmp/u-gen/rvb/queries.jsonl",
+        "sha256": "63c220a92ddc05c118c59eb71a9231ee01842afe94c7b14a031698f040aa7880"
+      },
+      "snapshot": {
+        "corpus": "RISCVLegalizerInfo.gisel",
+        "corpus_sha256": "3293f26167ee694b688297852dea3abe3305179b9e1baf1bb2d050991d12dd33",
+        "features": "riscv-features.json",
+        "features_sha256": "38967ab10a020b3c69c4fa4940b257f248588419b16a507dc1317c6398075ecf",
+        "inc": "riscv.inc",
+        "inc_sha256": "b0bdc4d011b74c24c5c81bb3da48c1e76de0d824a73e1f50fd4f9fd7bcd548ac"
+      },
+      "target": "riscv"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397",
+        "diff.json": "13e8008e644d69cf80c169ef0f9fa3d983d6482b3232f18d3ae099ca6342cf04",
+        "official.answers.jsonl": "ec82927184c2f48995c69f6ad3b3e3759100dd4097f63a383484a71b2e89fddf",
+        "ours.answers.jsonl": "ec82927184c2f48995c69f6ad3b3e3759100dd4097f63a383484a71b2e89fddf"
+      },
+      "command": "./run-u-end-to-end.sh arm /tmp/u-gen/arm/queries.jsonl /tmp/u-new/arm --allow-unanswerable 0",
+      "dir": "/tmp/u-new/arm",
+      "direction": "U",
+      "expect": {
+        "agree": 15695,
+        "answered_equal": 15695,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "U/arm",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
+      "queries": {
+        "path": "/tmp/u-gen/arm/queries.jsonl",
+        "sha256": "2b5a8d67256b97b01a17f539d0b3800408fc09ecf60c37aecd8b31841f1a0b67"
+      },
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397",
+        "diff.json": "bc8f7a8c548e43ec0dbb0c9675212042197f47ab73161adc968b959a804b6ab4",
+        "official.answers.jsonl": "8cc9c7d5433da8c6fc417269c6313af539b86de84111b7217369c505f0443f7d",
+        "ours.answers.jsonl": "8cc9c7d5433da8c6fc417269c6313af539b86de84111b7217369c505f0443f7d"
+      },
+      "command": "./run-u-end-to-end.sh mips /tmp/u-gen/mips/queries.jsonl /tmp/u-new/mips --allow-unanswerable 0",
+      "dir": "/tmp/u-new/mips",
+      "direction": "U",
+      "expect": {
+        "agree": 11396,
+        "answered_equal": 11396,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "U/mips",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
+      "queries": {
+        "path": "/tmp/u-gen/mips/queries.jsonl",
+        "sha256": "27da22e8fdaa84fea06f4f4c24209dc8707338166c47b50e50035251c4df129f"
+      },
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397",
+        "diff.json": "eccb0f3f099c41f17f0172f184a7eafe97ca6da2064bdb2a95804070bc11ab45",
+        "official.answers.jsonl": "d527ce197db8b9f0dbe67ca2c69c7da284e9c0ee8017c7446423e9cedfb35767",
+        "ours.answers.jsonl": "d527ce197db8b9f0dbe67ca2c69c7da284e9c0ee8017c7446423e9cedfb35767"
+      },
+      "command": "./run-u-end-to-end.sh ppc /tmp/u-gen/ppc/queries.jsonl /tmp/u-new/ppc --allow-unanswerable 0",
+      "dir": "/tmp/u-new/ppc",
+      "direction": "U",
+      "expect": {
+        "agree": 2177,
+        "answered_equal": 2177,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "U/ppc",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
+      "queries": {
+        "path": "/tmp/u-gen/ppc/queries.jsonl",
+        "sha256": "964931485e6e621ebc4f3142efb77cac7623164a6e088307411fce14948d1d72"
+      },
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397",
+        "diff.json": "78638dbede6f6fca1e1f18d5947bce2e979708830a33cd355725b7af04cd9879",
+        "official.answers.jsonl": "3904dc1b182bd1b634d70717decab076095143dba6df4f39bc4ea250a78f464a",
+        "ours.answers.jsonl": "3904dc1b182bd1b634d70717decab076095143dba6df4f39bc4ea250a78f464a"
+      },
+      "command": "./run-u-end-to-end.sh m68k /tmp/u-gen/m68k/queries.jsonl /tmp/u-new/m68k --allow-unanswerable 0",
+      "dir": "/tmp/u-new/m68k",
+      "direction": "U",
+      "expect": {
+        "agree": 2182,
+        "answered_equal": 2182,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "U/m68k",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
+      "queries": {
+        "path": "/tmp/u-gen/m68k/queries.jsonl",
+        "sha256": "ff3cc32a1f6a6d1bf22aa04f8cb9e2496bf58fb7469260e1fe4cdfab9f9ab90d"
+      },
+      "target": "m68k"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397",
+        "diff.json": "7f7f71cdf1af35191e5c909092282b1e3d74f359fb8f6630fa852d9747ddd748",
+        "official.answers.jsonl": "2d8f84a0832921ead8a73e4eba62acc175112fb876af60564b287889331fdb1a",
+        "ours.answers.jsonl": "2d8f84a0832921ead8a73e4eba62acc175112fb876af60564b287889331fdb1a"
+      },
+      "command": "./run-u-end-to-end.sh wasm /tmp/u-gen/wasm/queries.jsonl /tmp/u-new/wasm --allow-unanswerable 0",
+      "dir": "/tmp/u-new/wasm",
+      "direction": "U",
+      "expect": {
+        "agree": 9290,
+        "answered_equal": 9290,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "U/wasm",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
+      "queries": {
+        "path": "/tmp/u-gen/wasm/queries.jsonl",
+        "sha256": "00784e0eee196d943e49a029f12708013bfe48870c01bdf40ff4b6b96ea610af"
+      },
+      "target": "wasm"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397",
+        "diff.json": "33dbf8a5b2aaa195f4749d77fe8b3c7af4d971dd6ad55ca594a12c182bd1f5ab",
+        "official.answers.jsonl": "c7982fb09769bbb851208764288307f0d593ac0bcc0c3a0fa73b513ab7b442a1",
+        "ours.answers.jsonl": "c7982fb09769bbb851208764288307f0d593ac0bcc0c3a0fa73b513ab7b442a1"
+      },
+      "command": "./run-u-end-to-end.sh spirv /tmp/u-gen/spirv/queries.jsonl /tmp/u-new/spirv --allow-unanswerable 0",
+      "dir": "/tmp/u-new/spirv",
+      "direction": "U",
+      "expect": {
+        "agree": 15592,
+        "answered_equal": 15592,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 0
+      },
+      "id": "U/spirv",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix.",
+      "queries": {
+        "path": "/tmp/u-gen/spirv/queries.jsonl",
+        "sha256": "9c19f15bc310fedeb430215b706ecc504c6003a150eae9b46e90d7168db768ec"
+      },
+      "target": "spirv"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "fe8a7c32e4ae7cdcf7bf85446aef4316bb260163db204b8e24fb32c69b8ac44e",
+        "diff.json": "b66c12c03eeef71d8caf8a4ad8b43e0b2814b2aeb8ec7effb106d30af61aa845"
+      },
+      "command": "./run-u-end-to-end.sh x86 /tmp/u-gen/x86d/queries.jsonl /tmp/u-run/x86d-neg --drop-opcode G_SUB",
+      "dir": "/tmp/u-run/x86d-neg",
+      "direction": "U-neg",
+      "expect": {
+        "answered_equal": 9863,
+        "disagree": 164,
+        "rulesets": [
+          "G_ADD",
+          "G_SUB"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "U-neg/x86",
+      "kind": "neg",
+      "observed_disagree": 164,
+      "target": "x86"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "441c66a71bd824f10d67423f16cfcede124445ba86b25c1e36283b82f2620c11",
+        "diff.json": "0ff489aca64cdff6ed1f32b7a5dc34978045a59795e17edad84ef9f0b1c29a30"
+      },
+      "command": "./run-u-end-to-end.sh aarch64 /tmp/u-gen/a64/queries.jsonl /tmp/a64-vertical/u-neg --drop-opcode G_ICMP",
+      "dir": "/tmp/a64-vertical/u-neg",
+      "direction": "U-neg",
+      "expect": {
+        "answered_equal": 29392,
+        "disagree": 216,
+        "rulesets": [
+          "G_ICMP"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "U-neg/aarch64",
+      "kind": "neg",
+      "observed_disagree": 216,
+      "target": "aarch64"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "9ca91203b2da24c577a2c7b117b36990e1f47014dda0ad8ea956e83b3f5ae13b",
+        "diff.json": "4f7a85e350236d9bd206ec26ccc97f19065b9e0ac0756e9110e6104f67e62386"
+      },
+      "command": "./run-u-end-to-end.sh riscv /tmp/u-gen/rvb/queries.jsonl /tmp/rv-vertical/u-neg --drop-opcode G_ADD",
+      "dir": "/tmp/rv-vertical/u-neg",
+      "direction": "U-neg",
+      "expect": {
+        "answered_equal": 20293,
+        "disagree": 152,
+        "rulesets": [
+          "G_ADD",
+          "G_SUB"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "U-neg/riscv",
+      "kind": "neg",
+      "observed_disagree": 152,
+      "target": "riscv"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "ff684ee624576fe7aa2aff078135e371f48f436e678b356fea3a3d2e4d1a690a",
+        "diff.json": "2b9067fabb12ebd6832a9b5b906d796bfb59c52deae0de9b26aafe53da075dfc"
+      },
+      "command": "./run-u-end-to-end.sh arm /tmp/u-gen/arm/queries.jsonl /tmp/u-new/arm-neg --drop-opcode G_LOAD",
+      "dir": "/tmp/u-new/arm-neg",
+      "direction": "U-neg",
+      "expect": {
+        "answered_equal": 15547,
+        "disagree": 148,
+        "rulesets": [
+          "G_LOAD",
+          "G_STORE"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "U-neg/arm",
+      "injected_opcode": "G_LOAD",
+      "kind": "neg",
+      "observed_disagree": 148,
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "dd0ad729817e400cf4fd3132ef4e31294a99898b5d5c3604b8aac55af806725f",
+        "diff.json": "52ffb89bdbff687ac17fa69e34682b28aa539143b21cbd2c7a469171fc7d7773"
+      },
+      "command": "./run-u-end-to-end.sh mips /tmp/u-gen/mips/queries.jsonl /tmp/u-new/mips-neg --drop-opcode G_CTPOP",
+      "dir": "/tmp/u-new/mips-neg",
+      "direction": "U-neg",
+      "expect": {
+        "answered_equal": 11356,
+        "disagree": 40,
+        "rulesets": [
+          "G_CTPOP"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "U-neg/mips",
+      "injected_opcode": "G_CTPOP",
+      "kind": "neg",
+      "observed_disagree": 40,
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "f43efef8ea0561e32fbf514ce633ae1bae3ac6d90d3329ebf8c2c7af39975cfa",
+        "diff.json": "a47698f374e4902cf87f35fe783920e906c500724939839e45915627a4877c06"
+      },
+      "command": "./run-u-end-to-end.sh ppc /tmp/u-gen/ppc/queries.jsonl /tmp/u-new/ppc-neg --drop-opcode G_SUB",
+      "dir": "/tmp/u-new/ppc-neg",
+      "direction": "U-neg",
+      "expect": {
+        "answered_equal": 2165,
+        "disagree": 12,
+        "rulesets": [
+          "G_ADD",
+          "G_SUB"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "U-neg/ppc",
+      "injected_opcode": "G_SUB",
+      "kind": "neg",
+      "observed_disagree": 12,
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "a79b7446880b258f226a2f901de2bae2dce0b52ad22be291543aadecec8da379",
+        "diff.json": "5733c59798da828d9e6f1e9708c3155e8e3d998770c603944583e92646bdddb6"
+      },
+      "command": "./run-u-end-to-end.sh m68k /tmp/u-gen/m68k/queries.jsonl /tmp/u-new/m68k-neg --drop-opcode G_MUL",
+      "dir": "/tmp/u-new/m68k-neg",
+      "direction": "U-neg",
+      "expect": {
+        "answered_equal": 2147,
+        "disagree": 35,
+        "rulesets": [
+          "G_ADD",
+          "G_AND",
+          "G_MUL",
+          "G_SUB",
+          "G_UDIV"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "U-neg/m68k",
+      "injected_opcode": "G_MUL",
+      "kind": "neg",
+      "observed_disagree": 35,
+      "target": "m68k"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "08a33e9e5bd69ff70f585ac6ab84b98c7536a777c27c796c777d79c561a94cd8",
+        "diff.json": "f2d4056ec163f48f8571c615be71a4e1c510b684625bf3d2161f10e0d85f6d5d"
+      },
+      "command": "./run-u-end-to-end.sh wasm /tmp/u-gen/wasm/queries.jsonl /tmp/u-new/wasm-neg --drop-opcode G_SELECT",
+      "dir": "/tmp/u-new/wasm-neg",
+      "direction": "U-neg",
+      "expect": {
+        "answered_equal": 9254,
+        "disagree": 36,
+        "rulesets": [
+          "G_SELECT"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "U-neg/wasm",
+      "injected_opcode": "G_SELECT",
+      "kind": "neg",
+      "observed_disagree": 36,
+      "target": "wasm"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "fd4cbc27bfdd10079564d9323d966cfed023caef71858c1d390c4b4e5024222e",
+        "diff.json": "5e338356236f9ed1e5adff98ec69a3d9cedef1731bb9e1fe6153c932db86eef2"
+      },
+      "command": "./run-u-end-to-end.sh spirv /tmp/u-gen/spirv/queries.jsonl /tmp/u-new/spirv-neg --drop-opcode G_UMIN",
+      "dir": "/tmp/u-new/spirv-neg",
+      "direction": "U-neg",
+      "expect": {
+        "answered_equal": 14808,
+        "disagree": 784,
+        "rulesets": [
+          "G_ABS",
+          "G_BITREVERSE",
+          "G_SADDSAT",
+          "G_SCMP",
+          "G_SMAX",
+          "G_SMIN",
+          "G_SSUBSAT",
+          "G_UADDSAT",
+          "G_UCMP",
+          "G_UMAX",
+          "G_UMIN",
+          "G_USUBSAT"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "U-neg/spirv",
+      "injected_opcode": "G_UMIN",
+      "kind": "neg",
+      "observed_disagree": 784,
+      "target": "spirv"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "88c5f1cb98b6b54b74d7f59e9ea31206c87800ca1c911c5057435d424654c18e",
+        "diff.json": "16d8e63b3d7a6c97240276f08118358bb1f82390c02ee2e2dc443415c3d58867",
+        "official.answers.jsonl": "acb009f11a38bf3b9eed9296a120c0be0923e9f12f0433bd9d7675607f9a268a",
+        "ours.answers.jsonl": "da678155ea3504f0101442006bec3827e7f913129fd2678eaa9b1a3234155638"
+      },
+      "command": "./run-g-negative.sh x86 G_ADD /tmp/g-neg/x86",
+      "dir": "/tmp/g-neg2/x86/run",
+      "direction": "G-neg",
+      "expect": {
+        "answered_equal": 2887,
+        "disagree": 127,
+        "rulesets": [
+          "X_G_ADD"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "G-neg/x86",
+      "injected_opcode": "G_ADD",
+      "kind": "neg",
+      "observed_disagree": 127,
+      "target": "x86"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "53ff18514041e80ed8c38ec6f5daa6a051aacb8290deb937f3f91a782802d188",
+        "diff.json": "227fe1ce1c8e75c02417b4cbd346d221b4076ddeecc9484a76d8d53c0b3c4b88",
+        "official.answers.jsonl": "fcd67a14c26da3a3a2b3b38ac2c5665bc5542a8e2f7d39bf6cbf8dbb48f3f040",
+        "ours.answers.jsonl": "64ea64b7ad2a19b587d525541f6f0f4bfd4009369bb504ef83e973dde2f88001"
+      },
+      "command": "./run-g-negative.sh aarch64 G_ZEXT /tmp/g-neg/a64",
+      "dir": "/tmp/g-neg2/aarch64/run",
+      "direction": "G-neg",
+      "expect": {
+        "answered_equal": 12244,
+        "disagree": 315,
+        "rulesets": [
+          "A_G_ZEXT"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "G-neg/aarch64",
+      "injected_opcode": "G_ZEXT",
+      "kind": "neg",
+      "observed_disagree": 315,
+      "target": "aarch64"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "56d96fdaaa6ca3e3afe42930901acdf3e03920e7f507ec2e3b2545b2c6c01392",
+        "diff.json": "105e6f4e3246cc4b2655f0a3c79841ca2db9917d0786f8b3c68728d10bc07f22",
+        "official.answers.jsonl": "677adb99675445653f67b170e9ce8a39efb711fc441001a320e5ee56ba56356d",
+        "ours.answers.jsonl": "e2f892ac2771697c89d5049055477282f163230ecc334c3f796ca5bbf7792614"
+      },
+      "command": "./run-g-negative.sh riscv G_FPTOSI /tmp/rv-vertical2/g-neg",
+      "dir": "/tmp/g-neg2/riscv/run",
+      "direction": "G-neg",
+      "expect": {
+        "answered_equal": 5946,
+        "disagree": 140,
+        "rulesets": [
+          "R_G_FPTOSI"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "G-neg/riscv",
+      "injected_opcode": "G_FPTOSI",
+      "kind": "neg",
+      "observed_disagree": 140,
+      "target": "riscv"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "22d8476a00f77ffc9dd1a85484ceef5f306d1b1efb843fa2c8b430208c9c029e",
+        "diff.json": "aa6d8e651fa0afab33403ba824c810dac28a287772e5af49f1c3741033ed2de8",
+        "official.answers.jsonl": "615123a27714bda555f9dc12a8e11355ec4db8ff39954e1e7c55ff208ee2ea5b",
+        "ours.answers.jsonl": "94ac8c085ef9dff94e385c06e6d019aa16790c3f4aa3d33b8aaa00c951a99e7e"
+      },
+      "command": "./run-g-negative.sh arm G_LOAD /tmp/g-neg/arm",
+      "dir": "/tmp/g-neg/arm/run",
+      "direction": "G-neg",
+      "expect": {
+        "disagree": 71,
+        "rulesets": [
+          "A_G_LOAD"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "G-neg/arm",
+      "injected_opcode": "G_LOAD",
+      "kind": "neg",
+      "observed_disagree": 71,
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "4015a24efea28051b53da88f1adffad5336680a5567fd8c53fe8b4468fd24a29",
+        "diff.json": "be61de02a177f1a408eeb83b0db2bbcfb59eb12566b72d104e5ad35c82ca496a",
+        "official.answers.jsonl": "d81f89d7dfb1fbb9178c3da2f0d649acd9585177a53c2ce5e942679a0adf6b15",
+        "ours.answers.jsonl": "e9d04f5f3b4883d150c843acc1f46f7077ea2d35baffbb536ca14f347a001f6f"
+      },
+      "command": "./run-g-negative.sh mips G_UITOFP /tmp/g-neg/mips",
+      "dir": "/tmp/g-neg/mips/run",
+      "direction": "G-neg",
+      "expect": {
+        "disagree": 15,
+        "rulesets": [
+          "Mips_G_UITOFP"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "G-neg/mips",
+      "injected_opcode": "G_UITOFP",
+      "kind": "neg",
+      "observed_disagree": 15,
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "73ec8b7914cae497bbbec7e6018f9881448aa2ee523d86447f84e56d57d02670",
+        "diff.json": "31542411a4f92a4e8801b3afa4222c3f7622285322dc607419ff449034a2f666",
+        "official.answers.jsonl": "d94d2a64c592fa209363146b9006677fb6e9067b9e2af39f6004f6cad53386a2",
+        "ours.answers.jsonl": "48e924790541b1c287bb422504fe0bcb0604eb8b59599f2fe26d8c75df08a430"
+      },
+      "command": "./run-g-negative.sh ppc G_ZEXT /tmp/g-neg/ppc",
+      "dir": "/tmp/g-neg/ppc/run",
+      "direction": "G-neg",
+      "expect": {
+        "disagree": 3,
+        "rulesets": [
+          "P_G_ZEXT"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "G-neg/ppc",
+      "injected_opcode": "G_ZEXT",
+      "kind": "neg",
+      "observed_disagree": 3,
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "7b1b701577b9d31f5de3c4c53cb78c1259f30f0c8598570abb2f24c2d4a17f6c",
+        "diff.json": "94a2f877c4b52f08467423d2efce1fc5faa9839650ed22869c09aca53711f57c",
+        "official.answers.jsonl": "ce9753b4cda082083bf3b4f464cf0ed077c9e6c66cc03fba8ec920aa51cd863b",
+        "ours.answers.jsonl": "401d3977c5ae823264bf7ea7f0ec1511cc9a41beb0f18bb972e5448e11fcffa1"
+      },
+      "command": "./run-g-negative.sh m68k G_MUL /tmp/g-neg/m68k",
+      "dir": "/tmp/g-neg/m68k/run",
+      "direction": "G-neg",
+      "expect": {
+        "disagree": 7,
+        "rulesets": [
+          "M68k_G_ADD"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "G-neg/m68k",
+      "injected_opcode": "G_MUL",
+      "kind": "neg",
+      "observed_disagree": 7,
+      "target": "m68k"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "225e131c778a00ef8def7933e9d52b5d3e83c76f8bfe233f521d9dcf747871ac",
+        "diff.json": "46d87c5148730aa999c1e3502079487eb4d48f08546bcefb26450fe7fdd59583",
+        "official.answers.jsonl": "544b7b744917324b2126c480162b585158283e948d5ba107e9d61b81b778044b",
+        "ours.answers.jsonl": "a498fc0f2a6c2870e363e2768eb08698c84c4795075d4051f1449935b88cce7e"
+      },
+      "command": "./run-g-negative.sh wasm G_CTLZ /tmp/g-neg/wasm",
+      "dir": "/tmp/g-neg2/wasm/run",
+      "direction": "G-neg",
+      "expect": {
+        "answered_equal": 838,
+        "disagree": 56,
+        "rulesets": [
+          "Wasm_G_CTLZ"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "G-neg/wasm",
+      "injected_opcode": "G_CTLZ",
+      "kind": "neg",
+      "observed_disagree": 56,
+      "target": "wasm"
+    },
+    {
+      "artifacts": {
+        "attribution.json": "88e76bd6c1efd1e35ead0a5f824b0fa36895bc61a57bdb56354775610a887682",
+        "diff.json": "a54987ee1069e6a91402a9119986baa7ab6ef604e20a955a248c2bd44470d1ff",
+        "official.answers.jsonl": "4abab4e07f2846322bd46a3721014047341a4f2944ecd0a73ed9aad5fe72d989",
+        "ours.answers.jsonl": "9762ccfc55300e8ca54760d737de2801586693f14f20c74ab71fb07dba8e1f7a"
+      },
+      "command": "./run-g-negative.sh spirv G_TRUNC /tmp/g-neg/spirv",
+      "dir": "/tmp/g-neg/spirv/run",
+      "direction": "G-neg",
+      "expect": {
+        "disagree": 83,
+        "rulesets": [
+          "Spv_G_TRUNC"
+        ],
+        "unknown_keys": 0
+      },
+      "id": "G-neg/spirv",
+      "injected_opcode": "G_TRUNC",
+      "kind": "neg",
+      "observed_disagree": 83,
+      "target": "spirv"
+    },
+    {
+      "artifacts": {
+        "diff.json": "720d1334b940dca64f60f1b55291aa9e6e45db6c692be5f3c46ab3180bda74cb",
+        "official.answers.jsonl": "20b481d9bb7464f3bc865ffb8d57fc4ea2c8979d018b2418d30d0c1c6fc6cc34",
+        "ours.answers.jsonl": "20b481d9bb7464f3bc865ffb8d57fc4ea2c8979d018b2418d30d0c1c6fc6cc34"
+      },
+      "command": "./run-x86-domain.sh TREE BUILD /tmp/ab-domain/x86-r2/X86LegalizerInfo.inc /tmp/ab-domain/x86-r2/out",
+      "dir": "/tmp/ab-domain/x86-r2/out",
+      "direction": "D",
+      "expect": {
+        "agree": 91340,
+        "answered_equal": 90692,
+        "answers_identical": true,
+        "disagree": 0,
+        "unanswerable": 648
+      },
+      "id": "D/x86",
+      "kind": "answers",
+      "queries": {
+        "path": "/tmp/ab-domain/x86-r2/out/queries.jsonl",
+        "sha256": "9e4324a2e9bfff091c955b1e7e957dd9aa67cc8f3cfc18b4f02ce5048abf1363"
+      },
+      "runtime": {
+        "path": "/home/ubuntu/llvm/builds/explore/lib/libLLVMX86CodeGen.so.24.0git",
+        "sha256": "24bf2a5254dc042e6e1145e926ee42a4dd4d613e3947694b6628f2871b4fe357"
+      },
+      "target": "x86"
+    },
+    {
+      "artifacts": {
+        "baseline/diff.json": "b9f40fdb1a236fa9769d12492c260ce45d254e9438f7393d5eb40909dc24ded5",
+        "baseline/queries.jsonl": "8f03a48d309b15adf6a8c50d6ec8fc6d88c4b7846b545c5ab9435f95ac74f609",
+        "manifest.txt": "79f832edcc9bd3490c8878182f2776e1b92f2a5967952ee57075283f8831eb38",
+        "sites.json": "6e1624bea862e7b5c8df54285dcb83fa056eb76e8938d08e537de5af6f699533",
+        "summary.json": "730fa6184e0a092a521d36ea2bd9d92eb5bf422c8a9a466a943aa15154b86802"
+      },
+      "command": "./run-aarch64-domain.sh TREE BUILD /tmp/ab-domain/inc/AArch64LegalizerInfo.inc /tmp/ab-domain/a64-domain-r5",
+      "diff": "baseline/diff.json",
+      "dir": "/tmp/ab-domain/a64-domain-r5",
+      "direction": "D",
+      "expect": {
+        "assert_sites": {
+          "mismatch": 288,
+          "missing": 0,
+          "same": 351216
+        },
+        "summary": {
+          "agree": 8417376,
+          "assert_sites": {
+            "mismatch": 288,
+            "missing": 0,
+            "same": 351216
+          },
+          "configs": 9,
+          "disagree": 0,
+          "errors": 0,
+          "queries": 8432640,
+          "ref_asserted": 15264,
+          "unanswerable": 351504
+        }
+      },
+      "id": "D/aarch64",
+      "kind": "summary",
+      "queries": {
+        "path": "/tmp/ab-domain/a64-domain-r5/baseline/queries.jsonl",
+        "sha256": "8f03a48d309b15adf6a8c50d6ec8fc6d88c4b7846b545c5ab9435f95ac74f609"
+      },
+      "runtime": {
+        "path": "/home/ubuntu/llvm/builds/explore/lib/libLLVMAArch64CodeGen.so.24.0git",
+        "sha256": "e49c03ec2f82ab2a4be80deb57e5ef5dca76daf7065b2498234730cd5cc64c02"
+      },
+      "sites": "sites.json",
+      "target": "aarch64"
+    },
+    {
+      "artifacts": {
+        "manifest.txt": "aaa179dae82f4c24177f346f5c0f6dc21f0e59b7e9dc077457eeca63545202a0",
+        "rv64gc/diff.json": "067ed79057e6112c5d55e1552ff34897fee583bf6bd1d576914d9a60182b9a23",
+        "rv64gc/queries.jsonl": "a0fbcbb43829f28ac8c827075f348f3d37137e1bd4f61bb0f676ec2e32fa0f9a",
+        "summary.json": "fd45ae3682e7d080cced6dc6bd3f785b29e9f01d6f37a86c1f50e5416db0c2c7"
+      },
+      "command": "./run-riscv-domain.sh TREE BUILD /tmp/ab-domain/inc/RISCVLegalizerInfo.inc /tmp/ab-domain/rv-domain-r6",
+      "diff": "rv64gc/diff.json",
+      "dir": "/tmp/rv-vertical2/domain",
+      "direction": "D",
+      "expect": {
+        "summary": {
+          "agree": 2029976,
+          "configs": 8,
+          "disagree": 0,
+          "errors": 0,
+          "queries": 2029976,
+          "ref_asserted": 0,
+          "unanswerable": 7728
+        }
+      },
+      "id": "D/riscv",
+      "kind": "summary",
+      "queries": {
+        "path": "/tmp/rv-vertical2/domain/rv64gc/queries.jsonl",
+        "sha256": "a0fbcbb43829f28ac8c827075f348f3d37137e1bd4f61bb0f676ec2e32fa0f9a"
+      },
+      "runtime": {
+        "path": "/home/ubuntu/llvm/builds/explore/lib/libLLVMRISCVCodeGen.so.24.0git",
+        "sha256": "f32be744460c8155b7f96ebb9bc8b10655ecf05426fc38627ba6c575bf418eb4"
+      },
+      "target": "riscv"
+    },
+    {
+      "artifacts": {
+        "diff.json": "38965a9cc0f634a4686faae49cfd520a7f2dc889d192e75aa37d4c83004a914a",
+        "universe.jsonl": "99d6963d60090a6b36d8b0e42931560f3b70aa7863c56114c7c76170527e4137"
+      },
+      "command": "./run-u-end-to-end.sh x86 /tmp/u-full-new/x86/queries.jsonl /tmp/u-full-new/x86/run --allow-unanswerable 1392",
+      "dir": "/tmp/u-full-new/x86/run",
+      "direction": "U",
+      "expect": {
+        "agree": 965592,
+        "answered_equal": 964200,
+        "disagree": 0,
+        "ref": 965592,
+        "ref_asserted": 0,
+        "unanswerable": 1392
+      },
+      "id": "U-full/x86",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix. The 1,392 unanswerable rows assert at LowLevelType.h:429 on both sides.",
+      "queries": {
+        "derived_from": "universe.jsonl (sha 99d6963d60090a6b) expanded by `python3 -m oracle expand --configs C0,C1,C2,C3`",
+        "path": "/tmp/u-full-new/x86/queries.jsonl",
+        "sha256": "2eeca0080c44fee913f8326a7363014b18469d85aae15effb7d0c9e9bb13db7a"
+      },
+      "target": "x86"
+    },
+    {
+      "artifacts": {
+        "diff.json": "ca02dbf06ae308ec2c2d428362974d0b03e88ae9ff34691058d2e09dd3257759",
+        "universe.jsonl": "fe1a202ee36231aa0cd285e8e98be2b06837dc3a5d1b0228d58fcf6fe70583bf"
+      },
+      "command": "./run-u-end-to-end.sh aarch64 /tmp/u-full-new/aarch64/queries.jsonl /tmp/u-full-new/aarch64/run --allow-unanswerable 43452 --allow-ref-asserts 40014",
+      "dir": "/tmp/u-full-new/aarch64/run",
+      "direction": "U",
+      "expect": {
+        "agree": 3911265,
+        "answered_equal": 3867813,
+        "disagree": 0,
+        "ref": 3951279,
+        "ref_asserted": 40014,
+        "unanswerable": 43452
+      },
+      "id": "U-full/aarch64",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix. See diff.json for the pinned assert sites.",
+      "queries": {
+        "derived_from": "universe.jsonl (sha fe1a202ee36231aa) expanded by `python3 -m oracle expand --configs baseline,small-cm,bf16,lse,rcpc3,outline-atomics,cssc,fullfp16,sve`",
+        "path": "/tmp/u-full-new/aarch64/queries.jsonl",
+        "sha256": "8ad32c1f0736cb66839152a450cdcfc5fa61089d60f8768e71df72914b882cb3"
+      },
+      "target": "aarch64"
+    },
+    {
+      "artifacts": {
+        "diff.json": "85a5b0930ebe0c4b61950fbda9c7ea858e5db3dd585c808482544c5d195b9927",
+        "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
+      },
+      "command": "./run-u-end-to-end.sh riscv /tmp/u-full-new/riscv/queries.jsonl /tmp/u-full-new/riscv/run --allow-unanswerable 5400",
+      "dir": "/tmp/u-full-new/riscv/run",
+      "direction": "U",
+      "expect": {
+        "agree": 2022608,
+        "answered_equal": 2017208,
+        "disagree": 0,
+        "ref": 2022608,
+        "ref_asserted": 0,
+        "unanswerable": 5400
+      },
+      "id": "U-full/riscv",
+      "kind": "answers",
+      "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix. See diff.json for the pinned assert sites.",
+      "queries": {
+        "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs rv64gc,rv32gc,rv64gcv,rv32gcv,rv64zbb,rv64zfh,ristretto,rv32zilsd`",
+        "path": "/tmp/u-full-new/riscv/queries.jsonl",
+        "sha256": "71e1011e48816795b22ae7f6904e93af6267c7670fa18abde59102b260ab844d"
+      },
+      "target": "riscv"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "596ec14008a6b0159222d29e88390f268bd003dc44e963436d9929ce86080feb",
+        "provenance.json": "542904543e38d8716a8c71b9ad340c5df483c8134adbaed872e1fe2e7cc779fd"
+      },
+      "command": "python3 mir-replay.py --layer upstream --target x86 --target aarch64 --target riscv --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-l1-final6 --prepare --json",
+      "dir": "/tmp/mir-l1-final6",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 2,
+          "all_run_lines": 868,
+          "both_abort": 13,
+          "diff": 0,
+          "out_of_layer": 244,
+          "runs": 624,
+          "same": 611,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "aarch64": {
+            "both_abort": 13,
+            "diff": 0,
+            "files": 367,
+            "out_of_layer": 224,
+            "runs": 214,
+            "same": 201,
+            "timeout": 0,
+            "unsupported_run": 0
+          },
+          "riscv": {
+            "both_abort": 0,
+            "diff": 0,
+            "files": 181,
+            "out_of_layer": 1,
+            "runs": 270,
+            "same": 270,
+            "timeout": 0,
+            "unsupported_run": 0
+          },
+          "x86": {
+            "both_abort": 0,
+            "diff": 0,
+            "files": 93,
+            "out_of_layer": 19,
+            "runs": 140,
+            "same": 140,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L1/upstream",
+      "kind": "mir",
+      "target": "x86+aarch64+riscv"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "c3bbe9d649aae0ea4b52e3fe7db41a8cd6ee8df08b0943d7ff83b953a46f5d02",
+        "provenance.json": "5ed0e4931c5a7a9489fc8ec9ad5deb035b4947f71457a9c33db337f7ab762776"
+      },
+      "command": "python3 ab.py mir --target x86 --queries /tmp/l2/x86.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2/x86",
+      "dir": "/tmp/l2/x86/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 1558,
+          "all_run_lines": 2390,
+          "both_abort": 16,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 2390,
+          "same": 2374,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "x86": {
+            "both_abort": 16,
+            "diff": 0,
+            "files": 2390,
+            "out_of_layer": 0,
+            "runs": 2390,
+            "same": 2374,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/x86",
+      "kind": "mir",
+      "target": "x86"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "a94a045fa45eeba1f5afb52f4cc6515979dfe697ce8a7be4d8d8306b7e96b806",
+        "provenance.json": "c861c4948bd7d794e7f6da65f0f8a9c18b6df169438fde3709f77722a0d298ec"
+      },
+      "command": "python3 ab.py mir --target aarch64 --queries /tmp/l2/a64.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2/a64",
+      "dir": "/tmp/l2/a64/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 4250,
+          "all_run_lines": 8774,
+          "both_abort": 837,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 8774,
+          "same": 7874,
+          "timeout": 63,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "aarch64": {
+            "both_abort": 837,
+            "diff": 0,
+            "files": 8774,
+            "out_of_layer": 0,
+            "runs": 8774,
+            "same": 7874,
+            "timeout": 63,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/aarch64",
+      "kind": "mir",
+      "target": "aarch64"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "fdf1bf7533c6afb926a21910f3baecd7dd3ba3c55e362ed130823656ff80cc89",
+        "provenance.json": "e16131ead809ffb2f2e2d6e2e36db15b13997ca3ea87a467071af7b2263b3c19"
+      },
+      "command": "python3 ab.py mir --target riscv --queries /tmp/l2/rv.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2/rv",
+      "dir": "/tmp/l2/rv/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 2265,
+          "all_run_lines": 4203,
+          "both_abort": 151,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 4203,
+          "same": 4050,
+          "timeout": 2,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "riscv": {
+            "both_abort": 151,
+            "diff": 0,
+            "files": 4203,
+            "out_of_layer": 0,
+            "runs": 4203,
+            "same": 4050,
+            "timeout": 2,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/riscv",
+      "kind": "mir",
+      "target": "riscv"
+    },
+    {
+      "artifacts": {
+        "summary.json": "9a61df018f8115f514c905b931ad25f29631b7f81bdf13739f27d1dcfb619494"
+      },
+      "command": "./run-domain.sh m68k /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/M68kLegalizerInfo.inc /tmp/ab-domain/m68k",
+      "dir": "/tmp/ab-domain/m68k",
+      "direction": "D",
+      "expect": {
+        "summary": {
+          "agree": 112,
+          "configs": 1,
+          "disagree": 0,
+          "errors": 0,
+          "queries": 112,
+          "ref_asserted": 0,
+          "unanswerable": 0
+        }
+      },
+      "id": "D/m68k",
+      "inc": {
+        "command": "python3 -m gisel gen tests/corpus/M68kLegalizerInfo.gisel --emit=inc",
+        "name": "M68kLegalizerInfo.inc",
+        "sha256": "8d843f4f5775e63e91fc24fac1e19906577c961ee43b7d6350141bf5e58a37c4"
+      },
+      "kind": "summary",
+      "target": "m68k"
+    },
+    {
+      "artifacts": {
+        "sites.json": "96858ede3de5c6e244f46b65b8298dc759de7e7eed3a3e34e71656966c8ede3c",
+        "summary.json": "f87339cf564130c90c14e776e3061ec384512e4e8c2fc310c6a63a1270e98f11"
+      },
+      "command": "./run-domain.sh ppc /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/PowerPCLegalizerInfo.inc /tmp/ab-domain/ppc",
+      "dir": "/tmp/ab-domain/ppc",
+      "direction": "D",
+      "expect": {
+        "assert_sites": {
+          "mismatch": 0,
+          "missing": 0,
+          "same": 3,
+          "top": [
+            [
+              "LegalizerInfo.cpp:200",
+              3
+            ]
+          ]
+        },
+        "summary": {
+          "agree": 1005,
+          "configs": 1,
+          "disagree": 0,
+          "errors": 0,
+          "queries": 1005,
+          "ref_asserted": 0,
+          "unanswerable": 3
+        }
+      },
+      "id": "D/ppc",
+      "inc": {
+        "command": "python3 -m gisel gen tests/corpus/PowerPCLegalizerInfo.gisel --emit=inc",
+        "name": "PowerPCLegalizerInfo.inc",
+        "sha256": "c15f766bd2a167614a4bba3fabc8124c86f57d01cdca41b80d83e18173981dcd"
+      },
+      "kind": "summary",
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "summary.json": "10ba9a3170b31ad98f6a31aa8b8a1f1bb27baecbe8fe968d74e841e6c8565316"
+      },
+      "command": "./run-domain.sh arm /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/ARMLegalizerInfo.inc /tmp/ab-domain/arm",
+      "dir": "/tmp/ab-domain/arm",
+      "direction": "D",
+      "expect": {
+        "summary": {
+          "agree": 9296,
+          "configs": 7,
+          "disagree": 0,
+          "errors": 0,
+          "queries": 9296,
+          "ref_asserted": 0,
+          "unanswerable": 0
+        }
+      },
+      "id": "D/arm",
+      "inc": {
+        "command": "python3 -m gisel gen tests/corpus/ARMLegalizerInfo.gisel --emit=inc",
+        "name": "ARMLegalizerInfo.inc",
+        "sha256": "021a84797085030f4dac203a04cd54ec14c770db581bf7bf1e16002155f15b9e"
+      },
+      "kind": "summary",
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "summary.json": "dfe03537563eb2ce7aafbd4fbbf7dd1bd9dc36598467f28c5d2804cb9c0ec130"
+      },
+      "command": "./run-domain.sh mips /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/MipsLegalizerInfo.inc /tmp/ab-domain/mips",
+      "dir": "/tmp/ab-domain/mips",
+      "direction": "D",
+      "expect": {
+        "summary": {
+          "agree": 18745,
+          "configs": 5,
+          "disagree": 0,
+          "errors": 0,
+          "queries": 18745,
+          "ref_asserted": 0,
+          "unanswerable": 0
+        }
+      },
+      "id": "D/mips",
+      "inc": {
+        "command": "python3 -m gisel gen tests/corpus/MipsLegalizerInfo.gisel --emit=inc",
+        "name": "MipsLegalizerInfo.inc",
+        "sha256": "fd4a51d952b822d67342a0b3464f5f2ff125fd818404a7e0e210a7d4aa4b578f"
+      },
+      "kind": "summary",
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "sites.json": "3db1c1561c570499d6ea87350fdd05397a52c9b49165dfd1a70130cfc716921b",
+        "summary.json": "9bda1ce17a8f9de406162414ab51711d3fbde9a87f8393aa7fb17855bbe7aa8e"
+      },
+      "command": "./run-domain.sh wasm /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/WebAssemblyLegalizerInfo.inc /tmp/ab-domain/wasm",
+      "dir": "/tmp/ab-domain/wasm",
+      "direction": "D",
+      "expect": {
+        "assert_sites": {
+          "mismatch": 0,
+          "missing": 0,
+          "same": 132,
+          "top": [
+            [
+              "LowLevelType.h:429",
+              116
+            ],
+            [
+              "LowLevelType.h:151",
+              16
+            ]
+          ]
+        },
+        "summary": {
+          "agree": 11996,
+          "configs": 4,
+          "disagree": 0,
+          "errors": 0,
+          "queries": 11996,
+          "ref_asserted": 0,
+          "unanswerable": 132
+        }
+      },
+      "id": "D/wasm",
+      "inc": {
+        "command": "python3 -m gisel gen tests/corpus/WebAssemblyLegalizerInfo.gisel --emit=inc",
+        "name": "WebAssemblyLegalizerInfo.inc",
+        "sha256": "1293d7a53ab9a74361e66e9a6008f2142c9b4d6e693352c7b3b8bb4e371c52c8"
+      },
+      "kind": "summary",
+      "target": "wasm"
+    },
+    {
+      "artifacts": {
+        "sites.json": "460c9efa56bb4820763494d2cbbdd404578d622cc0c59466c2e891b537c4be6a",
+        "summary.json": "c55b2d0e98c06e5116188a0626a006212ef1bff1c8a502f247bc82df5e73c22b"
+      },
+      "command": "./run-domain.sh spirv /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/SPIRVLegalizerInfo.inc /tmp/ab-domain/spirv",
+      "dir": "/tmp/ab-domain/spirv",
+      "direction": "D",
+      "expect": {
+        "assert_sites": {
+          "mismatch": 900,
+          "missing": 0,
+          "same": 0,
+          "top": []
+        },
+        "summary": {
+          "agree": 3472080,
+          "configs": 6,
+          "disagree": 0,
+          "errors": 0,
+          "queries": 3472080,
+          "ref_asserted": 0,
+          "unanswerable": 900
+        }
+      },
+      "id": "D/spirv",
+      "inc": {
+        "command": "python3 -m gisel gen tests/corpus/SPIRVLegalizerInfo.gisel --emit=inc",
+        "name": "SPIRVLegalizerInfo.inc",
+        "sha256": "a9037d2c63426a1a594d4086b448aca6c2537b86c821df335ff7abffba95550a"
+      },
+      "kind": "summary",
+      "target": "spirv"
+    },
+    {
+      "artifacts": {
+        "diff.json": "46381855d14b2fa3c6a06843a1ee84e8171805b8c5bac09b3af18c899e9daa50",
+        "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
+      },
+      "command": "./run-u-end-to-end.sh m68k /tmp/u-full2/m68k/queries.jsonl /tmp/u-full2/m68k/run",
+      "dir": "/tmp/u-full2/m68k/run",
+      "direction": "U",
+      "expect": {
+        "agree": 252826,
+        "disagree": 0,
+        "ref": 252826,
+        "ref_asserted": 0,
+        "unanswerable": 0
+      },
+      "id": "U-full/m68k",
+      "kind": "answers",
+      "queries": {
+        "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs default`",
+        "path": "/tmp/u-full2/m68k/queries.jsonl",
+        "sha256": "7f0f810d623c116a9b7dd10acc7050344a0726e7973332fbbc54ac74783f8275"
+      },
+      "target": "m68k"
+    },
+    {
+      "artifacts": {
+        "diff.json": "6a418b168476b06f4be9171cd3861ce80470f374701d05602341fe239dda7a57",
+        "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
+      },
+      "command": "./run-u-end-to-end.sh ppc /tmp/u-full2/ppc/queries.jsonl /tmp/u-full2/ppc/run3 --allow-unanswerable 924 --allow-ref-asserts 558",
+      "dir": "/tmp/u-full2/ppc/run3",
+      "direction": "U",
+      "expect": {
+        "agree": 252268,
+        "disagree": 0,
+        "ref": 252826,
+        "ref_asserted": 558,
+        "ref_asserted_by_site": {
+          "fatal:cannot implicitly convert a scalable size to a fixed-width size": 558
+        },
+        "unanswerable": 924
+      },
+      "id": "U-full/ppc",
+      "kind": "answers",
+      "queries": {
+        "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs default`",
+        "path": "/tmp/u-full2/ppc/queries.jsonl",
+        "sha256": "7f0f810d623c116a9b7dd10acc7050344a0726e7973332fbbc54ac74783f8275"
+      },
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "diff.json": "816e3a8f3547f28a5a2245622330f536b79d883527dbd2a43ccb38c56ebfaf79",
+        "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
+      },
+      "command": "./run-u-end-to-end.sh arm /tmp/u-full2/arm/queries.jsonl /tmp/u-full2/arm/run2",
+      "dir": "/tmp/u-full2/arm/run2",
+      "direction": "U",
+      "expect": {
+        "agree": 1769782,
+        "disagree": 0,
+        "ref": 1769782,
+        "ref_asserted": 0,
+        "unanswerable": 0
+      },
+      "id": "U-full/arm",
+      "kind": "answers",
+      "queries": {
+        "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs armv7a-neon,armv7a-nodiv,armv7a-a5,armv6-arm1176,armv4t,thumbv7m,armv7-soft`",
+        "path": "/tmp/u-full2/arm/queries.jsonl",
+        "sha256": "446f9b146662e56149a9551ddfef6c550357982e444cf7baf7ad85338686133b"
+      },
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "diff.json": "f2c20bc15a26580a7786ebf9564fbaf73aeb8351d9f6e4b58656bd5319aafc8e",
+        "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
+      },
+      "command": "./run-u-end-to-end.sh mips /tmp/u-full2/mips/queries.jsonl /tmp/u-full2/mips/run2 --allow-ref-asserts 750",
+      "dir": "/tmp/u-full2/mips/run2",
+      "direction": "U",
+      "expect": {
+        "agree": 1263380,
+        "disagree": 0,
+        "ref": 1264130,
+        "ref_asserted": 750,
+        "ref_asserted_by_site": {
+          "MipsLegalizerInfo.cpp:133": 30,
+          "fatal:cannot implicitly convert a scalable size to a fixed-width size": 720
+        },
+        "unanswerable": 0
+      },
+      "id": "U-full/mips",
+      "kind": "answers",
+      "queries": {
+        "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs mips32,mips32r2,mips32r6,mips32r5-msa,mips32r6-msa`",
+        "path": "/tmp/u-full2/mips/queries.jsonl",
+        "sha256": "c313d289ffb640b6ae87bda28ef0f9aabf15b1d6d9a15ba1da700e189d171172"
+      },
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "diff.json": "4b1cd86991b878dc7f093826d4d575f4a6083b26e15bc60dd1482d29ca1f233c",
+        "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
+      },
+      "command": "./run-u-end-to-end.sh wasm /tmp/u-full2/wasm/queries.jsonl /tmp/u-full2/wasm/run2 --allow-unanswerable 4868",
+      "dir": "/tmp/u-full2/wasm/run2",
+      "direction": "U",
+      "expect": {
+        "agree": 1011304,
+        "disagree": 0,
+        "ref": 1011304,
+        "ref_asserted": 0,
+        "unanswerable": 4868
+      },
+      "id": "U-full/wasm",
+      "kind": "answers",
+      "queries": {
+        "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs wasm32,wasm32-signext,wasm64,wasm64-signext`",
+        "path": "/tmp/u-full2/wasm/queries.jsonl",
+        "sha256": "893dd3c6f1682ce6062afcc8d926439f2bc46d5f88ea2a9a809d56a7835b0caa"
+      },
+      "target": "wasm"
+    },
+    {
+      "artifacts": {
+        "diff.json": "7662e1b5b06ca13909a75b523a86452ff535ab7a86e4921339a16120e034bef4",
+        "universe.jsonl": "a20c7fe098f48155590761438df83c8d792a9155093ba1334d4867d51b5af8c1"
+      },
+      "command": "./run-u-end-to-end.sh spirv /tmp/u-full2/spirv/queries.jsonl /tmp/u-full2/spirv/run5 --allow-unanswerable 1464 --allow-ref-asserts 246",
+      "dir": "/tmp/u-full2/spirv/run5",
+      "direction": "U",
+      "expect": {
+        "agree": 4082136,
+        "disagree": 0,
+        "ref": 4082382,
+        "ref_asserted": 246,
+        "ref_asserted_by_site": {
+          "fatal:Possible incorrect use of LLT getNumElements  for scalable vect": 246
+        },
+        "unanswerable": 1464
+      },
+      "id": "U-full/spirv",
+      "kind": "answers",
+      "queries": {
+        "derived_from": "universe.jsonl (sha a20c7fe098f48155) expanded by `python3 -m oracle expand --configs spirv64-kernel,spirv32-kernel,spirv64-shader,spirv32-shader,spirv64-kernel-ext,spirv32-shader-ext`",
+        "path": "/tmp/u-full2/spirv/queries.jsonl",
+        "sha256": "13077fe5ab7570fae73f309c983bf61b0dc4adb4fa59c741070a71883b9a8025"
+      },
+      "target": "spirv"
+    },
+    {
+      "artifacts": {
+        "l3-baseline.tests.jsonl": "043bc666fd4e200290ea13424f5d92e3641d7964d1d1b720a2ec12b284a9e7c8",
+        "l3-combined.tests.jsonl": "043bc666fd4e200290ea13424f5d92e3641d7964d1d1b720a2ec12b284a9e7c8",
+        "l3-provenance.json": "0c9304be411a7c085b375bbf7f1a55c66e9cb0994851bf819fd4d76aabd69d32",
+        "l3-summary.json": "4c9acbe71ff587135f9fdea005f6ab31889e3b27180a8149ba595c09b91c885c"
+      },
+      "command": "python3 l3.py run --out /tmp/l3-final3 && python3 l3.py compare /tmp/l3-final3 --json /tmp/l3-final3/l3-summary.json",
+      "dir": "/tmp/l3-final3",
+      "direction": "MIR",
+      "expect": {
+        "lit": {
+          "baseline": {
+            "aborted": 0,
+            "failed": 0,
+            "passed": 64916,
+            "tests": 80596,
+            "unsupported": 15534,
+            "xfail": 146,
+            "xpass": 0
+          },
+          "combined": {
+            "aborted": 0,
+            "failed": 0,
+            "passed": 64916,
+            "tests": 80596,
+            "unsupported": 15534,
+            "xfail": 146,
+            "xpass": 0
+          },
+          "identical": true,
+          "log.baseline": {
+            "discovered": 80655,
+            "passed": 64916,
+            "skipped": 59,
+            "unsupported": 15534,
+            "xfail": 146
+          },
+          "log.combined": {
+            "discovered": 80655,
+            "passed": 64916,
+            "skipped": 59,
+            "unsupported": 15534,
+            "xfail": 146
+          },
+          "tests_compared": 80596
+        }
+      },
+      "id": "MIR-L3/check-llvm",
+      "kind": "lit",
+      "target": "x86+aarch64+riscv"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "2ac11def243455fe9da8e584c6bf98ed9b34de25d8f771e2dc98dd6c7a12c206",
+        "provenance.json": "0ff56b32ad25944010c47fa85765a5f9006fad79c49715d95b260fc8ef55e7d3"
+      },
+      "command": "python3 mir-replay.py --layer upstream --target arm --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-arm2 --prepare --json",
+      "dir": "/tmp/mir-arm2",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 0,
+          "all_run_lines": 43,
+          "both_abort": 0,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 43,
+          "same": 43,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "arm": {
+            "abort0_compared": 0,
+            "all_run_lines": 43,
+            "both_abort": 0,
+            "diff": 0,
+            "files": 16,
+            "out_of_layer": 0,
+            "runs": 43,
+            "same": 43,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L1/arm",
+      "kind": "mir",
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "495b0edcf20a558c36cb4bd86c4c0cecb947fedbb816bf01716e20f05e54123a",
+        "provenance.json": "a510c0e3e3bd41b97ef0cc67026deb615145040a42f43fc67b180565fd0cbe68"
+      },
+      "command": "python3 mir-replay.py --layer upstream --target arm --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-arm-neg2 --prepare --negative-control G_MERGE_VALUES --json",
+      "dir": "/tmp/mir-arm-neg2",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 0,
+          "all_run_lines": 43,
+          "both_abort": 0,
+          "diff": 4,
+          "out_of_layer": 0,
+          "runs": 43,
+          "same": 39,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "arm": {
+            "abort0_compared": 0,
+            "all_run_lines": 43,
+            "both_abort": 0,
+            "diff": 4,
+            "files": 16,
+            "out_of_layer": 0,
+            "runs": 43,
+            "same": 39,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L1/arm-neg",
+      "kind": "mir",
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "8edf18eda55d8df456234e4055bf96e33e3bbd4027ba36ec588082bf01311d14",
+        "provenance.json": "3f2f639be509f432e4db06c0a12cf8652ae15563677f7beaf42ff4184a3840a5"
+      },
+      "command": "python3 mir-replay.py --layer upstream --target ppc --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-ppc --prepare --json",
+      "dir": "/tmp/mir-ppc",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 0,
+          "all_run_lines": 1,
+          "both_abort": 0,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 1,
+          "same": 1,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "ppc": {
+            "abort0_compared": 0,
+            "all_run_lines": 1,
+            "both_abort": 0,
+            "diff": 0,
+            "files": 1,
+            "out_of_layer": 0,
+            "runs": 1,
+            "same": 1,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L1/ppc",
+      "kind": "mir",
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "7637b21aadfe6ef88bf52fb9d17b0a27b6a0b59af1e7f7060b7b13546a5592b7",
+        "provenance.json": "bc0c79b85cc33c532dacd0cc67f30f18795460e800d23805350a56a7ecbdfec9"
+      },
+      "command": "python3 mir-replay.py --layer upstream --target mips --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-mips --prepare --json",
+      "dir": "/tmp/mir-mips",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 0,
+          "all_run_lines": 77,
+          "both_abort": 0,
+          "diff": 0,
+          "out_of_layer": 5,
+          "runs": 72,
+          "same": 72,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "mips": {
+            "abort0_compared": 0,
+            "all_run_lines": 77,
+            "both_abort": 0,
+            "diff": 0,
+            "files": 63,
+            "out_of_layer": 5,
+            "runs": 72,
+            "same": 72,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L1/mips",
+      "kind": "mir",
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "bcf72826d71e0e8fef48299a7efea9316d8293350c2fb0add79426886e8a5a7b",
+        "provenance.json": "387d1b203d5c49f7574e63d28392d2558ddcad50f1030c1a57de06119202256a"
+      },
+      "command": "python3 mir-replay.py --layer upstream --target mips --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-mips-neg --prepare --negative-control G_ADD --json",
+      "dir": "/tmp/mir-mips-neg",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 0,
+          "all_run_lines": 77,
+          "both_abort": 0,
+          "diff": 15,
+          "out_of_layer": 5,
+          "runs": 72,
+          "same": 57,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "mips": {
+            "abort0_compared": 0,
+            "all_run_lines": 77,
+            "both_abort": 0,
+            "diff": 15,
+            "files": 63,
+            "out_of_layer": 5,
+            "runs": 72,
+            "same": 57,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L1/mips-neg",
+      "kind": "mir",
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "ea8857111c18fc53ee5266dcfe40df5fcd8c94be4b2be407312348e57fb19920",
+        "provenance.json": "1a6460a05c7ba1753ca1d8bd2fd570132134315c019e3fb251b2d3c097351546"
+      },
+      "command": "python3 ab.py mir --target ppc --queries /tmp/ppc.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-ppc --json",
+      "dir": "/tmp/l2-ppc/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 64,
+          "all_run_lines": 71,
+          "both_abort": 1,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 71,
+          "same": 70,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "ppc": {
+            "abort0_compared": 64,
+            "all_run_lines": 71,
+            "both_abort": 1,
+            "diff": 0,
+            "files": 71,
+            "out_of_layer": 0,
+            "runs": 71,
+            "same": 70,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/ppc",
+      "kind": "mir",
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "42a113d537c1d5cda3fe6a9a32cbe110e5afee524297fbe9fd95d255e8421950",
+        "provenance.json": "7cddd05578b80dac500b4f46106aefb4a7e053d41d5c50df83c18d8b061be5fc"
+      },
+      "command": "python3 ab.py mir --target ppc --queries /tmp/ppc.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-ppc-neg-G_FADD --negative-control G_FADD --json",
+      "dir": "/tmp/l2-ppc-neg-G_FADD/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 63,
+          "all_run_lines": 71,
+          "both_abort": 1,
+          "diff": 1,
+          "out_of_layer": 0,
+          "runs": 71,
+          "same": 69,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "ppc": {
+            "abort0_compared": 63,
+            "all_run_lines": 71,
+            "both_abort": 1,
+            "diff": 1,
+            "files": 71,
+            "out_of_layer": 0,
+            "runs": 71,
+            "same": 69,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/ppc-neg",
+      "kind": "mir",
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "88443d71cbdf9251b6107a7ff880f364a2b8dfe5770844f31afba692ec385112",
+        "provenance.json": "fd02489fb47a0dd22e613cf4507dfc1ed8dd226e22078680884671e9a17e84fc"
+      },
+      "command": "python3 ab.py mir --target arm --queries /tmp/arm.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-arm --json",
+      "dir": "/tmp/l2-arm/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 1106,
+          "all_run_lines": 1141,
+          "both_abort": 0,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 1141,
+          "same": 1141,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "arm": {
+            "abort0_compared": 1106,
+            "all_run_lines": 1141,
+            "both_abort": 0,
+            "diff": 0,
+            "files": 1141,
+            "out_of_layer": 0,
+            "runs": 1141,
+            "same": 1141,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/arm",
+      "kind": "mir",
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "e5cd8167f59c026b66954ce53254303f2ced2359ea85d1dadcc8090178859f8b",
+        "provenance.json": "2db9d94b83402e9f1752429309c431e5ed5a2bd071a85ffa42ac7810aa3b4dee"
+      },
+      "command": "python3 ab.py mir --target arm --queries /tmp/arm.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-arm-neg-G_LOAD --negative-control G_LOAD --json",
+      "dir": "/tmp/l2-arm-neg-G_LOAD/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 1042,
+          "all_run_lines": 1141,
+          "both_abort": 0,
+          "diff": 64,
+          "out_of_layer": 0,
+          "runs": 1141,
+          "same": 1077,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "arm": {
+            "abort0_compared": 1042,
+            "all_run_lines": 1141,
+            "both_abort": 0,
+            "diff": 64,
+            "files": 1141,
+            "out_of_layer": 0,
+            "runs": 1141,
+            "same": 1077,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/arm-neg",
+      "kind": "mir",
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "d5a8e44531ef8cacd798a0a81f820ed4f44494602074f5530e9a65b98bb67831",
+        "provenance.json": "26963d0b9dbcbf2770dbacb0bda888128d0d9e6106ee3063b54c6a33f50336b5"
+      },
+      "command": "python3 ab.py mir --target mips --queries /tmp/mips.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-mips --json",
+      "dir": "/tmp/l2-mips/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 1121,
+          "all_run_lines": 1311,
+          "both_abort": 0,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 1311,
+          "same": 1311,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "mips": {
+            "abort0_compared": 1121,
+            "all_run_lines": 1311,
+            "both_abort": 0,
+            "diff": 0,
+            "files": 1311,
+            "out_of_layer": 0,
+            "runs": 1311,
+            "same": 1311,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/mips",
+      "kind": "mir",
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "06eca3bc1ef94635b09721edd3a93e3b158013f8d3356e23cd32f1738b7633fe",
+        "provenance.json": "0862cd194cedf4902688887c2c2d91241e2b33251a4f6691af4e17fbca3570b4"
+      },
+      "command": "python3 ab.py mir --target mips --queries /tmp/mips.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-mips-neg-G_LOAD --negative-control G_LOAD --json",
+      "dir": "/tmp/l2-mips-neg-G_LOAD/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 1039,
+          "all_run_lines": 1311,
+          "both_abort": 27,
+          "diff": 105,
+          "out_of_layer": 0,
+          "runs": 1311,
+          "same": 1179,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "mips": {
+            "abort0_compared": 1039,
+            "all_run_lines": 1311,
+            "both_abort": 27,
+            "diff": 105,
+            "files": 1311,
+            "out_of_layer": 0,
+            "runs": 1311,
+            "same": 1179,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/mips-neg",
+      "kind": "mir",
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "dc2126b47b5aa37dfbcca1860e4c8200c620c3e9cf73a6d4d0ba94d8a853b5ee",
+        "provenance.json": "98f9998813ac70e09f6c2ee55eb4ac50534aa4df385262e14b4e6d3abfee23c9"
+      },
+      "command": "python3 ab.py mir --target m68k --queries /tmp/m68k.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-m68k --json",
+      "dir": "/tmp/l2-m68k/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 22,
+          "all_run_lines": 25,
+          "both_abort": 0,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 25,
+          "same": 25,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "m68k": {
+            "abort0_compared": 22,
+            "all_run_lines": 25,
+            "both_abort": 0,
+            "diff": 0,
+            "files": 25,
+            "out_of_layer": 0,
+            "runs": 25,
+            "same": 25,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/m68k",
+      "kind": "mir",
+      "target": "m68k"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "27448fb9cdba11e4b66fdeebf0e9b11ba6662720fd2db96f99249c75cf82f13b",
+        "provenance.json": "2e50d0d32ae3da54b73e61b549f46688fe89b27fbee8df25dab2a49afa43708a"
+      },
+      "command": "python3 ab.py mir --target m68k --queries /tmp/m68k.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-m68k-neg-G_LOAD --negative-control G_LOAD --json",
+      "dir": "/tmp/l2-m68k-neg-G_LOAD/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 18,
+          "all_run_lines": 25,
+          "both_abort": 0,
+          "diff": 4,
+          "out_of_layer": 0,
+          "runs": 25,
+          "same": 21,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "m68k": {
+            "abort0_compared": 18,
+            "all_run_lines": 25,
+            "both_abort": 0,
+            "diff": 4,
+            "files": 25,
+            "out_of_layer": 0,
+            "runs": 25,
+            "same": 21,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/m68k-neg",
+      "kind": "mir",
+      "target": "m68k"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "68fdf571a49a34a3637bdce547af97d6036afcbe90a3199687f90cab930348d7",
+        "provenance.json": "87eae49412266b4e9d5969e57c2d436942d1e13e08e98fe1e547cf6dce8ec505"
+      },
+      "command": "python3 ab.py mir --target wasm --queries /tmp/wasm.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-wasm --json",
+      "dir": "/tmp/l2-wasm/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 272,
+          "all_run_lines": 588,
+          "both_abort": 12,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 588,
+          "same": 576,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "wasm": {
+            "abort0_compared": 272,
+            "all_run_lines": 588,
+            "both_abort": 12,
+            "diff": 0,
+            "files": 588,
+            "out_of_layer": 0,
+            "runs": 588,
+            "same": 576,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/wasm",
+      "kind": "mir",
+      "target": "wasm"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "c77a99276cf1af5c7de7daa2dc9deb7d7bc89baa291635e3c5ff45aa0723690a",
+        "provenance.json": "6d70e6938fb36a2b05ec622c0b7ebcac1ec01c71a35331f19c71e16ab1eb5e9d"
+      },
+      "command": "python3 ab.py mir --target wasm --queries /tmp/wasm.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-wasm-neg-G_LOAD --negative-control G_LOAD --json",
+      "dir": "/tmp/l2-wasm-neg-G_LOAD/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 272,
+          "all_run_lines": 588,
+          "both_abort": 12,
+          "diff": 76,
+          "out_of_layer": 0,
+          "runs": 588,
+          "same": 500,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "wasm": {
+            "abort0_compared": 272,
+            "all_run_lines": 588,
+            "both_abort": 12,
+            "diff": 76,
+            "files": 588,
+            "out_of_layer": 0,
+            "runs": 588,
+            "same": 500,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/wasm-neg",
+      "kind": "mir",
+      "target": "wasm"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "cf62f9ec31681f76643fa35accef6839f714ccc0dc9417d1d9ef3d83c2854fa1",
+        "provenance.json": "77b8833934c03db570af21683db7fea13252af40ce37c1c853442239d9279a5a"
+      },
+      "command": "python3 ab.py mir --target spirv --queries /tmp/spirv.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-spirv --json",
+      "dir": "/tmp/l2-spirv/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 1987,
+          "all_run_lines": 2625,
+          "both_abort": 30,
+          "diff": 0,
+          "out_of_layer": 0,
+          "runs": 2625,
+          "same": 2595,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "spirv": {
+            "abort0_compared": 1987,
+            "all_run_lines": 2625,
+            "both_abort": 30,
+            "diff": 0,
+            "files": 2625,
+            "out_of_layer": 0,
+            "runs": 2625,
+            "same": 2595,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/spirv",
+      "kind": "mir",
+      "target": "spirv"
+    },
+    {
+      "artifacts": {
+        "mir-report.json": "cdfd558943f398e2a13b8b5c1ab9373005210202aef683597aa914a895fda737",
+        "provenance.json": "957698665cfda10de3a9cde004bfb830935945a978f5227238d5b26b8f754a7c"
+      },
+      "command": "python3 ab.py mir --target spirv --queries /tmp/spirv.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-spirv-neg-G_ADD --negative-control G_ADD --json",
+      "dir": "/tmp/l2-spirv-neg-G_ADD/replay",
+      "direction": "MIR",
+      "expect": {
+        "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964",
+        "mir": {
+          "abort0_compared": 1921,
+          "all_run_lines": 2625,
+          "both_abort": 30,
+          "diff": 101,
+          "out_of_layer": 0,
+          "runs": 2625,
+          "same": 2494,
+          "timeout": 0,
+          "unsupported_run": 0
+        },
+        "mir_targets": {
+          "spirv": {
+            "abort0_compared": 1921,
+            "all_run_lines": 2625,
+            "both_abort": 30,
+            "diff": 101,
+            "files": 2625,
+            "out_of_layer": 0,
+            "runs": 2625,
+            "same": 2494,
+            "timeout": 0,
+            "unsupported_run": 0
+          }
+        }
+      },
+      "id": "MIR-L2/spirv-neg",
+      "kind": "mir",
+      "target": "spirv"
+    },
+    {
+      "artifacts": {
+        "aarch64-D.json": "b43076204d6068ce6a8b66168f4a5ddb1770bb3efee1d6c7d86fe113de0d42c4"
+      },
+      "command": "python3 closure.py --target aarch64 --seed <D seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 39062,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 1696,
+        "revisited": 234516,
+        "seed_states": 936960,
+        "stuck": 0,
+        "successors": 241625
+      },
+      "id": "closure/aarch64-D",
+      "kind": "closure",
+      "target": "aarch64"
+    },
+    {
+      "artifacts": {
+        "aarch64-G.json": "e3604a3a12a6eee40c0717955100bfdafe16b82b37006034767c98214cab6af2"
+      },
+      "command": "python3 closure.py --target aarch64 --seed <G seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 36,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 4417,
+        "seed_states": 12559,
+        "stuck": 0,
+        "successors": 7244
+      },
+      "id": "closure/aarch64-G",
+      "kind": "closure",
+      "target": "aarch64"
+    },
+    {
+      "artifacts": {
+        "arm-D.json": "1030c95418c298fc538205cf259a3cc656aafcaeb3491fef02556d7dd4614bef"
+      },
+      "command": "python3 closure.py --target arm --seed <D seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 0,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 2219,
+        "seed_states": 9296,
+        "stuck": 0,
+        "successors": 2219
+      },
+      "id": "closure/arm-D",
+      "kind": "closure",
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "arm-G.json": "9b9d475936fb13766d8310ffda9f0b2b1029246b74dcc9136ebd6fde99e1113c"
+      },
+      "command": "python3 closure.py --target arm --seed <G seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 0,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 175,
+        "seed_states": 1614,
+        "stuck": 0,
+        "successors": 186
+      },
+      "id": "closure/arm-G",
+      "kind": "closure",
+      "target": "arm"
+    },
+    {
+      "artifacts": {
+        "m68k-D.json": "06a36925252d2e57eff18014e9369d752e62f9df9f7e72c26bfd26645e7d61eb"
+      },
+      "command": "python3 closure.py --target m68k --seed <D seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 0,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 2,
+        "seed_states": 112,
+        "stuck": 0,
+        "successors": 2
+      },
+      "id": "closure/m68k-D",
+      "kind": "closure",
+      "target": "m68k"
+    },
+    {
+      "artifacts": {
+        "m68k-G.json": "c772b493b41c25cd52a5826f09d2c2173885aacac2cabdaa622431b2982a296e"
+      },
+      "command": "python3 closure.py --target m68k --seed <G seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 0,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 6,
+        "seed_states": 35,
+        "stuck": 0,
+        "successors": 8
+      },
+      "id": "closure/m68k-G",
+      "kind": "closure",
+      "target": "m68k"
+    },
+    {
+      "artifacts": {
+        "mips-D.json": "eea137b8acb6c90521d73f101091d1707ca267a2bf0609cabf17619e8c707ad0"
+      },
+      "command": "python3 closure.py --target mips --seed <D seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 0,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 2970,
+        "seed_states": 18745,
+        "stuck": 0,
+        "successors": 2970
+      },
+      "id": "closure/mips-D",
+      "kind": "closure",
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "mips-G.json": "ea8e37e64e939878a9983aeb85064832726f925a1a3ec31215622c5782dad454"
+      },
+      "command": "python3 closure.py --target mips --seed <G seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 0,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 9,
+        "revisited": 202,
+        "seed_states": 1656,
+        "stuck": 0,
+        "successors": 202
+      },
+      "id": "closure/mips-G",
+      "kind": "closure",
+      "target": "mips"
+    },
+    {
+      "artifacts": {
+        "ppc-D.json": "b9e9be52a62d0adddcd967e854f354e598e0b86d834fd52b79cfdc777900f4d8"
+      },
+      "command": "python3 closure.py --target ppc --seed <D seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 3,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 152,
+        "seed_states": 1005,
+        "stuck": 0,
+        "successors": 152
+      },
+      "id": "closure/ppc-D",
+      "kind": "closure",
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "ppc-G.json": "402dd356520b209cd373a3879b51ea7aebffd32e8ff2591e64ea645302d7fa5f"
+      },
+      "command": "python3 closure.py --target ppc --seed <G seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 1,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 11,
+        "seed_states": 94,
+        "stuck": 0,
+        "successors": 12
+      },
+      "id": "closure/ppc-G",
+      "kind": "closure",
+      "target": "ppc"
+    },
+    {
+      "artifacts": {
+        "riscv-D.json": "5eda8e05bf39c4c3c221a612edcfa92dc0dcfe6faed26d9790f30bc08cfbc08e"
+      },
+      "command": "python3 closure.py --target riscv --seed <D seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 1074,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 13070,
+        "seed_states": 253747,
+        "stuck": 0,
+        "successors": 13388
+      },
+      "id": "closure/riscv-D",
+      "kind": "closure",
+      "target": "riscv"
+    },
+    {
+      "artifacts": {
+        "riscv-G.json": "8f20ae5cd95ff53c6ffc615cec4c3f9132f4f90155878e9fa5e1c8bfce06ea71"
+      },
+      "command": "python3 closure.py --target riscv --seed <G seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 0,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 1107,
+        "seed_states": 6086,
+        "stuck": 0,
+        "successors": 1368
+      },
+      "id": "closure/riscv-G",
+      "kind": "closure",
+      "target": "riscv"
+    },
+    {
+      "artifacts": {
+        "spirv-D.json": "9646be87f9aa3281b6b2e825c6fce7571e32e0689aa11cfc9047c63cfcf85b57"
+      },
+      "command": "python3 closure.py --target spirv --seed <D seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 900,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 842034,
+        "seed_states": 3472080,
+        "stuck": 0,
+        "successors": 842466
+      },
+      "id": "closure/spirv-D",
+      "kind": "closure",
+      "target": "spirv"
+    },
+    {
+      "artifacts": {
+        "spirv-G.json": "c719260958c8b7309c34ba41c7d62d2e379392f1e0b21a4db7315130404bd3c4"
+      },
+      "command": "python3 closure.py --target spirv --seed <G seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 8,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 685,
+        "seed_states": 5689,
+        "stuck": 0,
+        "successors": 944
+      },
+      "id": "closure/spirv-G",
+      "kind": "closure",
+      "target": "spirv"
+    },
+    {
+      "artifacts": {
+        "wasm-D.json": "4c4759a7ccb807e7ae5da316419f0143c06bed742a11301fcc0335d7a22a52da"
+      },
+      "command": "python3 closure.py --target wasm --seed <D seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 132,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 5124,
+        "seed_states": 11996,
+        "stuck": 0,
+        "successors": 5148
+      },
+      "id": "closure/wasm-D",
+      "kind": "closure",
+      "target": "wasm"
+    },
+    {
+      "artifacts": {
+        "wasm-G.json": "b6a0482323da60105a2e42a919260b23749c1b133f575f5350338b2facea817a"
+      },
+      "command": "python3 closure.py --target wasm --seed <G seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 0,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 302,
+        "seed_states": 894,
+        "stuck": 0,
+        "successors": 452
+      },
+      "id": "closure/wasm-G",
+      "kind": "closure",
+      "target": "wasm"
+    },
+    {
+      "artifacts": {
+        "x86-D.json": "6dcbe26a1a899dbc1a21cabd7303a6f8fc3d062b9d318041e19e5365cd0d3542"
+      },
+      "command": "python3 closure.py --target x86 --seed <D seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 648,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 29149,
+        "seed_states": 91340,
+        "stuck": 0,
+        "successors": 29941
+      },
+      "id": "closure/x86-D",
+      "kind": "closure",
+      "target": "x86"
+    },
+    {
+      "artifacts": {
+        "x86-G.json": "e29ee2b8a3af83f758ec5b465e3d4668a3ee1d0175dfed121ff2739d7fc39778"
+      },
+      "command": "python3 closure.py --target x86 --seed <G seed> (see docs/CLOSURE.md)",
+      "dir": "data/closure",
+      "direction": "closure",
+      "expect": {
+        "both_unanswerable": 0,
+        "disagree": 0,
+        "ok": true,
+        "ours_only_unanswerable": 0,
+        "ref_only_unanswerable": 0,
+        "revisited": 1221,
+        "seed_states": 3014,
+        "stuck": 0,
+        "successors": 1577
+      },
+      "id": "closure/x86-G",
+      "kind": "closure",
+      "target": "x86"
+    },
+    {
+      "artifacts": {},
+      "command": "./adopt-check.sh x86",
+      "dir": "/home/ubuntu/llvm/gisel/tests/artifacts",
+      "direction": "adopt",
+      "expect": {
+        "branch": "explore/x86-adopt",
+        "commit": "4b8a026249c2",
+        "inc": "x86.inc",
+        "inc_sha256": "38b278dd2a10fe42fa699b3661fbee575657bf8e9cdb1399a0d031a7c05b1442",
+        "lib_sha256": "085928fa26a5e772ff250f045ad4874cd5e8cbbc8046fbeeb2406f7394a9c432",
+        "tracks_artifact": false
+      },
+      "id": "adopt/x86",
+      "kind": "adopt",
+      "note": "Measured on the include the branch commits (2026-11-12). The product re-spelled its rules in r28 (public LegalizeRuleSet builders), so the live artifact no longer matches this hash; adopt-check.sh still verifies the branch bytes. Re-adopting is a separate run.",
+      "target": "x86"
+    },
+    {
+      "artifacts": {},
+      "command": "./adopt-check.sh aarch64",
+      "dir": "/home/ubuntu/llvm/gisel/tests/artifacts",
+      "direction": "adopt",
+      "expect": {
+        "branch": "explore/aarch64-adopt",
+        "commit": "a355d055cf28",
+        "inc": "aarch64.inc",
+        "inc_sha256": "0f6dcf0a6b91f105fdea64dcc8f18741f50b2e39fcc26b257cf9ad47ec5e669b",
+        "lib_sha256": "123cd6d80d8df1cbb9cf695f4cb27b9ca5d0fbbe12192fe8d205dece1f0fc2dd",
+        "tracks_artifact": false
+      },
+      "id": "adopt/aarch64",
+      "kind": "adopt",
+      "note": "Measured on the include the branch commits (2026-11-12). The product re-spelled its rules in r28 (public LegalizeRuleSet builders), so the live artifact no longer matches this hash; adopt-check.sh still verifies the branch bytes. Re-adopting is a separate run.",
+      "target": "aarch64"
+    },
+    {
+      "artifacts": {},
+      "command": "./adopt-check.sh riscv",
+      "dir": "/home/ubuntu/llvm/gisel/tests/artifacts",
+      "direction": "adopt",
+      "expect": {
+        "branch": "explore/riscv-adopt",
+        "commit": "0feeca6a2b68",
+        "inc": "riscv.inc",
+        "inc_sha256": "fe6427bdf480143c3ec1d5b35ebba2bda637cce650d83db4f44e4cdcec520e06",
+        "lib_sha256": "d44d873e01080f3007ecd57a52099fe54c6c43af9de12a8d3fd48d2b42bfff16",
+        "tracks_artifact": false
+      },
+      "id": "adopt/riscv",
+      "kind": "adopt",
+      "note": "Measured on the include the branch commits (2026-11-12). The product re-spelled its rules in r28 (public LegalizeRuleSet builders), so the live artifact no longer matches this hash; adopt-check.sh still verifies the branch bytes. Re-adopting is a separate run.",
+      "target": "riscv"
     }
-   },
-   "diff": "baseline/diff.json",
-   "runtime": {
-    "path": "/home/ubuntu/llvm/builds/explore/lib/libLLVMAArch64CodeGen.so.24.0git",
-    "sha256": "e49c03ec2f82ab2a4be80deb57e5ef5dca76daf7065b2498234730cd5cc64c02"
-   },
-   "sites": "sites.json",
-   "kind": "summary"
-  },
-  {
-   "id": "D/riscv",
-   "direction": "D",
-   "target": "riscv",
-   "dir": "/tmp/rv-vertical2/domain",
-   "queries": {
-    "path": "/tmp/rv-vertical2/domain/rv64gc/queries.jsonl",
-    "sha256": "a0fbcbb43829f28ac8c827075f348f3d37137e1bd4f61bb0f676ec2e32fa0f9a"
-   },
-   "command": "./run-riscv-domain.sh TREE BUILD /tmp/ab-domain/inc/RISCVLegalizerInfo.inc /tmp/ab-domain/rv-domain-r6",
-   "artifacts": {
-    "summary.json": "fd45ae3682e7d080cced6dc6bd3f785b29e9f01d6f37a86c1f50e5416db0c2c7",
-    "manifest.txt": "aaa179dae82f4c24177f346f5c0f6dc21f0e59b7e9dc077457eeca63545202a0",
-    "rv64gc/diff.json": "067ed79057e6112c5d55e1552ff34897fee583bf6bd1d576914d9a60182b9a23",
-    "rv64gc/queries.jsonl": "a0fbcbb43829f28ac8c827075f348f3d37137e1bd4f61bb0f676ec2e32fa0f9a"
-   },
-   "expect": {
-    "summary": {
-     "configs": 8,
-     "queries": 2029976,
-     "agree": 2029976,
-     "disagree": 0,
-     "unanswerable": 7728,
-     "ref_asserted": 0,
-     "errors": 0
-    }
-   },
-   "diff": "rv64gc/diff.json",
-   "runtime": {
-    "path": "/home/ubuntu/llvm/builds/explore/lib/libLLVMRISCVCodeGen.so.24.0git",
-    "sha256": "f32be744460c8155b7f96ebb9bc8b10655ecf05426fc38627ba6c575bf418eb4"
-   },
-   "kind": "summary"
-  },
-  {
-   "id": "U-full/x86",
-   "direction": "U",
-   "target": "x86",
-   "dir": "/tmp/u-full-new/x86/run",
-   "command": "./run-u-end-to-end.sh x86 /tmp/u-full-new/x86/queries.jsonl /tmp/u-full-new/x86/run --allow-unanswerable 1392",
-   "artifacts": {
-    "diff.json": "38965a9cc0f634a4686faae49cfd520a7f2dc889d192e75aa37d4c83004a914a",
-    "universe.jsonl": "99d6963d60090a6b36d8b0e42931560f3b70aa7863c56114c7c76170527e4137"
-   },
-   "expect": {
-    "ref": 965592,
-    "agree": 965592,
-    "disagree": 0,
-    "unanswerable": 1392,
-    "ref_asserted": 0,
-    "answered_equal": 964200
-   },
-   "queries": {
-    "path": "/tmp/u-full-new/x86/queries.jsonl",
-    "sha256": "2eeca0080c44fee913f8326a7363014b18469d85aae15effb7d0c9e9bb13db7a",
-    "derived_from": "universe.jsonl (sha 99d6963d60090a6b) expanded by `python3 -m oracle expand --configs C0,C1,C2,C3`"
-   },
-   "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix. The 1,392 unanswerable rows assert at LowLevelType.h:429 on both sides.",
-   "kind": "answers"
-  },
-  {
-   "id": "U-full/aarch64",
-   "direction": "U",
-   "target": "aarch64",
-   "dir": "/tmp/u-full-new/aarch64/run",
-   "command": "./run-u-end-to-end.sh aarch64 /tmp/u-full-new/aarch64/queries.jsonl /tmp/u-full-new/aarch64/run --allow-unanswerable 43452 --allow-ref-asserts 40014",
-   "artifacts": {
-    "diff.json": "ca02dbf06ae308ec2c2d428362974d0b03e88ae9ff34691058d2e09dd3257759",
-    "universe.jsonl": "fe1a202ee36231aa0cd285e8e98be2b06837dc3a5d1b0228d58fcf6fe70583bf"
-   },
-   "expect": {
-    "ref": 3951279,
-    "agree": 3911265,
-    "disagree": 0,
-    "unanswerable": 43452,
-    "ref_asserted": 40014,
-    "answered_equal": 3867813
-   },
-   "queries": {
-    "path": "/tmp/u-full-new/aarch64/queries.jsonl",
-    "sha256": "8ad32c1f0736cb66839152a450cdcfc5fa61089d60f8768e71df72914b882cb3",
-    "derived_from": "universe.jsonl (sha fe1a202ee36231aa) expanded by `python3 -m oracle expand --configs baseline,small-cm,bf16,lse,rcpc3,outline-atomics,cssc,fullfp16,sve`"
-   },
-   "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix. See diff.json for the pinned assert sites.",
-   "kind": "answers"
-  },
-  {
-   "id": "U-full/riscv",
-   "direction": "U",
-   "target": "riscv",
-   "dir": "/tmp/u-full-new/riscv/run",
-   "command": "./run-u-end-to-end.sh riscv /tmp/u-full-new/riscv/queries.jsonl /tmp/u-full-new/riscv/run --allow-unanswerable 5400",
-   "artifacts": {
-    "diff.json": "85a5b0930ebe0c4b61950fbda9c7ea858e5db3dd585c808482544c5d195b9927",
-    "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
-   },
-   "expect": {
-    "ref": 2022608,
-    "agree": 2022608,
-    "disagree": 0,
-    "unanswerable": 5400,
-    "ref_asserted": 0,
-    "answered_equal": 2017208
-   },
-   "queries": {
-    "path": "/tmp/u-full-new/riscv/queries.jsonl",
-    "sha256": "71e1011e48816795b22ae7f6904e93af6267c7670fa18abde59102b260ab844d",
-    "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs rv64gc,rv32gc,rv64gcv,rv32gcv,rv64zbb,rv64zfh,ristretto,rv32zilsd`"
-   },
-   "note": "Refreshed 2026-11-12 with tool 513201a after the universe pad fix. See diff.json for the pinned assert sites.",
-   "kind": "answers"
-  },
-  {
-   "id": "MIR-L1/upstream",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "x86+aarch64+riscv",
-   "dir": "/tmp/mir-l1-final6",
-   "command": "python3 mir-replay.py --layer upstream --target x86 --target aarch64 --target riscv --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-l1-final6 --prepare --json",
-   "artifacts": {
-    "mir-report.json": "596ec14008a6b0159222d29e88390f268bd003dc44e963436d9929ce86080feb",
-    "provenance.json": "542904543e38d8716a8c71b9ad340c5df483c8134adbaed872e1fe2e7cc779fd"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 868,
-     "runs": 624,
-     "same": 611,
-     "both_abort": 13,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 244,
-     "abort0_compared": 2
+  ],
+  "generated": "2026-11-14",
+  "notes": "RISC-V entries refreshed 2026-11-11 from /tmp/rv-vertical2 (see docs/EVIDENCE-riscv.md); the other targets remain the 2026-11-10 snapshot. Artifacts live under /tmp; `command` regenerates them. verify-evidence.sh checks sha256 + the recorded summary. U-full/* are the --limit 0 universes (one file per target, expanded across every configuration by `oracle expand`); the full query file is not frozen (144-473 MB) - its sha256 and the expand command are in docs/EVIDENCE-U.md, and the frozen universe plus that command regenerate it byte-for-byte. MIR-L1/arm, arm-neg, ppc, mips and mips-neg added 2026-11-12 (constructor swap for the three targets; PPC's only MIR file has no generic opcode, so its L1 line is nominal \u2014 see docs/GAPS.md O1). PPC L2 added 2026-11-12: the upstream MIR corpus has no generic opcode, so the query-derived set is what actually exercises its rules. ARM/Mips L2 added 2026-11-12 (configs in data/mir-configs.json, checked by mir-config-check.py); G_LOAD is the negative control for both because their generated include builds FADD in two chains. M68k/Wasm L2 added 2026-11-12 as well; both constructors are rule tables only, so the swap is the generic body. SPIR-V L2 added 2026-11-12 with per-target configs (env from the triple, extensions via --spirv-ext); its G_SPLAT_VECTOR queries are skipped because SPIR-VPreLegalizer splits splats before the legalizer and the rule table itself indexes Types[4]/Types[16] (docs/REPORT-mir.md 6.9). G/U/x86, G/U/aarch64 and G/U/riscv re-run 2026-11-14 after gisel switched the include to public builders (r28); query sets and agree counts are unchanged.",
+  "official_build": {
+    "libs": {
+      "AArch64": "e49c03ec2f82ab2a4be80deb57e5ef5dca76daf7065b2498234730cd5cc64c02",
+      "ARM": "45f4737bf3112ff28fd9140d95ebaaaf4debe85b82ca32c1ae97b3b4c8146cee",
+      "M68k": "24cacf3969a019bfdedc0cb0e5d76f020fd8b234487ecdb2971d77132c7938ba",
+      "Mips": "c2e0ee2bbeb87cf4da7e482715a13465b200cf6771376035249cf3d490f33a41",
+      "PowerPC": "b346bbe71da3b3b8db8a990eaf7e88f5cbae72265c39b6273ce87f8a11044602",
+      "RISCV": "f32be744460c8155b7f96ebb9bc8b10655ecf05426fc38627ba6c575bf418eb4",
+      "SPIRV": "5bf75b9f35a36087e3b3d4c02de6366145a1093d5db885f5e98709ec12bd93a3",
+      "WebAssembly": "ace4c380a30ecbca62cce66a58e3c5090ab83fa13f599bac0f9ffd3db36a2a4f",
+      "X86": "24bf2a5254dc042e6e1145e926ee42a4dd4d613e3947694b6628f2871b4fe357"
     },
-    "mir_targets": {
-     "x86": {
-      "files": 93,
-      "runs": 140,
-      "same": 140,
-      "both_abort": 0,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 19
-     },
-     "aarch64": {
-      "files": 367,
-      "runs": 214,
-      "same": 201,
-      "both_abort": 13,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 224
-     },
-     "riscv": {
-      "files": 181,
-      "runs": 270,
-      "same": 270,
-      "both_abort": 0,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 1
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
+    "note": "The build directory every entry in this file was produced from. verify-evidence.sh hashes these libraries and fails when the build no longer matches: rebuilding is a baseline change, so the evidence has to be re-run, not inherited. Entries that carry their own `runtime` recorded it at run time; older entries predate that field and are covered by this block.",
+    "path": "/home/ubuntu/llvm/builds/explore",
+    "recorded": "2026-11-11",
+    "tree": "700e551714cc"
   },
-  {
-   "id": "MIR-L2/x86",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "x86",
-   "dir": "/tmp/l2/x86/replay",
-   "command": "python3 ab.py mir --target x86 --queries /tmp/l2/x86.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2/x86",
-   "artifacts": {
-    "mir-report.json": "c3bbe9d649aae0ea4b52e3fe7db41a8cd6ee8df08b0943d7ff83b953a46f5d02",
-    "provenance.json": "5ed0e4931c5a7a9489fc8ec9ad5deb035b4947f71457a9c33db337f7ab762776"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 2390,
-     "runs": 2390,
-     "same": 2374,
-     "both_abort": 16,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 1558
-    },
-    "mir_targets": {
-     "x86": {
-      "files": 2390,
-      "runs": 2390,
-      "same": 2374,
-      "both_abort": 16,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/aarch64",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "aarch64",
-   "dir": "/tmp/l2/a64/replay",
-   "command": "python3 ab.py mir --target aarch64 --queries /tmp/l2/a64.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2/a64",
-   "artifacts": {
-    "mir-report.json": "a94a045fa45eeba1f5afb52f4cc6515979dfe697ce8a7be4d8d8306b7e96b806",
-    "provenance.json": "c861c4948bd7d794e7f6da65f0f8a9c18b6df169438fde3709f77722a0d298ec"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 8774,
-     "runs": 8774,
-     "same": 7874,
-     "both_abort": 837,
-     "diff": 0,
-     "timeout": 63,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 4250
-    },
-    "mir_targets": {
-     "aarch64": {
-      "files": 8774,
-      "runs": 8774,
-      "same": 7874,
-      "both_abort": 837,
-      "diff": 0,
-      "timeout": 63,
-      "unsupported_run": 0,
-      "out_of_layer": 0
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/riscv",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "riscv",
-   "dir": "/tmp/l2/rv/replay",
-   "command": "python3 ab.py mir --target riscv --queries /tmp/l2/rv.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2/rv",
-   "artifacts": {
-    "mir-report.json": "fdf1bf7533c6afb926a21910f3baecd7dd3ba3c55e362ed130823656ff80cc89",
-    "provenance.json": "e16131ead809ffb2f2e2d6e2e36db15b13997ca3ea87a467071af7b2263b3c19"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 4203,
-     "runs": 4203,
-     "same": 4050,
-     "both_abort": 151,
-     "diff": 0,
-     "timeout": 2,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 2265
-    },
-    "mir_targets": {
-     "riscv": {
-      "files": 4203,
-      "runs": 4203,
-      "same": 4050,
-      "both_abort": 151,
-      "diff": 0,
-      "timeout": 2,
-      "unsupported_run": 0,
-      "out_of_layer": 0
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "D/m68k",
-   "direction": "D",
-   "target": "m68k",
-   "dir": "/tmp/ab-domain/m68k",
-   "command": "./run-domain.sh m68k /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/M68kLegalizerInfo.inc /tmp/ab-domain/m68k",
-   "inc": {
-    "name": "M68kLegalizerInfo.inc",
-    "sha256": "8d843f4f5775e63e91fc24fac1e19906577c961ee43b7d6350141bf5e58a37c4",
-    "command": "python3 -m gisel gen tests/corpus/M68kLegalizerInfo.gisel --emit=inc"
-   },
-   "artifacts": {
-    "summary.json": "9a61df018f8115f514c905b931ad25f29631b7f81bdf13739f27d1dcfb619494"
-   },
-   "expect": {
-    "summary": {
-     "configs": 1,
-     "queries": 112,
-     "agree": 112,
-     "disagree": 0,
-     "unanswerable": 0,
-     "ref_asserted": 0,
-     "errors": 0
-    }
-   },
-   "kind": "summary"
-  },
-  {
-   "id": "D/ppc",
-   "direction": "D",
-   "target": "ppc",
-   "dir": "/tmp/ab-domain/ppc",
-   "command": "./run-domain.sh ppc /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/PowerPCLegalizerInfo.inc /tmp/ab-domain/ppc",
-   "inc": {
-    "name": "PowerPCLegalizerInfo.inc",
-    "sha256": "c15f766bd2a167614a4bba3fabc8124c86f57d01cdca41b80d83e18173981dcd",
-    "command": "python3 -m gisel gen tests/corpus/PowerPCLegalizerInfo.gisel --emit=inc"
-   },
-   "artifacts": {
-    "summary.json": "f87339cf564130c90c14e776e3061ec384512e4e8c2fc310c6a63a1270e98f11",
-    "sites.json": "96858ede3de5c6e244f46b65b8298dc759de7e7eed3a3e34e71656966c8ede3c"
-   },
-   "expect": {
-    "summary": {
-     "configs": 1,
-     "queries": 1005,
-     "agree": 1005,
-     "disagree": 0,
-     "unanswerable": 3,
-     "ref_asserted": 0,
-     "errors": 0
-    },
-    "assert_sites": {
-     "same": 3,
-     "mismatch": 0,
-     "missing": 0,
-     "top": [
-      [
-       "LegalizerInfo.cpp:200",
-       3
-      ]
-     ]
-    }
-   },
-   "kind": "summary"
-  },
-  {
-   "id": "D/arm",
-   "direction": "D",
-   "target": "arm",
-   "dir": "/tmp/ab-domain/arm",
-   "command": "./run-domain.sh arm /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/ARMLegalizerInfo.inc /tmp/ab-domain/arm",
-   "inc": {
-    "name": "ARMLegalizerInfo.inc",
-    "sha256": "021a84797085030f4dac203a04cd54ec14c770db581bf7bf1e16002155f15b9e",
-    "command": "python3 -m gisel gen tests/corpus/ARMLegalizerInfo.gisel --emit=inc"
-   },
-   "artifacts": {
-    "summary.json": "10ba9a3170b31ad98f6a31aa8b8a1f1bb27baecbe8fe968d74e841e6c8565316"
-   },
-   "expect": {
-    "summary": {
-     "configs": 7,
-     "queries": 9296,
-     "agree": 9296,
-     "disagree": 0,
-     "unanswerable": 0,
-     "ref_asserted": 0,
-     "errors": 0
-    }
-   },
-   "kind": "summary"
-  },
-  {
-   "id": "D/mips",
-   "direction": "D",
-   "target": "mips",
-   "dir": "/tmp/ab-domain/mips",
-   "command": "./run-domain.sh mips /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/MipsLegalizerInfo.inc /tmp/ab-domain/mips",
-   "inc": {
-    "name": "MipsLegalizerInfo.inc",
-    "sha256": "fd4a51d952b822d67342a0b3464f5f2ff125fd818404a7e0e210a7d4aa4b578f",
-    "command": "python3 -m gisel gen tests/corpus/MipsLegalizerInfo.gisel --emit=inc"
-   },
-   "artifacts": {
-    "summary.json": "dfe03537563eb2ce7aafbd4fbbf7dd1bd9dc36598467f28c5d2804cb9c0ec130"
-   },
-   "expect": {
-    "summary": {
-     "configs": 5,
-     "queries": 18745,
-     "agree": 18745,
-     "disagree": 0,
-     "unanswerable": 0,
-     "ref_asserted": 0,
-     "errors": 0
-    }
-   },
-   "kind": "summary"
-  },
-  {
-   "id": "D/wasm",
-   "direction": "D",
-   "target": "wasm",
-   "dir": "/tmp/ab-domain/wasm",
-   "command": "./run-domain.sh wasm /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/WebAssemblyLegalizerInfo.inc /tmp/ab-domain/wasm",
-   "inc": {
-    "name": "WebAssemblyLegalizerInfo.inc",
-    "sha256": "1293d7a53ab9a74361e66e9a6008f2142c9b4d6e693352c7b3b8bb4e371c52c8",
-    "command": "python3 -m gisel gen tests/corpus/WebAssemblyLegalizerInfo.gisel --emit=inc"
-   },
-   "artifacts": {
-    "summary.json": "9bda1ce17a8f9de406162414ab51711d3fbde9a87f8393aa7fb17855bbe7aa8e",
-    "sites.json": "3db1c1561c570499d6ea87350fdd05397a52c9b49165dfd1a70130cfc716921b"
-   },
-   "expect": {
-    "summary": {
-     "configs": 4,
-     "queries": 11996,
-     "agree": 11996,
-     "disagree": 0,
-     "unanswerable": 132,
-     "ref_asserted": 0,
-     "errors": 0
-    },
-    "assert_sites": {
-     "same": 132,
-     "mismatch": 0,
-     "missing": 0,
-     "top": [
-      [
-       "LowLevelType.h:429",
-       116
-      ],
-      [
-       "LowLevelType.h:151",
-       16
-      ]
-     ]
-    }
-   },
-   "kind": "summary"
-  },
-  {
-   "id": "D/spirv",
-   "direction": "D",
-   "target": "spirv",
-   "dir": "/tmp/ab-domain/spirv",
-   "command": "./run-domain.sh spirv /home/ubuntu/llvm/trees/explore /home/ubuntu/llvm/builds/explore /tmp/dom-inc/SPIRVLegalizerInfo.inc /tmp/ab-domain/spirv",
-   "inc": {
-    "name": "SPIRVLegalizerInfo.inc",
-    "sha256": "a9037d2c63426a1a594d4086b448aca6c2537b86c821df335ff7abffba95550a",
-    "command": "python3 -m gisel gen tests/corpus/SPIRVLegalizerInfo.gisel --emit=inc"
-   },
-   "artifacts": {
-    "summary.json": "c55b2d0e98c06e5116188a0626a006212ef1bff1c8a502f247bc82df5e73c22b",
-    "sites.json": "460c9efa56bb4820763494d2cbbdd404578d622cc0c59466c2e891b537c4be6a"
-   },
-   "expect": {
-    "summary": {
-     "configs": 6,
-     "queries": 3472080,
-     "agree": 3472080,
-     "disagree": 0,
-     "unanswerable": 900,
-     "ref_asserted": 0,
-     "errors": 0
-    },
-    "assert_sites": {
-     "same": 0,
-     "mismatch": 900,
-     "missing": 0,
-     "top": []
-    }
-   },
-   "kind": "summary"
-  },
-  {
-   "id": "U-full/m68k",
-   "direction": "U",
-   "target": "m68k",
-   "dir": "/tmp/u-full2/m68k/run",
-   "command": "./run-u-end-to-end.sh m68k /tmp/u-full2/m68k/queries.jsonl /tmp/u-full2/m68k/run",
-   "artifacts": {
-    "diff.json": "46381855d14b2fa3c6a06843a1ee84e8171805b8c5bac09b3af18c899e9daa50",
-    "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
-   },
-   "expect": {
-    "ref": 252826,
-    "agree": 252826,
-    "disagree": 0,
-    "unanswerable": 0,
-    "ref_asserted": 0
-   },
-   "queries": {
-    "path": "/tmp/u-full2/m68k/queries.jsonl",
-    "sha256": "7f0f810d623c116a9b7dd10acc7050344a0726e7973332fbbc54ac74783f8275",
-    "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs default`"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "U-full/ppc",
-   "direction": "U",
-   "target": "ppc",
-   "dir": "/tmp/u-full2/ppc/run3",
-   "command": "./run-u-end-to-end.sh ppc /tmp/u-full2/ppc/queries.jsonl /tmp/u-full2/ppc/run3 --allow-unanswerable 924 --allow-ref-asserts 558",
-   "artifacts": {
-    "diff.json": "6a418b168476b06f4be9171cd3861ce80470f374701d05602341fe239dda7a57",
-    "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
-   },
-   "expect": {
-    "ref": 252826,
-    "agree": 252268,
-    "disagree": 0,
-    "unanswerable": 924,
-    "ref_asserted": 558,
-    "ref_asserted_by_site": {
-     "fatal:cannot implicitly convert a scalable size to a fixed-width size": 558
-    }
-   },
-   "queries": {
-    "path": "/tmp/u-full2/ppc/queries.jsonl",
-    "sha256": "7f0f810d623c116a9b7dd10acc7050344a0726e7973332fbbc54ac74783f8275",
-    "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs default`"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "U-full/arm",
-   "direction": "U",
-   "target": "arm",
-   "dir": "/tmp/u-full2/arm/run2",
-   "command": "./run-u-end-to-end.sh arm /tmp/u-full2/arm/queries.jsonl /tmp/u-full2/arm/run2",
-   "artifacts": {
-    "diff.json": "816e3a8f3547f28a5a2245622330f536b79d883527dbd2a43ccb38c56ebfaf79",
-    "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
-   },
-   "expect": {
-    "ref": 1769782,
-    "agree": 1769782,
-    "disagree": 0,
-    "unanswerable": 0,
-    "ref_asserted": 0
-   },
-   "queries": {
-    "path": "/tmp/u-full2/arm/queries.jsonl",
-    "sha256": "446f9b146662e56149a9551ddfef6c550357982e444cf7baf7ad85338686133b",
-    "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs armv7a-neon,armv7a-nodiv,armv7a-a5,armv6-arm1176,armv4t,thumbv7m,armv7-soft`"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "U-full/mips",
-   "direction": "U",
-   "target": "mips",
-   "dir": "/tmp/u-full2/mips/run2",
-   "command": "./run-u-end-to-end.sh mips /tmp/u-full2/mips/queries.jsonl /tmp/u-full2/mips/run2 --allow-ref-asserts 750",
-   "artifacts": {
-    "diff.json": "f2c20bc15a26580a7786ebf9564fbaf73aeb8351d9f6e4b58656bd5319aafc8e",
-    "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
-   },
-   "expect": {
-    "ref": 1264130,
-    "agree": 1263380,
-    "disagree": 0,
-    "unanswerable": 0,
-    "ref_asserted": 750,
-    "ref_asserted_by_site": {
-     "MipsLegalizerInfo.cpp:133": 30,
-     "fatal:cannot implicitly convert a scalable size to a fixed-width size": 720
-    }
-   },
-   "queries": {
-    "path": "/tmp/u-full2/mips/queries.jsonl",
-    "sha256": "c313d289ffb640b6ae87bda28ef0f9aabf15b1d6d9a15ba1da700e189d171172",
-    "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs mips32,mips32r2,mips32r6,mips32r5-msa,mips32r6-msa`"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "U-full/wasm",
-   "direction": "U",
-   "target": "wasm",
-   "dir": "/tmp/u-full2/wasm/run2",
-   "command": "./run-u-end-to-end.sh wasm /tmp/u-full2/wasm/queries.jsonl /tmp/u-full2/wasm/run2 --allow-unanswerable 4868",
-   "artifacts": {
-    "diff.json": "4b1cd86991b878dc7f093826d4d575f4a6083b26e15bc60dd1482d29ca1f233c",
-    "universe.jsonl": "e11cba9b8f04b7514405b9e403cf0edd1c1d2db616ea2afee0292efcc9bcc938"
-   },
-   "expect": {
-    "ref": 1011304,
-    "agree": 1011304,
-    "disagree": 0,
-    "unanswerable": 4868,
-    "ref_asserted": 0
-   },
-   "queries": {
-    "path": "/tmp/u-full2/wasm/queries.jsonl",
-    "sha256": "893dd3c6f1682ce6062afcc8d926439f2bc46d5f88ea2a9a809d56a7835b0caa",
-    "derived_from": "universe.jsonl (sha e11cba9b8f04b751) expanded by `python3 -m oracle expand --configs wasm32,wasm32-signext,wasm64,wasm64-signext`"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "U-full/spirv",
-   "direction": "U",
-   "target": "spirv",
-   "dir": "/tmp/u-full2/spirv/run5",
-   "command": "./run-u-end-to-end.sh spirv /tmp/u-full2/spirv/queries.jsonl /tmp/u-full2/spirv/run5 --allow-unanswerable 1464 --allow-ref-asserts 246",
-   "artifacts": {
-    "diff.json": "7662e1b5b06ca13909a75b523a86452ff535ab7a86e4921339a16120e034bef4",
-    "universe.jsonl": "a20c7fe098f48155590761438df83c8d792a9155093ba1334d4867d51b5af8c1"
-   },
-   "expect": {
-    "ref": 4082382,
-    "agree": 4082136,
-    "disagree": 0,
-    "unanswerable": 1464,
-    "ref_asserted": 246,
-    "ref_asserted_by_site": {
-     "fatal:Possible incorrect use of LLT getNumElements  for scalable vect": 246
-    }
-   },
-   "queries": {
-    "path": "/tmp/u-full2/spirv/queries.jsonl",
-    "sha256": "13077fe5ab7570fae73f309c983bf61b0dc4adb4fa59c741070a71883b9a8025",
-    "derived_from": "universe.jsonl (sha a20c7fe098f48155) expanded by `python3 -m oracle expand --configs spirv64-kernel,spirv32-kernel,spirv64-shader,spirv32-shader,spirv64-kernel-ext,spirv32-shader-ext`"
-   },
-   "kind": "answers"
-  },
-  {
-   "id": "MIR-L3/check-llvm",
-   "kind": "lit",
-   "direction": "MIR",
-   "target": "x86+aarch64+riscv",
-   "dir": "/tmp/l3-final3",
-   "command": "python3 l3.py run --out /tmp/l3-final3 && python3 l3.py compare /tmp/l3-final3 --json /tmp/l3-final3/l3-summary.json",
-   "artifacts": {
-    "l3-summary.json": "4c9acbe71ff587135f9fdea005f6ab31889e3b27180a8149ba595c09b91c885c",
-    "l3-provenance.json": "0c9304be411a7c085b375bbf7f1a55c66e9cb0994851bf819fd4d76aabd69d32",
-    "l3-baseline.tests.jsonl": "043bc666fd4e200290ea13424f5d92e3641d7964d1d1b720a2ec12b284a9e7c8",
-    "l3-combined.tests.jsonl": "043bc666fd4e200290ea13424f5d92e3641d7964d1d1b720a2ec12b284a9e7c8"
-   },
-   "expect": {
-    "lit": {
-     "baseline": {
-      "aborted": 0,
-      "failed": 0,
-      "passed": 64916,
-      "tests": 80596,
-      "unsupported": 15534,
-      "xfail": 146,
-      "xpass": 0
-     },
-     "combined": {
-      "aborted": 0,
-      "failed": 0,
-      "passed": 64916,
-      "tests": 80596,
-      "unsupported": 15534,
-      "xfail": 146,
-      "xpass": 0
-     },
-     "log.baseline": {
-      "discovered": 80655,
-      "passed": 64916,
-      "skipped": 59,
-      "unsupported": 15534,
-      "xfail": 146
-     },
-     "log.combined": {
-      "discovered": 80655,
-      "passed": 64916,
-      "skipped": 59,
-      "unsupported": 15534,
-      "xfail": 146
-     },
-     "tests_compared": 80596,
-     "identical": true
-    }
-   }
-  },
-  {
-   "id": "MIR-L1/arm",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "arm",
-   "dir": "/tmp/mir-arm2",
-   "command": "python3 mir-replay.py --layer upstream --target arm --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-arm2 --prepare --json",
-   "artifacts": {
-    "mir-report.json": "2ac11def243455fe9da8e584c6bf98ed9b34de25d8f771e2dc98dd6c7a12c206",
-    "provenance.json": "0ff56b32ad25944010c47fa85765a5f9006fad79c49715d95b260fc8ef55e7d3"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 43,
-     "runs": 43,
-     "same": 43,
-     "both_abort": 0,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 0
-    },
-    "mir_targets": {
-     "arm": {
-      "files": 16,
-      "all_run_lines": 43,
-      "runs": 43,
-      "same": 43,
-      "both_abort": 0,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 0
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L1/arm-neg",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "arm",
-   "dir": "/tmp/mir-arm-neg2",
-   "command": "python3 mir-replay.py --layer upstream --target arm --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-arm-neg2 --prepare --negative-control G_MERGE_VALUES --json",
-   "artifacts": {
-    "mir-report.json": "495b0edcf20a558c36cb4bd86c4c0cecb947fedbb816bf01716e20f05e54123a",
-    "provenance.json": "a510c0e3e3bd41b97ef0cc67026deb615145040a42f43fc67b180565fd0cbe68"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 43,
-     "runs": 43,
-     "same": 39,
-     "both_abort": 0,
-     "diff": 4,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 0
-    },
-    "mir_targets": {
-     "arm": {
-      "files": 16,
-      "all_run_lines": 43,
-      "runs": 43,
-      "same": 39,
-      "both_abort": 0,
-      "diff": 4,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 0
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L1/ppc",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "ppc",
-   "dir": "/tmp/mir-ppc",
-   "command": "python3 mir-replay.py --layer upstream --target ppc --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-ppc --prepare --json",
-   "artifacts": {
-    "mir-report.json": "8edf18eda55d8df456234e4055bf96e33e3bbd4027ba36ec588082bf01311d14",
-    "provenance.json": "3f2f639be509f432e4db06c0a12cf8652ae15563677f7beaf42ff4184a3840a5"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 1,
-     "runs": 1,
-     "same": 1,
-     "both_abort": 0,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 0
-    },
-    "mir_targets": {
-     "ppc": {
-      "files": 1,
-      "all_run_lines": 1,
-      "runs": 1,
-      "same": 1,
-      "both_abort": 0,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 0
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L1/mips",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "mips",
-   "dir": "/tmp/mir-mips",
-   "command": "python3 mir-replay.py --layer upstream --target mips --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-mips --prepare --json",
-   "artifacts": {
-    "mir-report.json": "7637b21aadfe6ef88bf52fb9d17b0a27b6a0b59af1e7f7060b7b13546a5592b7",
-    "provenance.json": "bc0c79b85cc33c532dacd0cc67f30f18795460e800d23805350a56a7ecbdfec9"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 77,
-     "runs": 72,
-     "same": 72,
-     "both_abort": 0,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 5,
-     "abort0_compared": 0
-    },
-    "mir_targets": {
-     "mips": {
-      "files": 63,
-      "all_run_lines": 77,
-      "runs": 72,
-      "same": 72,
-      "both_abort": 0,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 5,
-      "abort0_compared": 0
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L1/mips-neg",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "mips",
-   "dir": "/tmp/mir-mips-neg",
-   "command": "python3 mir-replay.py --layer upstream --target mips --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/mir-mips-neg --prepare --negative-control G_ADD --json",
-   "artifacts": {
-    "mir-report.json": "bcf72826d71e0e8fef48299a7efea9316d8293350c2fb0add79426886e8a5a7b",
-    "provenance.json": "387d1b203d5c49f7574e63d28392d2558ddcad50f1030c1a57de06119202256a"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 77,
-     "runs": 72,
-     "same": 57,
-     "both_abort": 0,
-     "diff": 15,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 5,
-     "abort0_compared": 0
-    },
-    "mir_targets": {
-     "mips": {
-      "files": 63,
-      "all_run_lines": 77,
-      "runs": 72,
-      "same": 57,
-      "both_abort": 0,
-      "diff": 15,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 5,
-      "abort0_compared": 0
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/ppc",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "ppc",
-   "dir": "/tmp/l2-ppc/replay",
-   "command": "python3 ab.py mir --target ppc --queries /tmp/ppc.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-ppc --json",
-   "artifacts": {
-    "mir-report.json": "ea8857111c18fc53ee5266dcfe40df5fcd8c94be4b2be407312348e57fb19920",
-    "provenance.json": "1a6460a05c7ba1753ca1d8bd2fd570132134315c019e3fb251b2d3c097351546"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 71,
-     "runs": 71,
-     "same": 70,
-     "both_abort": 1,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 64
-    },
-    "mir_targets": {
-     "ppc": {
-      "files": 71,
-      "all_run_lines": 71,
-      "runs": 71,
-      "same": 70,
-      "both_abort": 1,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 64
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/ppc-neg",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "ppc",
-   "dir": "/tmp/l2-ppc-neg-G_FADD/replay",
-   "command": "python3 ab.py mir --target ppc --queries /tmp/ppc.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-ppc-neg-G_FADD --negative-control G_FADD --json",
-   "artifacts": {
-    "mir-report.json": "42a113d537c1d5cda3fe6a9a32cbe110e5afee524297fbe9fd95d255e8421950",
-    "provenance.json": "7cddd05578b80dac500b4f46106aefb4a7e053d41d5c50df83c18d8b061be5fc"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 71,
-     "runs": 71,
-     "same": 69,
-     "both_abort": 1,
-     "diff": 1,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 63
-    },
-    "mir_targets": {
-     "ppc": {
-      "files": 71,
-      "all_run_lines": 71,
-      "runs": 71,
-      "same": 69,
-      "both_abort": 1,
-      "diff": 1,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 63
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/arm",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "arm",
-   "dir": "/tmp/l2-arm/replay",
-   "command": "python3 ab.py mir --target arm --queries /tmp/arm.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-arm --json",
-   "artifacts": {
-    "mir-report.json": "88443d71cbdf9251b6107a7ff880f364a2b8dfe5770844f31afba692ec385112",
-    "provenance.json": "fd02489fb47a0dd22e613cf4507dfc1ed8dd226e22078680884671e9a17e84fc"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 1141,
-     "runs": 1141,
-     "same": 1141,
-     "both_abort": 0,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 1106
-    },
-    "mir_targets": {
-     "arm": {
-      "files": 1141,
-      "all_run_lines": 1141,
-      "runs": 1141,
-      "same": 1141,
-      "both_abort": 0,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 1106
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/arm-neg",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "arm",
-   "dir": "/tmp/l2-arm-neg-G_LOAD/replay",
-   "command": "python3 ab.py mir --target arm --queries /tmp/arm.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-arm-neg-G_LOAD --negative-control G_LOAD --json",
-   "artifacts": {
-    "mir-report.json": "e5cd8167f59c026b66954ce53254303f2ced2359ea85d1dadcc8090178859f8b",
-    "provenance.json": "2db9d94b83402e9f1752429309c431e5ed5a2bd071a85ffa42ac7810aa3b4dee"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 1141,
-     "runs": 1141,
-     "same": 1077,
-     "both_abort": 0,
-     "diff": 64,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 1042
-    },
-    "mir_targets": {
-     "arm": {
-      "files": 1141,
-      "all_run_lines": 1141,
-      "runs": 1141,
-      "same": 1077,
-      "both_abort": 0,
-      "diff": 64,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 1042
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/mips",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "mips",
-   "dir": "/tmp/l2-mips/replay",
-   "command": "python3 ab.py mir --target mips --queries /tmp/mips.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-mips --json",
-   "artifacts": {
-    "mir-report.json": "d5a8e44531ef8cacd798a0a81f820ed4f44494602074f5530e9a65b98bb67831",
-    "provenance.json": "26963d0b9dbcbf2770dbacb0bda888128d0d9e6106ee3063b54c6a33f50336b5"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 1311,
-     "runs": 1311,
-     "same": 1311,
-     "both_abort": 0,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 1121
-    },
-    "mir_targets": {
-     "mips": {
-      "files": 1311,
-      "all_run_lines": 1311,
-      "runs": 1311,
-      "same": 1311,
-      "both_abort": 0,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 1121
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/mips-neg",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "mips",
-   "dir": "/tmp/l2-mips-neg-G_LOAD/replay",
-   "command": "python3 ab.py mir --target mips --queries /tmp/mips.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-mips-neg-G_LOAD --negative-control G_LOAD --json",
-   "artifacts": {
-    "mir-report.json": "06eca3bc1ef94635b09721edd3a93e3b158013f8d3356e23cd32f1738b7633fe",
-    "provenance.json": "0862cd194cedf4902688887c2c2d91241e2b33251a4f6691af4e17fbca3570b4"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 1311,
-     "runs": 1311,
-     "same": 1179,
-     "both_abort": 27,
-     "diff": 105,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 1039
-    },
-    "mir_targets": {
-     "mips": {
-      "files": 1311,
-      "all_run_lines": 1311,
-      "runs": 1311,
-      "same": 1179,
-      "both_abort": 27,
-      "diff": 105,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 1039
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/m68k",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "m68k",
-   "dir": "/tmp/l2-m68k/replay",
-   "command": "python3 ab.py mir --target m68k --queries /tmp/m68k.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-m68k --json",
-   "artifacts": {
-    "mir-report.json": "dc2126b47b5aa37dfbcca1860e4c8200c620c3e9cf73a6d4d0ba94d8a853b5ee",
-    "provenance.json": "98f9998813ac70e09f6c2ee55eb4ac50534aa4df385262e14b4e6d3abfee23c9"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 25,
-     "runs": 25,
-     "same": 25,
-     "both_abort": 0,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 22
-    },
-    "mir_targets": {
-     "m68k": {
-      "files": 25,
-      "all_run_lines": 25,
-      "runs": 25,
-      "same": 25,
-      "both_abort": 0,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 22
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/m68k-neg",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "m68k",
-   "dir": "/tmp/l2-m68k-neg-G_LOAD/replay",
-   "command": "python3 ab.py mir --target m68k --queries /tmp/m68k.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-m68k-neg-G_LOAD --negative-control G_LOAD --json",
-   "artifacts": {
-    "mir-report.json": "27448fb9cdba11e4b66fdeebf0e9b11ba6662720fd2db96f99249c75cf82f13b",
-    "provenance.json": "2e50d0d32ae3da54b73e61b549f46688fe89b27fbee8df25dab2a49afa43708a"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 25,
-     "runs": 25,
-     "same": 21,
-     "both_abort": 0,
-     "diff": 4,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 18
-    },
-    "mir_targets": {
-     "m68k": {
-      "files": 25,
-      "all_run_lines": 25,
-      "runs": 25,
-      "same": 21,
-      "both_abort": 0,
-      "diff": 4,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 18
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/wasm",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "wasm",
-   "dir": "/tmp/l2-wasm/replay",
-   "command": "python3 ab.py mir --target wasm --queries /tmp/wasm.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-wasm --json",
-   "artifacts": {
-    "mir-report.json": "68fdf571a49a34a3637bdce547af97d6036afcbe90a3199687f90cab930348d7",
-    "provenance.json": "87eae49412266b4e9d5969e57c2d436942d1e13e08e98fe1e547cf6dce8ec505"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 588,
-     "runs": 588,
-     "same": 576,
-     "both_abort": 12,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 272
-    },
-    "mir_targets": {
-     "wasm": {
-      "files": 588,
-      "all_run_lines": 588,
-      "runs": 588,
-      "same": 576,
-      "both_abort": 12,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 272
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/wasm-neg",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "wasm",
-   "dir": "/tmp/l2-wasm-neg-G_LOAD/replay",
-   "command": "python3 ab.py mir --target wasm --queries /tmp/wasm.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-wasm-neg-G_LOAD --negative-control G_LOAD --json",
-   "artifacts": {
-    "mir-report.json": "c77a99276cf1af5c7de7daa2dc9deb7d7bc89baa291635e3c5ff45aa0723690a",
-    "provenance.json": "6d70e6938fb36a2b05ec622c0b7ebcac1ec01c71a35331f19c71e16ab1eb5e9d"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 588,
-     "runs": 588,
-     "same": 500,
-     "both_abort": 12,
-     "diff": 76,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 272
-    },
-    "mir_targets": {
-     "wasm": {
-      "files": 588,
-      "all_run_lines": 588,
-      "runs": 588,
-      "same": 500,
-      "both_abort": 12,
-      "diff": 76,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 272
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/spirv",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "spirv",
-   "dir": "/tmp/l2-spirv/replay",
-   "command": "python3 ab.py mir --target spirv --queries /tmp/spirv.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-spirv --json",
-   "artifacts": {
-    "mir-report.json": "cf62f9ec31681f76643fa35accef6839f714ccc0dc9417d1d9ef3d83c2854fa1",
-    "provenance.json": "77b8833934c03db570af21683db7fea13252af40ce37c1c853442239d9279a5a"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 2625,
-     "runs": 2625,
-     "same": 2595,
-     "both_abort": 30,
-     "diff": 0,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 1987
-    },
-    "mir_targets": {
-     "spirv": {
-      "files": 2625,
-      "all_run_lines": 2625,
-      "runs": 2625,
-      "same": 2595,
-      "both_abort": 30,
-      "diff": 0,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 1987
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "MIR-L2/spirv-neg",
-   "kind": "mir",
-   "direction": "MIR",
-   "target": "spirv",
-   "dir": "/tmp/l2-spirv-neg-G_ADD/replay",
-   "command": "python3 ab.py mir --target spirv --queries /tmp/spirv.queries.jsonl --tree /home/ubuntu/llvm/trees/explore --build /home/ubuntu/llvm/builds/explore --out /tmp/l2-spirv-neg-G_ADD --negative-control G_ADD --json",
-   "artifacts": {
-    "mir-report.json": "cdfd558943f398e2a13b8b5c1ab9373005210202aef683597aa914a895fda737",
-    "provenance.json": "957698665cfda10de3a9cde004bfb830935945a978f5227238d5b26b8f754a7c"
-   },
-   "expect": {
-    "mir": {
-     "all_run_lines": 2625,
-     "runs": 2625,
-     "same": 2494,
-     "both_abort": 30,
-     "diff": 101,
-     "timeout": 0,
-     "unsupported_run": 0,
-     "out_of_layer": 0,
-     "abort0_compared": 1921
-    },
-    "mir_targets": {
-     "spirv": {
-      "files": 2625,
-      "all_run_lines": 2625,
-      "runs": 2625,
-      "same": 2494,
-      "both_abort": 30,
-      "diff": 101,
-      "timeout": 0,
-      "unsupported_run": 0,
-      "out_of_layer": 0,
-      "abort0_compared": 1921
-     }
-    },
-    "llc_sha256": "ef74d1ab4964eff8a2b0444e2e5c623f352643d8672eb7bfbd39b6915bc78964"
-   }
-  },
-  {
-   "id": "closure/aarch64-D",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "aarch64",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target aarch64 --seed <D seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "aarch64-D.json": "b43076204d6068ce6a8b66168f4a5ddb1770bb3efee1d6c7d86fe113de0d42c4"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 936960,
-    "successors": 241625,
-    "revisited": 234516,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 39062,
-    "ref_only_unanswerable": 1696,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/aarch64-G",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "aarch64",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target aarch64 --seed <G seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "aarch64-G.json": "e3604a3a12a6eee40c0717955100bfdafe16b82b37006034767c98214cab6af2"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 12559,
-    "successors": 7244,
-    "revisited": 4417,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 36,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/arm-D",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "arm",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target arm --seed <D seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "arm-D.json": "1030c95418c298fc538205cf259a3cc656aafcaeb3491fef02556d7dd4614bef"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 9296,
-    "successors": 2219,
-    "revisited": 2219,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 0,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/arm-G",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "arm",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target arm --seed <G seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "arm-G.json": "9b9d475936fb13766d8310ffda9f0b2b1029246b74dcc9136ebd6fde99e1113c"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 1614,
-    "successors": 186,
-    "revisited": 175,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 0,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/m68k-D",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "m68k",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target m68k --seed <D seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "m68k-D.json": "06a36925252d2e57eff18014e9369d752e62f9df9f7e72c26bfd26645e7d61eb"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 112,
-    "successors": 2,
-    "revisited": 2,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 0,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/m68k-G",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "m68k",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target m68k --seed <G seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "m68k-G.json": "c772b493b41c25cd52a5826f09d2c2173885aacac2cabdaa622431b2982a296e"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 35,
-    "successors": 8,
-    "revisited": 6,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 0,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/mips-D",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "mips",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target mips --seed <D seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "mips-D.json": "eea137b8acb6c90521d73f101091d1707ca267a2bf0609cabf17619e8c707ad0"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 18745,
-    "successors": 2970,
-    "revisited": 2970,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 0,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/mips-G",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "mips",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target mips --seed <G seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "mips-G.json": "ea8e37e64e939878a9983aeb85064832726f925a1a3ec31215622c5782dad454"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 1656,
-    "successors": 202,
-    "revisited": 202,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 0,
-    "ref_only_unanswerable": 9,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/ppc-D",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "ppc",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target ppc --seed <D seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "ppc-D.json": "b9e9be52a62d0adddcd967e854f354e598e0b86d834fd52b79cfdc777900f4d8"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 1005,
-    "successors": 152,
-    "revisited": 152,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 3,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/ppc-G",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "ppc",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target ppc --seed <G seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "ppc-G.json": "402dd356520b209cd373a3879b51ea7aebffd32e8ff2591e64ea645302d7fa5f"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 94,
-    "successors": 12,
-    "revisited": 11,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 1,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/riscv-D",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "riscv",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target riscv --seed <D seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "riscv-D.json": "5eda8e05bf39c4c3c221a612edcfa92dc0dcfe6faed26d9790f30bc08cfbc08e"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 253747,
-    "successors": 13388,
-    "revisited": 13070,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 1074,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/riscv-G",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "riscv",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target riscv --seed <G seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "riscv-G.json": "8f20ae5cd95ff53c6ffc615cec4c3f9132f4f90155878e9fa5e1c8bfce06ea71"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 6086,
-    "successors": 1368,
-    "revisited": 1107,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 0,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/spirv-D",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "spirv",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target spirv --seed <D seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "spirv-D.json": "9646be87f9aa3281b6b2e825c6fce7571e32e0689aa11cfc9047c63cfcf85b57"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 3472080,
-    "successors": 842466,
-    "revisited": 842034,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 900,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/spirv-G",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "spirv",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target spirv --seed <G seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "spirv-G.json": "c719260958c8b7309c34ba41c7d62d2e379392f1e0b21a4db7315130404bd3c4"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 5689,
-    "successors": 944,
-    "revisited": 685,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 8,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/wasm-D",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "wasm",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target wasm --seed <D seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "wasm-D.json": "4c4759a7ccb807e7ae5da316419f0143c06bed742a11301fcc0335d7a22a52da"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 11996,
-    "successors": 5148,
-    "revisited": 5124,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 132,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/wasm-G",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "wasm",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target wasm --seed <G seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "wasm-G.json": "b6a0482323da60105a2e42a919260b23749c1b133f575f5350338b2facea817a"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 894,
-    "successors": 452,
-    "revisited": 302,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 0,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/x86-D",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "x86",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target x86 --seed <D seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "x86-D.json": "6dcbe26a1a899dbc1a21cabd7303a6f8fc3d062b9d318041e19e5365cd0d3542"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 91340,
-    "successors": 29941,
-    "revisited": 29149,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 648,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "closure/x86-G",
-   "kind": "closure",
-   "direction": "closure",
-   "target": "x86",
-   "dir": "data/closure",
-   "command": "python3 closure.py --target x86 --seed <G seed> (see docs/CLOSURE.md)",
-   "artifacts": {
-    "x86-G.json": "e29ee2b8a3af83f758ec5b465e3d4668a3ee1d0175dfed121ff2739d7fc39778"
-   },
-   "expect": {
-    "ok": true,
-    "seed_states": 3014,
-    "successors": 1577,
-    "revisited": 1221,
-    "stuck": 0,
-    "disagree": 0,
-    "both_unanswerable": 0,
-    "ref_only_unanswerable": 0,
-    "ours_only_unanswerable": 0
-   }
-  },
-  {
-   "id": "adopt/x86",
-   "kind": "adopt",
-   "direction": "adopt",
-   "target": "x86",
-   "dir": "/home/ubuntu/llvm/gisel/tests/artifacts",
-   "command": "./adopt-check.sh x86",
-   "artifacts": {},
-   "expect": {
-    "branch": "explore/x86-adopt",
-    "commit": "4b8a026249c2",
-    "inc": "x86.inc",
-    "inc_sha256": "38b278dd2a10fe42fa699b3661fbee575657bf8e9cdb1399a0d031a7c05b1442",
-    "lib_sha256": "085928fa26a5e772ff250f045ad4874cd5e8cbbc8046fbeeb2406f7394a9c432",
-    "tracks_artifact": false
-   },
-   "note": "Measured on the include the branch commits (2026-11-12). The product re-spelled its rules in r28 (public LegalizeRuleSet builders), so the live artifact no longer matches this hash; adopt-check.sh still verifies the branch bytes. Re-adopting is a separate run."
-  },
-  {
-   "id": "adopt/aarch64",
-   "kind": "adopt",
-   "direction": "adopt",
-   "target": "aarch64",
-   "dir": "/home/ubuntu/llvm/gisel/tests/artifacts",
-   "command": "./adopt-check.sh aarch64",
-   "artifacts": {},
-   "expect": {
-    "branch": "explore/aarch64-adopt",
-    "commit": "a355d055cf28",
-    "inc": "aarch64.inc",
-    "inc_sha256": "0f6dcf0a6b91f105fdea64dcc8f18741f50b2e39fcc26b257cf9ad47ec5e669b",
-    "lib_sha256": "123cd6d80d8df1cbb9cf695f4cb27b9ca5d0fbbe12192fe8d205dece1f0fc2dd",
-    "tracks_artifact": false
-   },
-   "note": "Measured on the include the branch commits (2026-11-12). The product re-spelled its rules in r28 (public LegalizeRuleSet builders), so the live artifact no longer matches this hash; adopt-check.sh still verifies the branch bytes. Re-adopting is a separate run."
-  },
-  {
-   "id": "adopt/riscv",
-   "kind": "adopt",
-   "direction": "adopt",
-   "target": "riscv",
-   "dir": "/home/ubuntu/llvm/gisel/tests/artifacts",
-   "command": "./adopt-check.sh riscv",
-   "artifacts": {},
-   "expect": {
-    "branch": "explore/riscv-adopt",
-    "commit": "0feeca6a2b68",
-    "inc": "riscv.inc",
-    "inc_sha256": "fe6427bdf480143c3ec1d5b35ebba2bda637cce650d83db4f44e4cdcec520e06",
-    "lib_sha256": "d44d873e01080f3007ecd57a52099fe54c6c43af9de12a8d3fd48d2b42bfff16",
-    "tracks_artifact": false
-   },
-   "note": "Measured on the include the branch commits (2026-11-12). The product re-spelled its rules in r28 (public LegalizeRuleSet builders), so the live artifact no longer matches this hash; adopt-check.sh still verifies the branch bytes. Re-adopting is a separate run."
-  }
- ],
- "official_build": {
-  "path": "/home/ubuntu/llvm/builds/explore",
-  "tree": "700e551714cc",
-  "recorded": "2026-11-11",
-  "note": "The build directory every entry in this file was produced from. verify-evidence.sh hashes these libraries and fails when the build no longer matches: rebuilding is a baseline change, so the evidence has to be re-run, not inherited. Entries that carry their own `runtime` recorded it at run time; older entries predate that field and are covered by this block.",
-  "libs": {
-   "X86": "24bf2a5254dc042e6e1145e926ee42a4dd4d613e3947694b6628f2871b4fe357",
-   "AArch64": "e49c03ec2f82ab2a4be80deb57e5ef5dca76daf7065b2498234730cd5cc64c02",
-   "RISCV": "f32be744460c8155b7f96ebb9bc8b10655ecf05426fc38627ba6c575bf418eb4",
-   "ARM": "45f4737bf3112ff28fd9140d95ebaaaf4debe85b82ca32c1ae97b3b4c8146cee",
-   "Mips": "c2e0ee2bbeb87cf4da7e482715a13465b200cf6771376035249cf3d490f33a41",
-   "PowerPC": "b346bbe71da3b3b8db8a990eaf7e88f5cbae72265c39b6273ce87f8a11044602",
-   "M68k": "24cacf3969a019bfdedc0cb0e5d76f020fd8b234487ecdb2971d77132c7938ba",
-   "WebAssembly": "ace4c380a30ecbca62cce66a58e3c5090ab83fa13f599bac0f9ffd3db36a2a4f",
-   "SPIRV": "5bf75b9f35a36087e3b3d4c02de6366145a1093d5db885f5e98709ec12bd93a3"
-  }
- }
+  "schema": 1
 }

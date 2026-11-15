@@ -1,103 +1,103 @@
 {
-  "schema": 1,
-  "target": "riscv",
   "comment": "Every count and hash here was recorded by `vertical.py --target riscv --record` at the snapshot below; `--verify-only` re-derives the comparison instead of trusting the summary.",
-  "snapshot": {
-    "tree_commit": "700e551714ccb7357a191fd41837ff1b4784abf2",
-    "gisel_commit": "4e2db30ec7bfa0d2dadca001fc4c52e330f0ee39",
-    "pin": "9bfc850b9940566bef17a34601826775349ba0e6 + 6 patches",
-    "inc_sha256": "b0bdc4d011b74c24c5c81bb3da48c1e76de0d824a73e1f50fd4f9fd7bcd548ac",
-    "corpus_sha256": "3293f26167ee694b688297852dea3abe3305179b9e1baf1bb2d050991d12dd33",
-    "features_sha256": "38967ab10a020b3c69c4fa4940b257f248588419b16a507dc1317c6398075ecf"
+  "domain": {
+    "agree": 2029976,
+    "configs": 8,
+    "disagree": 0,
+    "per_config": 253747,
+    "queries": 2029976,
+    "summary_sha256": "fd45ae3682e7d080cced6dc6bd3f785b29e9f01d6f37a86c1f50e5416db0c2c7",
+    "unanswerable": 7728,
+    "unanswerable_map": {
+      "ristretto": 642,
+      "rv32gc": 1074,
+      "rv32gcv": 1074,
+      "rv32zilsd": 1074,
+      "rv64gc": 1074,
+      "rv64gcv": 1074,
+      "rv64zbb": 642,
+      "rv64zfh": 1074
+    }
   },
   "g": {
-    "queries": 6086,
-    "queries_sha256": "196145725ea1fe75628dcbf7637c1bbfc2eb5a5439398f74ce2155795d6dd697",
     "agree": 6086,
+    "answers_sha256": "e5a22cddcb4160e7f2f35058d21a439c2ed0178787d861e87fa6ef16a4e7316b",
     "disagree": 0,
-    "unanswerable": 0,
-    "missing_ref": 0,
-    "missing_ours": 0,
     "errors": 0,
-    "answers_sha256": "f8d6f45cafb457cd58f84caa507daa9dd28cbe8344f4abfc62a16f801f5f4853",
-    "note": "Re-recorded 2026-11-14 (r28): gisel resolves `p0:*` with the configuration pointer width, so the rv32 configs now say `p0:32` instead of `p0:64` (gisel 6671815/dcc9e7e). Counts are unchanged; 33 query lines moved."
+    "missing_ours": 0,
+    "missing_ref": 0,
+    "note": "Re-recorded 2026-11-15 (r35): gisel 1e6dcdc answers `G_ICMP`'s pointer slot instead of aborting, so two witness rows moved from `s64` to `p0:*`. Counts are unchanged; the frozen G queries, this contract and `EVIDENCE.json` were refreshed together.",
+    "queries": 6086,
+    "queries_sha256": "be3db708efb90a177228b6e71272b98624de0b7540e585b52b0d44decd3e1855",
+    "unanswerable": 0
   },
+  "g_neg": {
+    "attribution_sha256": "56d96fdaaa6ca3e3afe42930901acdf3e03920e7f507ec2e3b2545b2c6c01392",
+    "disagree": 140,
+    "opcode": "G_FPTOSI",
+    "rulesets": {
+      "R_G_FPTOSI": 140
+    },
+    "unknown_keys": 0
+  },
+  "l3": {
+    "discovered": 0,
+    "failed": 0,
+    "passed": 0,
+    "xfail": 0
+  },
+  "mir_l1": {
+    "abort0_compared": 0,
+    "all_run_lines": 271,
+    "both_abort": 0,
+    "diff": 0,
+    "out_of_layer": 1,
+    "runs": 270,
+    "same": 270,
+    "timeout": 0,
+    "unsupported_run": 0
+  },
+  "mir_l2": {
+    "abort0_compared": 2265,
+    "all_run_lines": 4203,
+    "both_abort": 151,
+    "diff": 0,
+    "out_of_layer": 0,
+    "runs": 4203,
+    "same": 4050,
+    "timeout": 2,
+    "unsupported_run": 0
+  },
+  "schema": 1,
+  "snapshot": {
+    "corpus_sha256": "3293f26167ee694b688297852dea3abe3305179b9e1baf1bb2d050991d12dd33",
+    "features_sha256": "38967ab10a020b3c69c4fa4940b257f248588419b16a507dc1317c6398075ecf",
+    "gisel_commit": "4e2db30ec7bfa0d2dadca001fc4c52e330f0ee39",
+    "inc_sha256": "b0bdc4d011b74c24c5c81bb3da48c1e76de0d824a73e1f50fd4f9fd7bcd548ac",
+    "pin": "9bfc850b9940566bef17a34601826775349ba0e6 + 6 patches",
+    "tree_commit": "700e551714ccb7357a191fd41837ff1b4784abf2"
+  },
+  "target": "riscv",
   "u": {
+    "agree": 20445,
+    "answers_sha256": "283b8972e3d5ef90a6af65caa05f537539c44eff0feea1c611651100564bc58c",
+    "attribution_sha256": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397",
+    "disagree": 0,
+    "errors": 0,
+    "missing_ours": 0,
+    "missing_ref": 0,
     "queries": 20445,
     "queries_sha256": "63c220a92ddc05c118c59eb71a9231ee01842afe94c7b14a031698f040aa7880",
-    "agree": 20445,
-    "disagree": 0,
-    "unanswerable": 0,
-    "missing_ref": 0,
-    "missing_ours": 0,
-    "errors": 0,
-    "answers_sha256": "283b8972e3d5ef90a6af65caa05f537539c44eff0feea1c611651100564bc58c",
-    "attribution_sha256": "4f193241307a00b3914d046b304f09852cd1dbae3ca34ff36ce2c0975d919397"
+    "unanswerable": 0
   },
   "u_neg": {
-    "opcode": "G_ADD",
+    "attribution_sha256": "9ca91203b2da24c577a2c7b117b36990e1f47014dda0ad8ea956e83b3f5ae13b",
     "disagree": 152,
+    "opcode": "G_ADD",
     "rulesets": {
       "G_ADD": 76,
       "G_SUB": 76
     },
-    "unknown_keys": 0,
-    "attribution_sha256": "9ca91203b2da24c577a2c7b117b36990e1f47014dda0ad8ea956e83b3f5ae13b"
-  },
-  "g_neg": {
-    "opcode": "G_FPTOSI",
-    "disagree": 140,
-    "rulesets": {
-      "R_G_FPTOSI": 140
-    },
-    "unknown_keys": 0,
-    "attribution_sha256": "56d96fdaaa6ca3e3afe42930901acdf3e03920e7f507ec2e3b2545b2c6c01392"
-  },
-  "domain": {
-    "configs": 8,
-    "per_config": 253747,
-    "queries": 2029976,
-    "agree": 2029976,
-    "disagree": 0,
-    "unanswerable": 7728,
-    "unanswerable_map": {
-      "rv64gc": 1074,
-      "rv32gc": 1074,
-      "rv64gcv": 1074,
-      "rv32gcv": 1074,
-      "rv64zbb": 642,
-      "rv64zfh": 1074,
-      "ristretto": 642,
-      "rv32zilsd": 1074
-    },
-    "summary_sha256": "fd45ae3682e7d080cced6dc6bd3f785b29e9f01d6f37a86c1f50e5416db0c2c7"
-  },
-  "mir_l1": {
-    "all_run_lines": 271,
-    "runs": 270,
-    "same": 270,
-    "both_abort": 0,
-    "diff": 0,
-    "timeout": 0,
-    "unsupported_run": 0,
-    "out_of_layer": 1,
-    "abort0_compared": 0
-  },
-  "mir_l2": {
-    "all_run_lines": 4203,
-    "runs": 4203,
-    "same": 4050,
-    "both_abort": 151,
-    "diff": 0,
-    "timeout": 2,
-    "unsupported_run": 0,
-    "out_of_layer": 0,
-    "abort0_compared": 2265
-  },
-  "l3": {
-    "discovered": 0,
-    "passed": 0,
-    "xfail": 0,
-    "failed": 0
+    "unknown_keys": 0
   }
 }
