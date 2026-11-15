@@ -1,5 +1,37 @@
 {
-  "ci": {},
+  "ci": {
+    "gisel": {
+      "conclusion": "success",
+      "run": 43668519756,
+      "url": "https://github.com/nodecoda/gisel/actions/runs/43668519756"
+    },
+    "gisel-ab": {
+      "conclusion": "success",
+      "evidence": {
+        "conclusion": "success",
+        "run": 43674621416,
+        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43674621416"
+      },
+      "main_after_record": {
+        "conclusion": "success",
+        "run": 43675258642,
+        "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43675258642"
+      },
+      "run": 43674602344,
+      "url": "https://github.com/nodecoda/gisel-ab/actions/runs/43674602344"
+    },
+    "gisel-anchor": {
+      "conclusion": "success",
+      "run": 43610386785,
+      "url": "https://github.com/nodecoda/gisel-anchor/actions/runs/43610386785"
+    },
+    "gisel-install": {
+      "conclusion": "success",
+      "run": 43668579774,
+      "url": "https://github.com/nodecoda/gisel/actions/runs/43668579774"
+    }
+  },
+  "ci_notes": "r35 CI: gisel (ci + install) at 1e6dcdc, gisel-anchor at f9c44bc, the cohort tag commit 5d8a49f on gisel-ab (ci + release-evidence), and 75c6bc1, the commit that writes this record, are all green. The intermediate gisel commit a87cd7f failed ci by design: it changed what the graph goldens see and left the re-record to 1e6dcdc.",
   "cohort": "cohort-2026-11-15-r35",
   "commits": {
     "ab": "5d8a49f6aaeaf34a8176aee2edce9307a71cca23",
