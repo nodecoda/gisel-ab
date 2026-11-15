@@ -47,6 +47,8 @@ VERBS = {
                  "verify EVIDENCE.json against live or frozen artifacts"),
     "plan": (("gisel_ab.domain_plan", "main", True),
              "print one target's domain plan (no build)"),
+    "outside": (("gisel_ab.l0.outside", "main", False),
+                "probe types no rule declares (undeclared widths, odd lanes)"),
 }
 
 # Not in the front page but still reachable: they are the internals the ten
@@ -93,7 +95,7 @@ def _version() -> str:
 
 # What a verb needs before it can run; the help groups by this so a reader
 # can start with the offline half.
-NEEDS_BUILD = {"run", "mir", "verify", "l3", "vertical"}
+NEEDS_BUILD = {"run", "mir", "verify", "l3", "vertical", "outside"}
 NEEDS_TREE = {"cohort"}
 
 
