@@ -5,12 +5,12 @@
     "m68k.cases.jsonl": "e765e396ca57cd3f179bb3e44235705674e9f33cfa30ce9ac7dda23684be8e3f",
     "mips.cases.jsonl": "93d6d3e60e6fa06419b8b38da8b687ce7cc20ca2fe6ce17cd710ad570f57959f",
     "ppc.cases.jsonl": "675e59e9e632fa96e1bb02251e59c9f4438cbd3968c7d5f2ef3af4a74214ca83",
-    "riscv.cases.jsonl": "196145725ea1fe75628dcbf7637c1bbfc2eb5a5439398f74ce2155795d6dd697",
+    "riscv.cases.jsonl": "be3db708efb90a177228b6e71272b98624de0b7540e585b52b0d44decd3e1855",
     "spirv.cases.jsonl": "583af2c0019af248b597963119fcbbb0084046924a0f028e75b709127e559c53",
     "wasm.cases.jsonl": "3442ddeedad10e38d7a9e958e46bdcd90bce581097261a993338a460801a798c",
     "x86.cases.jsonl": "f6923a396fd430388d6acbed2cccf718ac8fb1540980c3ee00c592347f1b86f6"
   },
-  "cohort": "cohort-2026-11-15-r33",
+  "cohort": "cohort-2026-11-15-r34",
   "corpus_sha256": {
     "AArch64LegalizerInfo.gisel": "704183bad381b8973628a45ff3bf74589e0bf057533b80f528367e577b035fac",
     "ARMLegalizerInfo.gisel": "b8b68a01f9058d00ed5ff0db570847c61847237562a64c4d496ecf4528448844",
@@ -34,11 +34,11 @@
     "gisel-ab/scripts/verify-evidence.sh"
   ],
   "graph_goldens_sha256": {
-    "riscv-rv64gc-refine.json": "7381abc87031777d9483d66914a5461d4cae2850d5d965838dc1f1c6f2cd3a98",
-    "riscv-rv64gc.json": "9f433d61fff179ca8fd76983f730553610ca3c252ca2e978ef6fad1600490a06",
-    "wasm-wasm32.json": "7ebec60b19ed45dd2873eb6ebccfdbfa3d1679d078d3b15eabbf30ee6274cc37",
-    "x86-none-refine.json": "87a58af9f6216bf2934a243c812d401f8e72015620b1633464eaa5520269d5c0",
-    "x86-none.json": "9ecdd7c511b5784d3b7a8a2e190b13d005b112332460f8029f8d219c3be09e48"
+    "riscv-rv64gc-refine.json": "a6abc25177e2a14cbeb1c82971deded47b426804a01315915e77d8150e149a85",
+    "riscv-rv64gc.json": "0c2c86aafe61a22987b008fcc50dc7ea253c77e32200ae23db6e438ea59659c0",
+    "wasm-wasm32.json": "d5d2b27c7992af7d2ef0559b93e7242c37f9fc7a5a2dabfc4e9cab00f7f2d5bb",
+    "x86-none-refine.json": "84b960917b2f95c04542118c46c809e2e1e86c29e7c25fcef069ac9cb70b368c",
+    "x86-none.json": "6505e824c7b2bad311b38022af1baa0835f472f3979df934e27904b0bac8ffda"
   },
   "nightly_graphs_sha256": {
     "aarch64-baseline.json": "ea3ada5ea7066a0e6986a3ce3b1581049dd7d5e1020763045c865f822d690db1",
@@ -72,7 +72,7 @@
   },
   "repos": {
     "ab": "c52b242899789e61583b0462d4a4bfb6baa14989",
-    "gisel": "a87cd7f8b154735e4ae53fd65324fee579b66fb3",
+    "gisel": "1e6dcdcbd7b05de38e285661f964d6fbb7509954",
     "upstream_source": "f9c44bc41bcea3ecd469ec484b934ae60fbec4d1"
   },
   "schema": 1,

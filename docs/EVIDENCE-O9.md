@@ -31,7 +31,7 @@ python3 ab.py outside --target aarch64 --tree /home/ubuntu/llvm/trees/explore \
 
 | 项 | 值 |
 |---|---|
-| gisel | `a87cd7f8b154735e4ae53fd65324fee579b66fb3` |
+| gisel | `1e6dcdcbd7b05de38e285661f964d6fbb7509954`（修复提交 `a87cd7f`，goldens 重录 `1e6dcdc`） |
 | ab | `eef0f518a0b247ef7b3acb61b31cfa4d2587323a` |
 | LLVM 树 | `/home/ubuntu/llvm/trees/explore` @ `700e551714ccb7357a191fd41837ff1b4784abf2` |
 | LLVM 构建 | `/home/ubuntu/llvm/builds/explore`（`llvm-config 24.0.0git`） |
@@ -70,7 +70,9 @@ not exact` 拒绝。两边都没有给出第一步答案，所以不计入 agree
    现在 guard 算术按“表里声明的宽度 → `Subtarget.is64Bit()` → LP64 默认”解析，
    且只在真的比较数字时才解析，`is_scalar` 短路的规则行为不变。
 
-两处都只把“崩溃”变成“答案或 unanswerable”，不改变任何已冻结的答案。
+两处都只把“崩溃”变成“答案或 unanswerable”。冻结的答案文件没有变，但 `graph` 的
+opaque 计数变了：原先被 `*` 参与整数比较卡住的状态第一次有了答案，五个 golden
+与十个 nightly 配置因此重录（`gisel tests/artifacts/graph/`，见 `REPORT-graph.md`）。
 
 ## 结论与边界
 
