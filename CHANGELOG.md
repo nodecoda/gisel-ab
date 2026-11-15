@@ -20,6 +20,10 @@ which are generated and must not be hand-edited.
 
 ## Unreleased — usability (cohort r12)
 
+- `tests/test_g_queries_are_cases.py` binds every frozen
+  `evidence/G/<target>/queries.jsonl.gz` to `RELEASE.json.cases_sha256`, so a
+  corpus or `cases` change can no longer leave the A/B input behind.  The
+  riscv and mips evidence were re-frozen under that gate.
 - `gisel-ab setup --llvm DIR --build DIR [--evidence DIR]` records the paths in
   `$XDG_CONFIG_HOME/gisel-ab/config.json` (or `~/.config/...`; `GISEL_AB_CONFIG`
   moves it), so a shell no longer needs `export AB_TREE=... AB_BUILD=...`.
